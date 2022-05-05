@@ -1,11 +1,11 @@
+import processing.core.PApplet;
 
-import java.awt.Point;
-
-public class DrawingSurface{
+public class DrawingSurface extends PApplet{
 
 	// When you progress to a new prompt, modify this field.
 	//private Image board;
-	protected int[][] grid;
+	protected boolean[][] grid;
+	private Map map;
 	private Kiwi kiwi;
 	private NamCap namcap;
 	private Player player1, player2, player3, player4;
@@ -15,7 +15,7 @@ public class DrawingSurface{
 	 * Construct an empty 2D array with some default dimensions.
 	 */
 	public DrawingSurface() {
-		grid = new int[20][20];
+		map = new Map();
 		kiwi = new Kiwi (5, 5);
 		namcap = new NamCap();
 		player1 = new Player();
@@ -23,22 +23,23 @@ public class DrawingSurface{
 	}
 
 	public void draw() { 
-		boolean wall = true;
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[0].length; j++) {
-				if (wall) {
-					grid[i][j] = -1;
-				} else {
-					grid[i][j] = 1;
-				}
-			}
+		background(255);   
+		fill(0);
+		textAlign(LEFT);
+		textSize(12);
+			
+
+		if (map != null) {
+			map.draw(this, 0, 0, height, height);
 		}
+		
 		kiwi.draw();
 		namcap.draw();
 		player1.draw();
 		powerup1.draw();
+		
+		
 	}
-	
 	
 	public void mousePressed() {
 	}
