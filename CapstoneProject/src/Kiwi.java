@@ -7,4 +7,9 @@ public class Kiwi extends PowerUp {
 	{
 		super(row, col);
 	}
+	
+	public void draw() 
+	{
+		
+	}
 }

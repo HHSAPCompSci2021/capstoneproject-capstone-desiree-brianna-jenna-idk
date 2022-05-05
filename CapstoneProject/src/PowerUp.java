@@ -20,4 +20,9 @@ public class PowerUp {
 	{
 		
 	}
+	
+	public void draw() 
+	{
+		
+	}
 }

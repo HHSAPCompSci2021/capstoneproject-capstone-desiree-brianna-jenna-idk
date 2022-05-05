@@ -17,5 +17,10 @@ public class NamCap {
 	{
 		
 	}
+	
+	public void draw() 
+	{
+		
+	}
 
 }
