@@ -2,7 +2,7 @@
  * 
  * Represents the fruits that have special abilities.
  * 
- * @author jennawang
+ * @author Jenna Wang
  *
  */
 public class Fruit {
@@ -11,7 +11,7 @@ public class Fruit {
 	private boolean eaten;
 	
 	/**
-	 * Constructs a fruit with a set row and col.
+	 * Constructs a fruit with a set row and column.
 	 * @param row The row of the fruit's location.
 	 * @param col The column of the fruit's location.
 	 */
@@ -41,6 +41,14 @@ public class Fruit {
 		{
 			// remove
 		}
+	}
+	
+	/**
+	 * Activate the ability specific to the fruit.
+	 */
+	public void useAbility()
+	{
+		
 	}
 	
 }

@@ -8,8 +8,8 @@ public class DrawingSurface extends PApplet{
 	private Map map;
 	private Kiwi kiwi;
 	private NamCap namcap;
-	private Player player1, player2, player3, player4;
-	private Fruit powerup1;
+	private Player player;
+	private Fruit fruit;
 	
 	/**
 	 * Construct an empty 2D array with some default dimensions.
@@ -18,8 +18,8 @@ public class DrawingSurface extends PApplet{
 		map = new Map();
 		kiwi = new Kiwi (5, 5);
 		namcap = new NamCap();
-		player1 = new Player();
-		powerup1 = new Fruit(10, 10);
+		player = new Player();
+		fruit = new Fruit(10, 10);
 	}
 
 	public void draw() { 
@@ -36,7 +36,7 @@ public class DrawingSurface extends PApplet{
 //		kiwi.draw();
 //		namcap.draw();
 //		player1.draw();
-//		powerup1.draw();
+//		fruit1.draw();
 		
 	}
 	

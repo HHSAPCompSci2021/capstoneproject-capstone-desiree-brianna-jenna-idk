@@ -3,7 +3,7 @@
  * 
  * Kiwi gives naM-caP the ability to hunt down the player.
  * 
- * @author jennawang
+ * @author Jenna Wang
  *
  */
 public class Kiwi extends Fruit {
@@ -16,6 +16,14 @@ public class Kiwi extends Fruit {
 	public Kiwi(int row, int col)
 	{
 		super(row, col);
+	}
+	
+	/**
+	 * naM-caP has the ability to eat the player.
+	 */
+	public void useAbility()
+	{
+		
 	}
 
 }
