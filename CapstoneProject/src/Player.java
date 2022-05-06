@@ -1,6 +1,8 @@
 
 public class Player {
-
+	private String type;
+	private int score;
+	
 	public Player() {
 		
 	}
