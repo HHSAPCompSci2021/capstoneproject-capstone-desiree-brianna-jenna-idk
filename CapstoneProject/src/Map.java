@@ -43,7 +43,6 @@ public class Map {
 				float ry = y + i * rw;
 				
 				boolean a = grid[i][j];
-				//labyrinth
 				if (a) { //path light green
 					marker.fill(209, 243, 197);
 				} else if (!a) { //path light red
