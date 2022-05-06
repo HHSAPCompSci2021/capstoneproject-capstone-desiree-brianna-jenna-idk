@@ -33,11 +33,10 @@ public class DrawingSurface extends PApplet{
 			map.draw(this, 0, 0, height, height);
 		}
 		
-		kiwi.draw();
-		namcap.draw();
-		player1.draw();
-		powerup1.draw();
-		
+//		kiwi.draw();
+//		namcap.draw();
+//		player1.draw();
+//		powerup1.draw();
 		
 	}
 	
