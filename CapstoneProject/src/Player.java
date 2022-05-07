@@ -25,7 +25,7 @@ public class Player {
 	}
 	
 	/**
-	 * turns the Player 90 degrees
+	 * Turns the Player 90 degrees
 	 */
 	public void turn() {
 		
