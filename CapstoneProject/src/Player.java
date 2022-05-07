@@ -18,7 +18,7 @@ public class Player {
 	}
 	
 	/*
-	 * Moves the Player one space forward in the direction in it is facing
+	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
 		
