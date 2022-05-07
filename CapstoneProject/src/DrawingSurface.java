@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * draws the surface
+ * @author desiree
+ *
+ */
 public class DrawingSurface extends PApplet{
 
 	// When you progress to a new prompt, modify this field.
@@ -22,6 +27,9 @@ public class DrawingSurface extends PApplet{
 		fruit = new Fruit(10, 10);
 	}
 
+	/**
+	 * draws things
+	 */
 	public void draw() { 
 		background(255);   
 		fill(0);
@@ -40,6 +48,9 @@ public class DrawingSurface extends PApplet{
 		
 	}
 	
+	/**
+	 * will be used as key pressed for the player to move
+	 */
 	public void mousePressed() {
 	}
 }
