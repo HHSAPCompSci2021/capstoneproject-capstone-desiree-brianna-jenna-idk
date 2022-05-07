@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 
-/*
+/**
  * Player is the protagonist of the game that the user controls. The objective of the Player is to catch naM-caP, unless naM-caP is in its superpower phase, and earn as many points as possible
  * 
  * @author Brianna Wang
@@ -9,7 +9,7 @@ public class Player {
 	private String type;
 	private int score;
 	
-	/*
+	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0
 	 */
 	public Player() {
@@ -17,21 +17,21 @@ public class Player {
 		score=0;
 	}
 	
-	/*
+	/**
 	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
 		
 	}
 	
-	/*
+	/**
 	 * turns the Player 90 degrees
 	 */
 	public void turn() {
 		
 	}
 	
-	/*
+	/**
 	 * Eats the fruit that is on the same space as it
 	 */
 	public void eatFruit(Fruit f) {
