@@ -51,4 +51,11 @@ public class Fruit {
 		
 	}
 	
+	/**
+	 * Draws the fruit.
+	 */
+	public void draw()
+	{
+		
+	}
 }

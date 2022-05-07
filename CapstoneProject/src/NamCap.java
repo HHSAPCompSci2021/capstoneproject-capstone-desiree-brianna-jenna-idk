@@ -43,5 +43,14 @@ public class NamCap {
 	{
 		// if hit a wall, turn 90 degrees
 	}
+	
+	/**
+	 * Eats the Fruit and gains a special ability depending on the Fruit.
+	 * @param f The Fruit eaten.
+	 */
+	public void eatFruit(Fruit f)
+	{
+		
+	}
 
 }

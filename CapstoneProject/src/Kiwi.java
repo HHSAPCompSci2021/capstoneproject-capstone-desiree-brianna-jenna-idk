@@ -19,7 +19,7 @@ public class Kiwi extends Fruit {
 	}
 	
 	/**
-	 * naM-caP has the ability to eat the player.
+	 * Kiwi gives naM-caP the ability to eat the player.
 	 */
 	public void useAbility()
 	{
