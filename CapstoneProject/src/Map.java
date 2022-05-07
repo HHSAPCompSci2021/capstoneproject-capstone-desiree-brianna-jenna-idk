@@ -58,30 +58,5 @@ public class Map {
 			}
 		}
 	}
-	
-	/**
-	 * (Graphical UI)
-	 * Determines which element of the grid matches with a particular pixel coordinate.
-	 * This supports interaction with the grid using mouse clicks in the window.
-	 * 
-	 * @param p A Point object containing a graphical pixel coordinate.
-	 * @param x The x pixel coordinate of the upper left corner of the grid drawing. 
-	 * @param y The y pixel coordinate of the upper left corner of the grid drawing.
-	 * @param width The pixel width of the grid drawing.
-	 * @param height The pixel height of the grid drawing.
-	 * @return A Point object representing a coordinate within the grid, or null if the pixel coordinate
-	 * falls completely outside of the grid.
-	 */
-	public Point clickToIndex(Point p, float x, float y, float width, float height) {
-		
-		int clickX = p.x;
-		int clickY = p.y;
-		
-		int ry = (int) (grid[0].length * clickX / width);
-		int rx = (int) (grid.length * clickY/ height);
-		
-		Point result = new Point(rx, ry);
-		
-		return result;
-	}
+
 }
