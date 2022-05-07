@@ -6,6 +6,12 @@ import java.util.Scanner;
 
 import processing.core.PApplet;
 
+/** 
+ * draws the map
+ * 
+ * @author desiree
+ *
+ */
 public class Map {
 
 	/** Add a field to represent the grid. This time, make it a 2D array of characters.
