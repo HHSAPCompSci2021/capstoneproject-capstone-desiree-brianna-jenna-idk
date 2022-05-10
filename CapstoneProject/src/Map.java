@@ -14,16 +14,13 @@ import processing.core.PApplet;
  */
 public class Map {
 
-	/** Add a field to represent the grid. This time, make it a 2D array of characters.
-	 *  It is OK to make this field protected so it can be directly accessed by subclasses.  **/
-	
-	protected boolean[][] grid;
+	protected char[][] grid;
 	
 	/**
 	 * Construct an empty 2D array with some default dimensions.
 	 */
 	public Map() {
-		grid = new boolean[20][20];
+		grid = new char[25][35];
 	}
 	
 	/**
@@ -44,16 +41,33 @@ public class Map {
 		
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
-				grid[i][j] = false;
+				// black space for stats
+				if(i == 0 || i == 1 || j == 0 || j == 1 || i == grid.length - 1 || i == grid.length - 2 || j == grid[0].length - 1 || j == grid[0].length - 2)
+				{
+					grid[i][j] = '#';
+				}
+				
+				// actual map space
+				else
+				{
+					grid[i][j] = '.';
+				}
+				
 				float rx = x + j * rw;
 				float ry = y + i * rw;
 				
-				boolean a = grid[i][j];
-				if (a) { //path light green
-					marker.fill(209, 243, 197);
-				} else if (!a) { //path light red
-					marker.fill(244, 194, 194);
+				char a = grid[i][j];
+				
+				if (a == '#') 
+				{ 
+					marker.fill(0);
+				} 
+				
+				else if (a == '.') 
+				{
+					marker.fill(255);
 				}
+				
 				marker.rect(rx,  ry,  rw,  rh);
 			}
 		}
