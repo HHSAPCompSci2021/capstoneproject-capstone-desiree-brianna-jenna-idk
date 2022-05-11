@@ -8,11 +8,16 @@ import processing.core.PApplet;
 public class Player {
 	private String type;
 	private int score;
+	private int xgrid; //x value of player on grid
+	private int ygrid; //y value of player on grid
 	
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0
+	 * x and y should be center of grid
 	 */
-	public Player() {
+	public Player(int x, int y) {
+		xgrid = x;
+		ygrid = y;
 		type="";
 		score=0;
 	}
@@ -38,6 +43,21 @@ public class Player {
 		
 	}
 	
+	public int getX() {
+		return xgrid;
+	}
+	
+	public int getY() {
+		return ygrid;
+	}
+	
+	public void setX(int xval) {
+		xgrid = xval;
+	}
+	
+	public void setY (int yval) {
+		ygrid = yval;
+	}
 	/**
 	 * (Graphical UI)
 	 * Draws the Player on a PApplet.
