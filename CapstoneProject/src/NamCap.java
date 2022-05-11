@@ -1,5 +1,5 @@
-import java.awt.Point;
-import java.util.ArrayList;
+import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * 
@@ -11,13 +11,30 @@ import java.util.ArrayList;
 public class NamCap {
 	
 	private boolean hasKiwi;
+	private int x, y;
+	private PImage namCap;
 	
 	/**
 	 * Constructs the character naM-caP.
+	 * @param img The image for naM-caP.
+	 * @param x The x-coordinate of naM-caP.
+	 * @param y The y-coordinate of naM-caP.
 	 */
-	public NamCap()
+	public NamCap(PImage img, int x, int y)
 	{
+		namCap = img;
 		hasKiwi = false;
+		this.x = x;
+		this.y = y;
+	}
+	
+	/**
+	 * Draws naM-caP.
+	 * @param g The PApplet used to draw.
+	 */
+	public void draw(PApplet g)
+	{
+		g.image(namCap, x, y, 40, 40);
 	}
 	
 	/**
@@ -37,6 +54,17 @@ public class NamCap {
 			// find shortest distance to player
 			// chase the player
 		}
+	}
+	
+	/**
+	 * Sets the location of naM-caP to a certain coordinate.
+	 * @param x The x-coordinate of the location.
+	 * @param y The y-coordinate of the location.
+	 */
+	public void setLocation(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
 	}
 	
 	/**

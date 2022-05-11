@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 /**
  * draws the surface
- * @author desiree
+ * @author Desiree, Jenna
  *
  */
 public class DrawingSurface extends PApplet{
@@ -13,10 +13,7 @@ public class DrawingSurface extends PApplet{
 	protected boolean[][] grid;
 	private boolean startScreen, playScreen, endScreen;
 	private Map map;
-	private Kiwi kiwi;
-	private NamCap namcap;
-	private Player player;
-	private Fruit fruit;
+	private NamCap namCap;
 	
 	/**
 	 * Construct an empty 2D array with some default dimensions.
@@ -26,10 +23,12 @@ public class DrawingSurface extends PApplet{
 		playScreen = false;
 		endScreen = false;
 		map = new Map();
-		kiwi = new Kiwi (5, 5);
-		namcap = new NamCap();
-		player = new Player();
-		fruit = new Fruit(10, 10);
+	}
+	
+	public void setup()
+	{
+		smooth();
+		namCap = new NamCap(loadImage("NamCap.png"), 50, 50);
 	}
 
 	/**
@@ -39,8 +38,9 @@ public class DrawingSurface extends PApplet{
 		if(startScreen)
 		{
 			background(0);   
-			PImage img = loadImage("title.png"); // change image later
-			image(img, 200, -50, width/2, height/2);
+			imageMode(CENTER);
+			PImage title = loadImage("title.png"); // change image later
+			image(title, 400, 100, width/2, height/2);
 			
 			// character select
 			
@@ -49,12 +49,10 @@ public class DrawingSurface extends PApplet{
 			// fruit select
 			
 			// play button
-			fill(255);
-			rect(300, 500, 200, 50);
-			fill(0);
-			textAlign(CENTER);
-			textSize(40);
-			text("PLAY", 400, 540);
+			PImage play = loadImage("play.png");
+			image(play, 400, 500, width/5, height/10);
+			System.out.println(width/5);
+			System.out.println(height/10);
 		}
 			
 		else if(playScreen)
@@ -70,6 +68,9 @@ public class DrawingSurface extends PApplet{
 			textSize(20);
 			text("POINTS: ", 50, 30);
 			text("HIGHSCORE: ", 630, 30);
+			
+			// namcap
+			namCap.draw(this);
 			
 			// lives on bottom left
 		}
@@ -99,7 +100,7 @@ public class DrawingSurface extends PApplet{
 		if(startScreen)
 		{
 			// play button
-			if(mouseX > 300 && mouseX < 500 && mouseY > 500 && mouseY < 550)
+			if(mouseX > 300 && mouseX < 500 && mouseY > 500 && mouseY < 550) // change coords bc play button changed
 			{
 				startScreen = false;
 				playScreen = true;
