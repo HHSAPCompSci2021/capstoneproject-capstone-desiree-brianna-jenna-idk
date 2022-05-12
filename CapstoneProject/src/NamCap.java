@@ -34,7 +34,7 @@ public class NamCap {
 	 */
 	public void draw(PApplet g)
 	{
-		g.image(namCap, x, y, 40, 40);
+		g.image(namCap, x, y, 30, 30);
 	}
 	
 	/**

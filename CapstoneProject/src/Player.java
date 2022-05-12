@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * Player is the protagonist of the game that the user controls. The objective of the Player is to catch naM-caP, unless naM-caP is in its superpower phase, and earn as many points as possible
@@ -6,6 +7,7 @@ import processing.core.PApplet;
  * @author Brianna Wang
  */
 public class Player {
+	private PImage img;
 	private String type;
 	private int score;
 	private int xgrid; //x value of player on grid
@@ -15,11 +17,21 @@ public class Player {
 	 * Constructs a Player and initiates Player type to "" and the score to 0
 	 * x and y should be center of grid
 	 */
-	public Player(int x, int y) {
+	public Player(PImage img, int x, int y) {
+		this.img = img;
 		xgrid = x;
 		ygrid = y;
 		type="";
 		score=0;
+	}
+	
+	/**
+	 * Draws the player.
+	 * @param g The PApplet used to draw.
+	 */
+	public void draw(PApplet g)
+	{
+		g.image(img, xgrid, ygrid, 30, 30);
 	}
 	
 	/**

@@ -20,7 +20,7 @@ public class Map {
 	 * Construct an empty 2D array with some default dimensions.
 	 */
 	public Map() {
-		grid = new char[25][35];
+		grid = new char[15][21];
 	}
 	
 	/**
@@ -36,13 +36,13 @@ public class Map {
 	 */
 	public void draw(PApplet marker, float x, float y, float width, float height) {
 		marker.fill(255);
-		float rw = width/grid[0].length;
-		float rh = height/grid.length;
+		float rw = width/grid[0].length * 2;
+		float rh = height/grid.length * 2;
 		
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				// black space for stats
-				if(i == 0 || i == 1 || j == 0 || j == 1 || i == grid.length - 1 || i == grid.length - 2 || j == grid[0].length - 1 || j == grid[0].length - 2)
+				if(i == 0 || j == 0 || i == grid.length - 1 || j == grid[0].length - 1)
 				{
 					grid[i][j] = '#';
 				}
