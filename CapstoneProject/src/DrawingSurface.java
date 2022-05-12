@@ -30,7 +30,7 @@ public class DrawingSurface extends PApplet {
 		playScreen = false;
 		endScreen = false;
 		map = new Map();
-		grid = new boolean[20][15];
+		grid = new boolean[28][30];
 		whichGhost = "blinky";
 	}
 
@@ -138,46 +138,29 @@ public class DrawingSurface extends PApplet {
 		int curY = player.getY();
 		if (curX < grid[0].length) {
 			if (keyCode == KeyEvent.VK_UP) {
-				player.setY(--curY);
-//				System.out.println("y minus 1");
-//				System.out.println(curY - 1);
+				player.setY(20 - curY);
 			} else if (keyCode == KeyEvent.VK_DOWN) {
 				player.setY(20 + curY);
-				System.out.println("y plus 1");
-				player = new Player(loadImage("img/" + whichGhost + ".png"), 93, curY);
-//				System.out.println(curY + 1);
 			} else if (keyCode == KeyEvent.VK_LEFT) {
-				player.setX(--curX);
-//				System.out.println("x minus 1");
-//				System.out.println(curX - 1);
+				player.setX(20 - curX);
 			} else if (keyCode == KeyEvent.VK_RIGHT) {
-				player.setX(++curX);
-				System.out.println("x plus 1");
-//				System.out.println(curX + 1);
+				player.setX(20 + curX);
 			}
 			if (curX < 0) {
 				curX = 0;
 				player.setX(curX);
-//				System.out.println("notchangedX = 0");
-//				System.out.println(player.getX());
 			}
 			if (curX > grid[0].length) {
 				curX = grid[0].length;
 				player.setX(curX);
-//				System.out.println("notchangedX");
-//				System.out.println(player.getX());
 			}
 			if (curY < 0) {
 				curY = 0;
 				player.setY(curY);
-//				System.out.println("notchangedY = 0");
-//				System.out.println(player.getY());
 			}
 			if (curY > grid.length) {
 				curY = grid.length;
 				player.setY(curY);
-//				System.out.println("notchangedY = length");
-//				System.out.println(player.getY());
 			}
 			System.out.printf("Player coordinates: (%d, %d)%n", player.getX(), player.getY());
 		}
