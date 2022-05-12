@@ -16,7 +16,7 @@ public class DrawingSurface extends PApplet {
 	protected boolean[][] grid;
 	private boolean startScreen, playScreen, endScreen;
 	private PImage title, charFrame, play, ghost, arrow, tear, retry, home;
-	private PFont emulogic;
+//	private PFont emulogic;
 	private String whichGhost;
 	private Map map;
 	private NamCap namCap;
@@ -44,14 +44,16 @@ public class DrawingSurface extends PApplet {
 		tear = loadImage("img/tear.png");
 		retry = loadImage("img/retry.png");
 		home = loadImage("img/home.png");
-		emulogic = createFont("Emulogic-zrEw.ttf", 18);
+	//	emulogic = createFont("Emulogic-zrEw.ttf", 18);
 	}
 
 	/**
 	 * draws things
 	 */
 	public void draw() {
-		textFont(emulogic);
+		//mac
+	//	textFont(emulogic);
+		
 		imageMode(CENTER);
 		
 		if (startScreen) {
@@ -94,7 +96,7 @@ public class DrawingSurface extends PApplet {
 			// namcap
 			namCap.draw(this);
 			
-			player = new Player(loadImage("img/" + whichGhost + ".png"), 80, 80);
+			player = new Player(loadImage("img/" + whichGhost + ".png"), 93, 93);
 			player.draw(this);
 
 			// lives on bottom left
@@ -140,8 +142,9 @@ public class DrawingSurface extends PApplet {
 //				System.out.println("y minus 1");
 //				System.out.println(curY - 1);
 			} else if (keyCode == KeyEvent.VK_DOWN) {
-				player.setY(++curY);
+				player.setY(20 + curY);
 				System.out.println("y plus 1");
+				player = new Player(loadImage("img/" + whichGhost + ".png"), 93, curY);
 //				System.out.println(curY + 1);
 			} else if (keyCode == KeyEvent.VK_LEFT) {
 				player.setX(--curX);
@@ -158,11 +161,11 @@ public class DrawingSurface extends PApplet {
 //				System.out.println("notchangedX = 0");
 //				System.out.println(player.getX());
 			}
-			if (curX < 0) {
-				curX = 0;
+			if (curX > grid[0].length) {
+				curX = grid[0].length;
 				player.setX(curX);
-				System.out.println("notchangedX");
-				System.out.println(player.getX());
+//				System.out.println("notchangedX");
+//				System.out.println(player.getX());
 			}
 			if (curY < 0) {
 				curY = 0;
