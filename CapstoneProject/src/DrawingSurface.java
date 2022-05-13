@@ -229,12 +229,12 @@ public class DrawingSurface extends PApplet {
 			{
 				if(whichFruit.equals("kiwi"))
 				{
-					whichFruit = "banana";
-					fruit = loadImage("img/banana.png");
+					whichFruit = "strawberry";
+					fruit = loadImage("img/strawberry.png");
 					image(fruit, width / (float) 1.25, height / 2, width / 7, height / 5);
 				}
 				//for testing, since banana literally does nothing
-				else if(whichFruit.equals("banana")) 
+				else if(whichFruit.equals("strawberry")) 
 				{
 					whichFruit = "kiwi";
 					fruit = loadImage("img/kiwi.png");
