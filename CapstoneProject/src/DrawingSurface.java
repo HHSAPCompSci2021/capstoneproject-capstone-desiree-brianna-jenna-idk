@@ -31,7 +31,7 @@ public class DrawingSurface extends PApplet {
 		playScreen = false;
 		endScreen = false;
 		map = new Map("Pathways/test1.txt");
-		grid = new char[28][31];
+		grid = new char[31][28];
 		whichGhost = "blinky";
 		whichFruit = "kiwi";
 	}
