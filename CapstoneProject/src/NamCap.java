@@ -50,7 +50,7 @@ public class NamCap {
 	{	
 		while(!hasKiwi)
 		{
-			findFruit(grid);
+			//findFruit(grid);
 			// find the nearest kiwi
 			// go to kiwi
 		}
@@ -108,35 +108,7 @@ public class NamCap {
 	* element is the location of the starting point and the last element is the location of the exit, or null if no path can be found.
 	*/
 	public ArrayList<Point> findFruit(Map grid) {
-		int width = 0, height = 0;
-		
-		// clicking outside of the grid given
-		for(int i = 0; i < grid.getLength(); i++)
-		{
-			for(int j = 0; j < grid.getRowLength(i); j++)
-			{
-				if(grid.get(i, j) == '.' || grid.get(i, j) == 'X' || grid.get(i, j) == '#')
-				{
-					if(i > width)
-					{
-						width = i;
-					}
-					
-					if(j > height)
-					{
-						height = j;
-					}
-				}
-			}
-		}
-		
-		if(x > width || x < 0 || y > height || y < 0)
-		{
-			System.out.println("Out of bounds.");
-			return null;
-		}
-		
-		ArrayList<Point> answer = definePath(x, y, width, height, false, grid);
+		ArrayList<Point> answer = definePath(x, y, false, grid);
 		if(answer != null)
 		{
 			for(int i = 0; i < answer.size(); i++)
@@ -144,7 +116,7 @@ public class NamCap {
 				grid.set((int) answer.get(i).getX(), (int) answer.get(i).getY(), ')');
 			}
 			
-			return definePath(x, y, width, height, false, grid);
+			return definePath(x, y, false, grid);
 		}
 		
 		else
@@ -156,11 +128,11 @@ public class NamCap {
 
 
 	// Additional private recursive methods
-	private ArrayList<Point> definePath(int i, int j, int width, int height, boolean hasCloak, Map grid)
+	private ArrayList<Point> definePath(int i, int j, boolean hasCloak, Map grid)
 	{	
 		// BASE CASES
 		// Are you out of the grid bounds?
-		if(i > width || i < 0 || j > height || j < 0)
+		if(i > grid.getLength() || i < 0 || j > grid.getRowLength(i) || j < 0)
 		{
 			//System.out.println("Out of bounds.");
 			return null;
@@ -229,10 +201,10 @@ public class NamCap {
 			// Recursively call findPath() 4 times - once in each of the 4 fundamental directions (one space up, down, left, and right). Save the ArrayList that is returned by each.
 			// Of the 4 ArrayLists that are returned, find the ArrayList that is not null and has the smallest size.
 			
-			ArrayList<Point> one = definePath(i, j - 1, width, height, hasCloak, grid);
-			ArrayList<Point> two = definePath(i - 1, j, width, height, hasCloak, grid);
-			ArrayList<Point> three = definePath(i, j + 1, width, height, hasCloak, grid);
-			ArrayList<Point> four = definePath(i + 1, j, width, height, hasCloak, grid);
+			ArrayList<Point> one = definePath(i, j - 1, hasCloak, grid);
+			ArrayList<Point> two = definePath(i - 1, j, hasCloak, grid);
+			ArrayList<Point> three = definePath(i, j + 1, hasCloak, grid);
+			ArrayList<Point> four = definePath(i + 1, j, hasCloak, grid);
 			
 			ArrayList<Point> min = new ArrayList<Point>();
 			

@@ -39,7 +39,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		namCap = new NamCap(loadImage("img/namcap/right.png"), 50, 50, map);
+		namCap = new NamCap(loadImage("img/namcap/right.png"), 100, 100, map);
 		charFrame = loadImage("img/frame.png");
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
@@ -102,7 +102,7 @@ public class DrawingSurface extends PApplet {
 			text("HIGHSCORE: ", width - width / 40, height / 20);
 
 			// namcap
-			namCap.act(map);
+			//namCap.act(map);
 			namCap.draw(this);
 			
 			//fruit
