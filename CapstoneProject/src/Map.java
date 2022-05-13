@@ -24,7 +24,7 @@ public class Map {
 	}
 	
 	public Map(String filename) {
-		grid = new char[31][28];
+		grid = new char[28][31];
 		this.readData(filename, grid);
 	}
 

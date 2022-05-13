@@ -16,7 +16,7 @@ public class DrawingSurface extends PApplet {
 	protected char[][] grid;
 	private boolean startScreen, playScreen, endScreen;
 	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit;
-//	private PFont emulogic;
+	private PFont emulogic;
 	private String whichGhost, whichFruit;
 	private Map map;
 	private NamCap namCap;
@@ -48,7 +48,7 @@ public class DrawingSurface extends PApplet {
 		retry = loadImage("img/retry.png");
 		home = loadImage("img/home.png");
 		fruit = loadImage("img/kiwi.png");
-	//	emulogic = createFont("Emulogic-zrEw.ttf", 18);
+		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 		player = new Player(loadImage("img/" + whichGhost + ".png"), 93, 93);
 	}
 
@@ -57,7 +57,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void draw() {
 		//mac
-	//	textFont(emulogic);
+		textFont(emulogic);
 		
 		imageMode(CENTER);
 		
