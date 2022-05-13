@@ -47,17 +47,17 @@ public class Map {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				// black space for stats
-				if(i == 0 || j == 0 || i == grid.length - 1 || j == grid[0].length - 1)
-				{
-					grid[i][j] = '#';
-				}
+//				if(i == 0 || j == 0 || i == grid.length - 1 || j == grid[0].length - 1)
+//				{
+//					grid[i][j] = '#';
+//				}
 				
-				// actual map space
-				else
-				{
-					grid[i][j] = '.';
-				}
-				
+//				// actual map space
+//				else
+//				{
+//					grid[i][j] = '.';
+//				}
+//				
 				float rx = x + j * rw;
 				float ry = y + i * rw;
 				
