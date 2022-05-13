@@ -1,4 +1,7 @@
+import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -11,7 +14,6 @@ import processing.core.PImage;
  */
 public class DrawingSurface extends PApplet {
 
-	// When you progress to a new prompt, modify this field.
 	// private Image board;
 	private boolean startScreen, playScreen, endScreen;
 	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit;
@@ -39,7 +41,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		namCap = new NamCap(loadImage("img/namcap/right.png"), 100, 100, map);
+		namCap = new NamCap(loadImage("img/namcap/right.png"), 100, 100);
 		charFrame = loadImage("img/frame.png");
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
@@ -49,6 +51,7 @@ public class DrawingSurface extends PApplet {
 		retry = loadImage("img/retry.png");
 		home = loadImage("img/home.png");
 		fruit = loadImage("img/kiwi.png");
+		kiwi = new Kiwi (loadImage("img/kiwi.png"),00, 0);
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 	}
 
@@ -102,13 +105,17 @@ public class DrawingSurface extends PApplet {
 			text("HIGHSCORE: ", width - width / 40, height / 20);
 
 			// namcap
-			//namCap.act(map);
+			namCap.act(map);
 			namCap.draw(this);
 			
 			//fruit
-			kiwi = new Kiwi (loadImage("img/" + whichFruit + ".png"), 95, 95);
-			kiwi.draw(this);
-			
+			ArrayList<Point> kiwis = map.getKiwis();
+			for(Point p : kiwis)
+			{
+				System.out.println(p);
+				kiwi.setLocation((int)p.getX(), (int)p.getY());
+				kiwi.draw(this);
+			}
 			
 			player.move();
 			player.draw(this);
@@ -186,7 +193,7 @@ public class DrawingSurface extends PApplet {
 	public void mousePressed() {
 		if (startScreen) {
 			// play button
-			if (mouseX > 320 && mouseX < 480 && mouseY > 471 && mouseY < 579) // change coords for new button
+			if (mouseX > width / 2 - width / 5 && mouseX < width / 2 + width / 5 && mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) // change coords for new button
 			{
 				startScreen = false;
 				playScreen = true;

@@ -23,7 +23,7 @@ public class NamCap {
 	 * @param x The x-coordinate of naM-caP.
 	 * @param y The y-coordinate of naM-caP.
 	 */
-	public NamCap(PImage img, int x, int y, Map m)
+	public NamCap(PImage img, int x, int y)
 	{
 		image = img;
 		this.x = x;
@@ -45,14 +45,19 @@ public class NamCap {
 	/**
 	 * If naM-caP eats a kiwi, for the next 5 seconds, naM-caP will try to hunt the player.
 	 * Otherwise, naM-caP will try and travel to the nearest kiwi.
+	 * 
+	 * @param grid The Map naM-caP is on.
 	 */
 	public void act(Map grid)
 	{	
-		while(!hasKiwi)
+		if(!hasKiwi)
 		{
-			//findFruit(grid);
-			// find the nearest kiwi
-			// go to kiwi
+			ArrayList<Point> fruitLoc = find('k', grid);
+			if(fruitLoc != null && fruitLoc.size() != 0)
+			{
+				x = (int) fruitLoc.get(0).getX();
+				y = (int) fruitLoc.get(0).getY();
+			}
 		}
 		
 		step = 3.5;
@@ -107,8 +112,8 @@ public class NamCap {
 	* @return An ArrayList containing the coordinates of all locations on the shortest path to the exit, where the first 
 	* element is the location of the starting point and the last element is the location of the exit, or null if no path can be found.
 	*/
-	public ArrayList<Point> findFruit(Map grid) {
-		ArrayList<Point> answer = definePath(x, y, false, grid);
+	public ArrayList<Point> find(char target, Map grid) {
+		ArrayList<Point> answer = find(x, y, target, false, grid);
 		if(answer != null)
 		{
 			for(int i = 0; i < answer.size(); i++)
@@ -116,19 +121,19 @@ public class NamCap {
 				grid.set((int) answer.get(i).getX(), (int) answer.get(i).getY(), ')');
 			}
 			
-			return definePath(x, y, false, grid);
+			return find(x, y, target, false, grid);
 		}
 		
 		else
 		{
-			System.out.println("No path found.");
+			//System.out.println("No path found.");
 			return null;
 		}
 	}
 
 
 	// Additional private recursive methods
-	private ArrayList<Point> definePath(int i, int j, boolean hasCloak, Map grid)
+	private ArrayList<Point> find(int i, int j, char target, boolean hasCloak, Map grid)
 	{	
 		// BASE CASES
 		// Are you out of the grid bounds?
@@ -167,7 +172,7 @@ public class NamCap {
 		}
 
 		// Are you at the exit?
-		if(grid.get(i, j) == 'X')
+		if(grid.get(i, j) == target)
 		{
 			//System.out.println("At an X");
 			ArrayList<Point> path = new ArrayList<Point>();
@@ -201,10 +206,10 @@ public class NamCap {
 			// Recursively call findPath() 4 times - once in each of the 4 fundamental directions (one space up, down, left, and right). Save the ArrayList that is returned by each.
 			// Of the 4 ArrayLists that are returned, find the ArrayList that is not null and has the smallest size.
 			
-			ArrayList<Point> one = definePath(i, j - 1, hasCloak, grid);
-			ArrayList<Point> two = definePath(i - 1, j, hasCloak, grid);
-			ArrayList<Point> three = definePath(i, j + 1, hasCloak, grid);
-			ArrayList<Point> four = definePath(i + 1, j, hasCloak, grid);
+			ArrayList<Point> one = find(i, j - 1, target, hasCloak, grid);
+			ArrayList<Point> two = find(i - 1, j, target, hasCloak, grid);
+			ArrayList<Point> three = find(i, j + 1, target, hasCloak, grid);
+			ArrayList<Point> four = find(i + 1, j, target, hasCloak, grid);
 			
 			ArrayList<Point> min = new ArrayList<Point>();
 			
@@ -251,7 +256,6 @@ public class NamCap {
 					min = four;
 				}
 			}
-
 
 			// Put the original saved character back into the grid at x,y (to remove the breadcrumb and prevent any permanent modification to the grid)
 			grid.set(i, j, location);

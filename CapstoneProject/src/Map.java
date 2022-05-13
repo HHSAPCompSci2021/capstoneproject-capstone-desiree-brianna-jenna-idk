@@ -2,6 +2,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import processing.core.PApplet;
@@ -15,6 +16,7 @@ import processing.core.PApplet;
 public class Map {
 
 	protected char[][] grid;
+	private ArrayList<Point> kiwis = new ArrayList<Point>();
 	
 	/**
 	 * Construct an empty 2D array with some default dimensions.
@@ -47,9 +49,8 @@ public class Map {
 		marker.fill(255);
 		float rw = 30;
 		float rh = 30;
-//		float rw = width/grid[0].length;
-//		float rh = height/grid.length;
 		
+		marker.noStroke();
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {				
 				float rx = x + j * rw;
@@ -68,6 +69,12 @@ public class Map {
 				}
 				else if (a == '*') {
 					marker.fill(255, 0, 0);
+				}
+				
+				else if(a == 'k')
+				{
+					kiwis.add(new Point((int)rx, ((int)ry)));
+					
 				}
 				
 				marker.rect(rx,  ry,  rw,  rh);
@@ -141,5 +148,10 @@ public class Map {
 	public int getRowLength(int x)
 	{
 		return grid[x].length;
+	}
+	
+	public ArrayList<Point> getKiwis()
+	{
+		return kiwis;
 	}
 } 
