@@ -20,11 +20,11 @@ public class Map {
 	 * Construct an empty 2D array with some default dimensions.
 	 */
 	public Map() {
-		grid = new char[31][28]; //y, x
+		grid = new char[28][31]; //y, x
 	}
 	
 	public Map(String filename) {
-		grid = new char[31][28];
+		grid = new char[28][31];
 		this.readData(filename, grid);
 	}
 
