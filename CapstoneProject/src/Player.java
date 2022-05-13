@@ -12,6 +12,7 @@ public class Player {
 	private int score;
 	private int xgrid; //x value of player on grid
 	private int ygrid; //y value of player on grid
+	private int direction;
 	
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0
@@ -23,6 +24,7 @@ public class Player {
 		ygrid = y;
 		type="";
 		score=0;
+		direction=90;
 	}
 	
 	/**
@@ -38,14 +40,22 @@ public class Player {
 	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
-		
+		if(direction==0) {
+			xgrid+=20;
+		}else if(direction==90) {
+			ygrid-=20;
+		}else if(direction==180) {
+			xgrid-=20;
+		}else if(direction==270) {
+			ygrid+=20;
+		}
 	}
 	
 	/**
 	 * Turns the Player 90 degrees
 	 */
-	public void turn() {
-		
+	public void setDirection(int dir) {
+		direction=dir;
 	}
 	
 	/**
