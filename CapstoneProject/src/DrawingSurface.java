@@ -13,7 +13,6 @@ public class DrawingSurface extends PApplet {
 
 	// When you progress to a new prompt, modify this field.
 	// private Image board;
-	protected char[][] grid;
 	private boolean startScreen, playScreen, endScreen;
 	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit;
 	private PFont emulogic;
@@ -31,7 +30,6 @@ public class DrawingSurface extends PApplet {
 		playScreen = false;
 		endScreen = false;
 		map = new Map("Pathways/test1.txt");
-		grid = new char[28][31];
 		whichGhost = "blinky";
 		whichFruit = "kiwi";
 	}
@@ -49,7 +47,6 @@ public class DrawingSurface extends PApplet {
 		home = loadImage("img/home.png");
 		fruit = loadImage("img/kiwi.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
-		player = new Player(loadImage("img/" + whichGhost + ".png"), 93, 93);
 	}
 
 	/**
@@ -85,6 +82,7 @@ public class DrawingSurface extends PApplet {
 			
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
+			player = new Player(loadImage("img/" + whichGhost + ".png"), 45, 45, map);
 		}
 
 		else if (playScreen) {
@@ -152,16 +150,12 @@ public class DrawingSurface extends PApplet {
 		int curY = player.getY();
 //		if (curX < grid[0].length) {
 			if (keyCode == KeyEvent.VK_UP) {
-				System.out.println("up");
 				player.setDirection(90);
 			} else if (keyCode == KeyEvent.VK_DOWN) {
-				System.out.println("down");
 				player.setDirection(270);
 			} else if (keyCode == KeyEvent.VK_LEFT) {
-				System.out.println("left");
 				player.setDirection(180);
 			} else if (keyCode == KeyEvent.VK_RIGHT) {
-				System.out.println("right");
 				player.setDirection(0);
 			}
 //			if (curX < 0) {
@@ -180,7 +174,7 @@ public class DrawingSurface extends PApplet {
 //				curY = grid.length;
 //				player.setY(curY);
 //			}
-			System.out.printf("Player coordinates: (%d, %d)%n", player.getX(), player.getY());
+//			System.out.printf("Player coordinates: (%d, %d)%n", player.getX(), player.getY());
 //		}
 	}
 

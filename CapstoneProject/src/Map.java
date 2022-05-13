@@ -20,11 +20,11 @@ public class Map {
 	 * Construct an empty 2D array with some default dimensions.
 	 */
 	public Map() {
-		grid = new char[28][31]; //y, x
+		grid = new char[20][30]; //y, x
 	}
 	
 	public Map(String filename) {
-		grid = new char[28][31];
+		grid = new char[20][30];
 		this.readData(filename, grid);
 	}
 
@@ -41,8 +41,10 @@ public class Map {
 	 */
 	public void draw(PApplet marker, float x, float y, float width, float height) {
 		marker.fill(255);
-		float rw = width/grid[0].length * 2;
-		float rh = height/grid.length * 2;
+		float rw = 30;
+		float rh = 30;
+//		float rw = width/grid[0].length;
+//		float rh = height/grid.length;
 		
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {				
@@ -102,8 +104,8 @@ public class Map {
 		}
 	}
 	
-	public boolean isLocationValid(int x, int y) {
-		return grid[y][x]=='#';
+	public boolean isValidLocation(int x, int y) {
+		return grid[y/30][x/30]=='#' && x<=885 && x>=0 && y<=555 && y>=0;
 	}
 
 } 

@@ -14,12 +14,13 @@ public class Player {
 	private int ygrid; //y value of player on grid
 	private int direction;
 	private int step;
+	private Map map;
 	
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0
 	 * x and y should be center of grid
 	 */
-	public Player(PImage img, int x, int y) {
+	public Player(PImage img, int x, int y, Map m) {
 		this.img = img;
 		xgrid = x;
 		ygrid = y;
@@ -27,6 +28,7 @@ public class Player {
 		score=0;
 		direction=0;
 		step=3;
+		map=m;
 	}
 	
 	/**
@@ -42,13 +44,13 @@ public class Player {
 	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
-		if(direction==0 && xgrid<(885-step)) {
+		if(direction==0 && map.isValidLocation(xgrid+step,ygrid)) {
 			xgrid+=step;
-		}else if(direction==90 && ygrid>(15+step)) {
+		}else if(direction==90 && map.isValidLocation(xgrid,ygrid-step)) {
 			ygrid-=step;
-		}else if(direction==180 && xgrid>(15+step)) {
+		}else if(direction==180 && map.isValidLocation(xgrid-step,ygrid)) {
 			xgrid-=step;
-		}else if(direction==270 && ygrid<(555-step)) {
+		}else if(direction==270 && map.isValidLocation(xgrid,ygrid+step)) {
 			ygrid+=step;
 		}
 	}
