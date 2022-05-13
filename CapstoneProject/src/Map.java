@@ -123,4 +123,23 @@ public class Map {
 		return grid[y/30][x/30]=='.';
 	}
 
+	public char get(int i, int j)
+	{
+		return grid[i][j];
+	}
+	
+	public void set(int i, int j, char c)
+	{
+		grid[i][j] = c;
+	}
+	
+	public int getLength()
+	{
+		return grid.length;
+	}
+	
+	public int getRowLength(int x)
+	{
+		return grid[x].length;
+	}
 } 
