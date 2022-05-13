@@ -45,16 +45,12 @@ public class Player {
 		if(direction==0 && xgrid<(785-step)) {
 			xgrid+=step;
 		}else if(direction==90 && ygrid>(15+step)) {
-			System.out.println("up");
 			ygrid-=step;
 		}else if(direction==180 && xgrid>(15+step)) {
-			System.out.println("left");
 			xgrid-=step;
 		}else if(direction==270 && ygrid<(555-step)) {
-			System.out.println("down");
 			ygrid+=step;
 		}
-		System.out.println(xgrid+","+ygrid);
 	}
 	
 	/**
