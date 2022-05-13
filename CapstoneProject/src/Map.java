@@ -105,7 +105,7 @@ public class Map {
 	}
 	
 	public boolean isValidLocation(int x, int y) {
-		return grid[y/30][x/30]=='#' && x<=885 && x>=0 && y<=555 && y>=0;
+		return grid[y/30][x/30]=='.';
 	}
 
 } 
