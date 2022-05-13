@@ -56,7 +56,8 @@ public class Player {
 	}
 	
 	/**
-	 * Turns the Player 90 degrees
+	 * Sets the direction of the player
+	 * @param dir the angle of the player's direction (0 is the +x axis)
 	 */
 	public void setDirection(int dir) {
 		direction=dir;
@@ -69,33 +70,49 @@ public class Player {
 		
 	}
 	
+	/**
+	 * Gets the x value of the Player's location
+	 * @return x value of Player's location
+	 */
 	public int getX() {
 		return xgrid;
 	}
 	
+	/**
+	 * Gets the y value of the Player's location
+	 * @return y value of the Player's location
+	 */
 	public int getY() {
 		return ygrid;
 	}
 	
+	/**
+	 * Sets the x value of the Player's location
+	 * @param xval new x value
+	 */
 	public void setX(int xval) {
 		xgrid = xval;
 	}
 	
+	/**
+	 * Sets the y value of the Player's location
+	 * @param yval new y value
+	 */
 	public void setY (int yval) {
 		ygrid = yval;
 	}
-	/**
-	 * (Graphical UI)
-	 * Draws the Player on a PApplet.
-	 * The specific way the grid is depicted is up to the coder.
-	 * 
-	 * @param marker The PApplet used for drawing.
-	 * @param x The x pixel coordinate of the upper left corner of the grid drawing. 
-	 * @param y The y pixel coordinate of the upper left corner of the grid drawing.
-	 * @param width The pixel width of the grid drawing.
-	 * @param height The pixel height of the grid drawing.
-	 */
-	public void draw(PApplet marker, float x, float y, float width, float height) {
-		
-	}
+//	/**
+//	 * (Graphical UI)
+//	 * Draws the Player on a PApplet.
+//	 * The specific way the grid is depicted is up to the coder.
+//	 * 
+//	 * @param marker The PApplet used for drawing.
+//	 * @param x The x pixel coordinate of the upper left corner of the grid drawing. 
+//	 * @param y The y pixel coordinate of the upper left corner of the grid drawing.
+//	 * @param width The pixel width of the grid drawing.
+//	 * @param height The pixel height of the grid drawing.
+//	 */
+//	public void draw(PApplet marker, float x, float y, float width, float height) {
+//		
+//	}
 }
