@@ -45,19 +45,7 @@ public class Map {
 		float rh = height/grid.length * 2;
 		
 		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[0].length; j++) {
-				// black space for stats
-//				if(i == 0 || j == 0 || i == grid.length - 1 || j == grid[0].length - 1)
-//				{
-//					grid[i][j] = '#';
-//				}
-				
-//				// actual map space
-//				else
-//				{
-//					grid[i][j] = '.';
-//				}
-//				
+			for (int j = 0; j < grid[0].length; j++) {				
 				float rx = x + j * rw;
 				float ry = y + i * rw;
 				
