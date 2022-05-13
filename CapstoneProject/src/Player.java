@@ -13,6 +13,7 @@ public class Player {
 	private int xgrid; //x value of player on grid
 	private int ygrid; //y value of player on grid
 	private int direction;
+	private int step;
 	
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0
@@ -25,6 +26,7 @@ public class Player {
 		type="";
 		score=0;
 		direction=0;
+		step=3;
 	}
 	
 	/**
@@ -40,18 +42,17 @@ public class Player {
 	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
-		if(direction==0 && xgrid<795) {
-			System.out.println("right");
-			xgrid+=5;
-		}else if(direction==90 && ygrid>0) {
+		if(direction==0 && xgrid<(785-step)) {
+			xgrid+=step;
+		}else if(direction==90 && ygrid>(15+step)) {
 			System.out.println("up");
-			ygrid-=5;
-		}else if(direction==180 && xgrid>0) {
+			ygrid-=step;
+		}else if(direction==180 && xgrid>(15+step)) {
 			System.out.println("left");
-			xgrid-=5;
-		}else if(direction==270 && ygrid<595) {
+			xgrid-=step;
+		}else if(direction==270 && ygrid<(555-step)) {
 			System.out.println("down");
-			ygrid+=5;
+			ygrid+=step;
 		}
 		System.out.println(xgrid+","+ygrid);
 	}
