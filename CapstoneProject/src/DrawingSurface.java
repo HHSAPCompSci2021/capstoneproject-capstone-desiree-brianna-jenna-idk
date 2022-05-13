@@ -49,6 +49,7 @@ public class DrawingSurface extends PApplet {
 		home = loadImage("img/home.png");
 		fruit = loadImage("img/kiwi.png");
 	//	emulogic = createFont("Emulogic-zrEw.ttf", 18);
+		player = new Player(loadImage("img/" + whichGhost + ".png"), 93, 93);
 	}
 
 	/**
@@ -108,7 +109,8 @@ public class DrawingSurface extends PApplet {
 			kiwi = new Kiwi (loadImage("img/" + whichFruit + ".png"), 95, 95);
 			kiwi.draw(this);
 			
-			player = new Player(loadImage("img/" + whichGhost + ".png"), 93, 93);
+			
+			player.move();
 			player.draw(this);
 
 			// lives on bottom left
@@ -148,34 +150,38 @@ public class DrawingSurface extends PApplet {
 	public void keyPressed() {
 		int curX = player.getX();
 		int curY = player.getY();
-		if (curX < grid[0].length) {
+//		if (curX < grid[0].length) {
 			if (keyCode == KeyEvent.VK_UP) {
-				player.setY(20 - curY);
+				System.out.println("up");
+				player.setDirection(90);
 			} else if (keyCode == KeyEvent.VK_DOWN) {
-				player.setY(20 + curY);
+				System.out.println("down");
+				player.setDirection(270);
 			} else if (keyCode == KeyEvent.VK_LEFT) {
-				player.setX(20 - curX);
+				System.out.println("left");
+				player.setDirection(180);
 			} else if (keyCode == KeyEvent.VK_RIGHT) {
-				player.setX(20 + curX);
+				System.out.println("right");
+				player.setDirection(0);
 			}
-			if (curX < 0) {
-				curX = 0;
-				player.setX(curX);
-			}
-			if (curX > grid[0].length) {
-				curX = grid[0].length;
-				player.setX(curX);
-			}
-			if (curY < 0) {
-				curY = 0;
-				player.setY(curY);
-			}
-			if (curY > grid.length) {
-				curY = grid.length;
-				player.setY(curY);
-			}
+//			if (curX < 0) {
+//				curX = 0;
+//				player.setX(curX);
+//			}
+//			if (curX > grid[0].length) {
+//				curX = grid[0].length;
+//				player.setX(curX);
+//			}
+//			if (curY < 0) {
+//				curY = 0;
+//				player.setY(curY);
+//			}
+//			if (curY > grid.length) {
+//				curY = grid.length;
+//				player.setY(curY);
+//			}
 			System.out.printf("Player coordinates: (%d, %d)%n", player.getX(), player.getY());
-		}
+//		}
 	}
 
 	/**

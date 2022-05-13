@@ -24,7 +24,7 @@ public class Player {
 		ygrid = y;
 		type="";
 		score=0;
-		direction=90;
+		direction=0;
 	}
 	
 	/**
@@ -40,15 +40,20 @@ public class Player {
 	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
-		if(direction==0) {
-			xgrid+=20;
-		}else if(direction==90) {
-			ygrid-=20;
-		}else if(direction==180) {
-			xgrid-=20;
-		}else if(direction==270) {
-			ygrid+=20;
+		if(direction==0 && xgrid<795) {
+			System.out.println("right");
+			xgrid+=5;
+		}else if(direction==90 && ygrid>0) {
+			System.out.println("up");
+			ygrid-=5;
+		}else if(direction==180 && xgrid>0) {
+			System.out.println("left");
+			xgrid-=5;
+		}else if(direction==270 && ygrid<595) {
+			System.out.println("down");
+			ygrid+=5;
 		}
+		System.out.println(xgrid+","+ygrid);
 	}
 	
 	/**
