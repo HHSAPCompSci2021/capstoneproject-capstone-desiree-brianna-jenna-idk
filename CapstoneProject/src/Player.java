@@ -42,7 +42,7 @@ public class Player {
 	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
-		if(direction==0 && xgrid<(785-step)) {
+		if(direction==0 && xgrid<(885-step)) {
 			xgrid+=step;
 		}else if(direction==90 && ygrid>(15+step)) {
 			ygrid-=step;

@@ -101,5 +101,9 @@ public class Map {
 			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
 		}
 	}
+	
+	public boolean isLocationValid(int x, int y) {
+		return grid[y][x]=='#';
+	}
 
 } 
