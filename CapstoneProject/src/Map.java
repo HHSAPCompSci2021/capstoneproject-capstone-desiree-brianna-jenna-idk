@@ -23,6 +23,10 @@ public class Map {
 		grid = new char[20][30]; //y, x
 	}
 	
+	/**
+	 * draws a map from a text file
+	 * @param filename textfile to be gridded
+	 */
 	public Map(String filename) {
 		grid = new char[20][30];
 		this.readData(filename, grid);
@@ -71,6 +75,11 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * reads the textfile to print in the grid
+	 * @param filename name of the textfile to be printed
+	 * @param gameDatathe grid that the game will be printed on
+	 */
 	public void readData (String filename, char[][] gameData) {
 		File dataFile = new File(filename);
 
@@ -104,6 +113,12 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * checks if the next location is valid
+	 * @param x x value of next location
+	 * @param y y value of next location
+	 * @return if the next location is valid path or not
+	 */
 	public boolean isValidLocation(int x, int y) {
 		return grid[y/30][x/30]=='.';
 	}

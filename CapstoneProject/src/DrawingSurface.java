@@ -34,6 +34,9 @@ public class DrawingSurface extends PApplet {
 		whichFruit = "kiwi";
 	}
 
+	/**
+	 * sets up all of the images and font for the graphics
+	 */
 	public void setup() {
 		namCap = new NamCap(loadImage("img/NamCap.png"), 50, 50, map);
 		title = loadImage("img/title.png"); // change image later
