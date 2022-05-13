@@ -13,14 +13,15 @@ public class DrawingSurface extends PApplet {
 
 	// When you progress to a new prompt, modify this field.
 	// private Image board;
-	protected boolean[][] grid;
+	protected char[][] grid;
 	private boolean startScreen, playScreen, endScreen;
-	private PImage title, charFrame, play, ghost, arrow, tear, retry, home;
+	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit;
 //	private PFont emulogic;
-	private String whichGhost;
+	private String whichGhost, whichFruit;
 	private Map map;
 	private NamCap namCap;
 	private Player player;
+	private Kiwi kiwi;
 
 	/**
 	 * Construct an empty 2D array with some default dimensions.
@@ -29,9 +30,10 @@ public class DrawingSurface extends PApplet {
 		startScreen = true;
 		playScreen = false;
 		endScreen = false;
-		map = new Map();
-		grid = new boolean[28][30];
+		map = new Map("Pathways/test1.txt");
+		grid = new char[28][31];
 		whichGhost = "blinky";
+		whichFruit = "kiwi";
 	}
 
 	public void setup() {
@@ -40,10 +42,12 @@ public class DrawingSurface extends PApplet {
 		charFrame = loadImage("img/frame.png");
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
-		arrow = loadImage("img/triangle.png");
+		rightarrow = loadImage("img/triangle.png");
+		leftarrow = loadImage("img/leftarrow.png");
 		tear = loadImage("img/tear.png");
 		retry = loadImage("img/retry.png");
 		home = loadImage("img/home.png");
+		fruit = loadImage("img/kiwi.png");
 	//	emulogic = createFont("Emulogic-zrEw.ttf", 18);
 	}
 
@@ -66,14 +70,18 @@ public class DrawingSurface extends PApplet {
 			
 			image(charFrame, width / 5, height / 2 + height / 20, width / 4, height / 2);
 			image(ghost, width / 5, height / 2, width / 7, height / 5);
-			image(arrow, width / 5 + width / 6, height / 2, width / 11, height / 8);
+			image(rightarrow, width / 5 + width / 6, height / 2, width / 11, height / 8);
 			
 			text(whichGhost, width / 5, (height / 3) * 2);
 
 			// map select
-
+			
 			// fruit select
-
+			image(charFrame, width /(float)1.25, height / 2 + height / 20, width / 4, height / 2);
+			image(leftarrow, width/(float)2.75 + width/(float)3.75, height / 2, width / 11, height / 8);
+			image(fruit, width/ (float) 1.25, height/2, width/7, height/5);
+			text(whichFruit, width / (float) 1.25, (height / 3) * 2 );
+			
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
 		}
@@ -82,7 +90,7 @@ public class DrawingSurface extends PApplet {
 			background(0);
 
 			if (map != null) {
-				map.draw(this, 0, 0, width / 2, height / 2);
+				map.draw(this, 0, 0, width / 3, height/3);
 			}
 
 			fill(255);
@@ -95,6 +103,10 @@ public class DrawingSurface extends PApplet {
 
 			// namcap
 			namCap.draw(this);
+			
+			//fruit
+			kiwi = new Kiwi (loadImage("img/" + whichFruit + ".png"), 95, 95);
+			kiwi.draw(this);
 			
 			player = new Player(loadImage("img/" + whichGhost + ".png"), 93, 93);
 			player.draw(this);
@@ -207,6 +219,24 @@ public class DrawingSurface extends PApplet {
 					whichGhost = "blinky";
 					ghost = loadImage("img/blinky.png");
 					image(ghost, width / 5, height / 2, width / 7, height / 5);
+				}
+			}
+			
+			//leftarrow
+			if(mouseX > (width / 3 + width / 4) - width / 11 && mouseX < (width / 3 + width / 4) + width / 11 && mouseY > height / 2 - height / 8 && mouseY < height / 2 + height / 8)
+			{
+				if(whichFruit.equals("kiwi"))
+				{
+					whichFruit = "banana";
+					fruit = loadImage("img/banana.png");
+					image(fruit, width / (float) 1.25, height / 2, width / 7, height / 5);
+				}
+				//for testing, since banana literally does nothing
+				else if(whichFruit.equals("banana")) 
+				{
+					whichFruit = "kiwi";
+					fruit = loadImage("img/kiwi.png");
+					image(fruit, width/(float) 1.25, height/2, width/7, height/5);
 				}
 			}
 		}

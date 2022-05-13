@@ -20,9 +20,14 @@ public class Map {
 	 * Construct an empty 2D array with some default dimensions.
 	 */
 	public Map() {
-		grid = new char[15][21];
+		grid = new char[31][28]; //y, x
 	}
 	
+	public Map(String filename) {
+		grid = new char[31][28];
+		this.readData(filename, grid);
+	}
+
 	/**
 	 * (Graphical UI)
 	 * Draws the grid on a PApplet.
@@ -67,9 +72,45 @@ public class Map {
 				{
 					marker.fill(255);
 				}
+				else if (a == '*') {
+					marker.fill(255, 0, 0);
+				}
 				
 				marker.rect(rx,  ry,  rw,  rh);
 			}
+		}
+	}
+	
+	public void readData (String filename, char[][] gameData) {
+		File dataFile = new File(filename);
+
+		if (dataFile.exists()) {
+			int count = 0;
+
+			FileReader reader = null;
+			Scanner in = null;
+			try {
+					reader = new FileReader(dataFile);
+					in = new Scanner(reader);
+					
+					while (in.hasNext()) {
+						String line = in.nextLine();
+						for(int i = 0; i < line.length(); i++)
+							if (count < gameData.length && i < gameData[count].length)
+								gameData[count][i] = line.charAt(i);
+
+						count++;
+					}
+
+			} catch (IOException ex) {
+				throw new IllegalArgumentException("Data file " + filename + " cannot be read.");
+			} finally {
+				if (in != null)
+					in.close();
+			}
+			
+		} else {
+			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
 		}
 	}
 
