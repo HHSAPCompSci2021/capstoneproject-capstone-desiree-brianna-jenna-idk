@@ -10,7 +10,6 @@ import processing.core.PImage;
  */
 public class Kiwi extends Fruit {
 	
-	private int x, y;
 	private PImage kiwi;
 	
 	/**
@@ -19,9 +18,9 @@ public class Kiwi extends Fruit {
 	 * @param x The row of the kiwi's location.
 	 * @param y The column of the kiwi's location.
 	 */
-	public Kiwi(PImage img, int x, int y)
+	public Kiwi(PImage img, int y, int x)
 	{
-		super(x, y);
+		super(y, x);
 		kiwi = img;
 	}
 	
@@ -31,24 +30,9 @@ public class Kiwi extends Fruit {
 	 */
 	public void draw(PApplet g)
 	{
-		g.image(kiwi, x, y, 30, 30);
+		g.image(kiwi, getX(), getY(), 50, 50);
 	}
 	
-	/**
-	 * @return x location of the kiwi.
-	 */
-	public int getX()
-	{
-		return x;
-	}
-	
-	/**
-	 * @return y location of the kiwi.
-	 */
-	public int getY()
-	{
-		return y;
-	}
 	
 	/**
 	 * Kiwi gives naM-caP the ability to eat the player.

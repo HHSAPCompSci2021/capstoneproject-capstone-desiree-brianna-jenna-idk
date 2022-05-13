@@ -16,7 +16,7 @@ import processing.core.PApplet;
 public class Map {
 
 	protected char[][] grid;
-	private ArrayList<Point> kiwis = new ArrayList<Point>();
+	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
 	
 	/**
 	 * Construct an empty 2D array with some default dimensions.
@@ -61,23 +61,28 @@ public class Map {
 				if (a == '#') 
 				{ 
 					marker.fill(0);
+					marker.rect(rx,  ry,  rw,  rh);
 				} 
 				
 				else if (a == '.') 
 				{
 					marker.fill(255);
+					marker.rect(rx,  ry,  rw,  rh);
 				}
 				else if (a == '*') {
 					marker.fill(255, 0, 0);
+					marker.rect(rx,  ry,  rw,  rh);
 				}
 				
 				else if(a == 'k')
 				{
-					kiwis.add(new Point((int)rx, ((int)ry)));
-					
+					marker.fill(255);
+					marker.rect(rx,  ry,  rw,  rh);
+					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+15);
+					kiwi.draw(marker);
+					kiwis.add(kiwi);
 				}
 				
-				marker.rect(rx,  ry,  rw,  rh);
 			}
 		}
 	}
@@ -150,7 +155,7 @@ public class Map {
 		return grid[x].length;
 	}
 	
-	public ArrayList<Point> getKiwis()
+	public ArrayList<Kiwi> getKiwis()
 	{
 		return kiwis;
 	}

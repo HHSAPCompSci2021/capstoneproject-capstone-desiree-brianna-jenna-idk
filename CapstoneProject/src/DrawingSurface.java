@@ -51,7 +51,7 @@ public class DrawingSurface extends PApplet {
 		retry = loadImage("img/retry.png");
 		home = loadImage("img/home.png");
 		fruit = loadImage("img/kiwi.png");
-		kiwi = new Kiwi (loadImage("img/kiwi.png"),00, 0);
+		kiwi = new Kiwi (loadImage("img/kiwi.png"), 0, 0);
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 	}
 
@@ -109,13 +109,12 @@ public class DrawingSurface extends PApplet {
 			namCap.draw(this);
 			
 			//fruit
-			ArrayList<Point> kiwis = map.getKiwis();
-			for(Point p : kiwis)
-			{
-				System.out.println(p);
-				kiwi.setLocation((int)p.getX(), (int)p.getY());
-				kiwi.draw(this);
-			}
+//			ArrayList<Point> kiwis = map.getKiwis();
+//			for(Point p : kiwis)
+//			{
+//				kiwi.setLocation((int)p.getY() + 15, (int)p.getX() + 15);
+//				kiwi.draw(this);
+//			}
 			
 			player.move();
 			player.draw(this);
@@ -155,36 +154,15 @@ public class DrawingSurface extends PApplet {
 	 * if player attempts to go out of bounds, player is stopped
 	 */
 	public void keyPressed() {
-		int curX = player.getX();
-		int curY = player.getY();
-//		if (curX < grid[0].length) {
-			if (keyCode == KeyEvent.VK_UP) {
-				player.setDirection(90);
-			} else if (keyCode == KeyEvent.VK_DOWN) {
-				player.setDirection(270);
-			} else if (keyCode == KeyEvent.VK_LEFT) {
-				player.setDirection(180);
-			} else if (keyCode == KeyEvent.VK_RIGHT) {
-				player.setDirection(0);
-			}
-//			if (curX < 0) {
-//				curX = 0;
-//				player.setX(curX);
-//			}
-//			if (curX > grid[0].length) {
-//				curX = grid[0].length;
-//				player.setX(curX);
-//			}
-//			if (curY < 0) {
-//				curY = 0;
-//				player.setY(curY);
-//			}
-//			if (curY > grid.length) {
-//				curY = grid.length;
-//				player.setY(curY);
-//			}
-//			System.out.printf("Player coordinates: (%d, %d)%n", player.getX(), player.getY());
-//		}
+		if (keyCode == KeyEvent.VK_UP) {
+			player.setDirection(90);
+		} else if (keyCode == KeyEvent.VK_DOWN) {
+			player.setDirection(270);
+		} else if (keyCode == KeyEvent.VK_LEFT) {
+			player.setDirection(180);
+		} else if (keyCode == KeyEvent.VK_RIGHT) {
+			player.setDirection(0);
+		}
 	}
 
 	/**

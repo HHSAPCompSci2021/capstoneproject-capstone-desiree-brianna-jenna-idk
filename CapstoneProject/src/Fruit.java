@@ -15,10 +15,10 @@ public class Fruit {
 	 * @param row The row of the fruit's location.
 	 * @param col The column of the fruit's location.
 	 */
-	public Fruit(int row, int col)
+	public Fruit(int r, int c)
 	{
-		this.row = row;
-		this.col = col;
+		this.row = r;
+		this.col = c;
 		eaten = false;
 	}
 
@@ -59,4 +59,21 @@ public class Fruit {
 	{
 		
 	}
+	
+	/**
+	 * @return x location of the kiwi.
+	 */
+	public int getX()
+	{
+		return col;
+	}
+	
+	/**
+	 * @return y location of the kiwi.
+	 */
+	public int getY()
+	{
+		return row;
+	}
+	
 }
