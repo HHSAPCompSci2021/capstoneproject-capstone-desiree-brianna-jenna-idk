@@ -12,7 +12,12 @@ public class NamCap {
 	
 	private boolean hasKiwi;
 	private int x, y;
-	private PImage namCap;
+	private PImage namCap;	
+	private int xgrid; //x value of player on grid
+	private int ygrid; //y value of player on grid
+	private int direction;
+	private int step;
+	private Map map;
 	
 	/**
 	 * Constructs the character naM-caP.
@@ -20,12 +25,17 @@ public class NamCap {
 	 * @param x The x-coordinate of naM-caP.
 	 * @param y The y-coordinate of naM-caP.
 	 */
-	public NamCap(PImage img, int x, int y)
+	public NamCap(PImage img, int x, int y, Map m)
 	{
 		namCap = img;
 		hasKiwi = false;
 		this.x = x;
 		this.y = y;
+		direction = 0;
+		xgrid = x;
+		map = m;
+		ygrid = y;
+		step=3;
 	}
 	
 	/**
@@ -65,6 +75,21 @@ public class NamCap {
 	{
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Moves the Player one space forward in the direction it is facing
+	 */
+	public void move() {
+		if(direction==0 && map.isValidLocation(xgrid+step,ygrid)) {
+			xgrid+=step;
+		}else if(direction==90 && map.isValidLocation(xgrid,ygrid-step)) {
+			ygrid-=step;
+		}else if(direction==180 && map.isValidLocation(xgrid-step,ygrid)) {
+			xgrid-=step;
+		}else if(direction==270 && map.isValidLocation(xgrid,ygrid+step)) {
+			ygrid+=step;
+		}
 	}
 	
 	/**

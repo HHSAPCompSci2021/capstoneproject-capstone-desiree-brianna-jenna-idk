@@ -35,7 +35,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void setup() {
-		namCap = new NamCap(loadImage("img/NamCap.png"), 50, 50);
+		namCap = new NamCap(loadImage("img/NamCap.png"), 50, 50, map);
 		title = loadImage("img/title.png"); // change image later
 		charFrame = loadImage("img/frame.png");
 		play = loadImage("img/play.png");
@@ -101,6 +101,7 @@ public class DrawingSurface extends PApplet {
 			text("HIGHSCORE: ", width - width / 40, height / 20);
 
 			// namcap
+			namCap.move();
 			namCap.draw(this);
 			
 			//fruit
