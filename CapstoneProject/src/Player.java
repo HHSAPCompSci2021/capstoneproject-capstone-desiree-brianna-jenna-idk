@@ -15,6 +15,7 @@ public class Player {
 	private int direction;
 	private int step;
 	private Map map;
+	private int lives;
 	
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0
@@ -26,9 +27,10 @@ public class Player {
 		ygrid = y;
 		type="";
 		score=0;
-		direction=0;
+		direction=-1;
 		step=3;
 		map=m;
+		lives=3;
 	}
 	
 	/**
@@ -44,14 +46,29 @@ public class Player {
 	 * Moves the Player one space forward in the direction it is facing
 	 */
 	public void move() {
-		if(direction==0 && map.isValidLocation(xgrid+step,ygrid)) {
-			xgrid+=step;
-		}else if(direction==90 && map.isValidLocation(xgrid,ygrid-step)) {
-			ygrid-=step;
-		}else if(direction==180 && map.isValidLocation(xgrid-step,ygrid)) {
-			xgrid-=step;
-		}else if(direction==270 && map.isValidLocation(xgrid,ygrid+step)) {
-			ygrid+=step;
+		int newX=xgrid;
+		int newY=ygrid;
+		if(direction==0) {
+			newX+=step;
+		}else if(direction==90) {
+			newY-=step;
+		}else if(direction==180) {
+			newX-=step;
+		}else if(direction==270) {
+			newY+=step;
+		}
+		if(newX<0) {
+			newX+=885;
+		}else if (newX>=885) {
+			newX-=885;
+		}else if(newY<0) {
+			newY+=585;
+		}else if (newY>=585) {
+			newY-=585;
+		}
+		if(map.isValidLocation(newX,newY)) {
+			xgrid=newX;
+			ygrid=newY;
 		}
 	}
 	
