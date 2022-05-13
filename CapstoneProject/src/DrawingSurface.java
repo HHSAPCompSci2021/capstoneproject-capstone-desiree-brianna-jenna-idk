@@ -91,7 +91,7 @@ public class DrawingSurface extends PApplet {
 			background(0);
 
 			if (map != null) {
-				map.draw(this, 0, 0, width / 3, height/3);
+				map.draw(this, 0, 0, width/3, height);
 			}
 
 			fill(255);
