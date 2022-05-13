@@ -135,26 +135,51 @@ public class Map {
 		return grid[y/30][x/30]=='.';
 	}
 
+	/**
+	 * gets the grid location
+	 * @param i y value
+	 * @param j x value
+	 * @return grid coordinate
+	 */
 	public char get(int i, int j)
 	{
 		return grid[i][j];
 	}
 	
+	/** 
+	 * sets the new grid location
+	 * @param i y value
+	 * @param j x value
+	 * @param c new grid coordinate
+	 */
 	public void set(int i, int j, char c)
 	{
 		grid[i][j] = c;
 	}
 	
+	/**
+	 * gets length of y grid
+	 * @return y length
+	 */
 	public int getLength()
 	{
 		return grid.length;
 	}
 	
+	/**
+	 * gets length of x grid
+	 * @param x length of x
+	 * @return x length
+	 */
 	public int getRowLength(int x)
 	{
 		return grid[x].length;
 	}
 	
+	/**
+	 * checks if grid has kiwis
+	 * @return true if kiwi, false if no kiwi
+	 */
 	public ArrayList<Kiwi> getKiwis()
 	{
 		return kiwis;

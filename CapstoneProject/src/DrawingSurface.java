@@ -23,6 +23,8 @@ public class DrawingSurface extends PApplet {
 	private NamCap namCap;
 	private Player player;
 	private Kiwi kiwi;
+	private int count = 0;
+	private int lifeCount = 3;
 
 	/**
 	 * Construct an empty 2D array with some default dimensions.
@@ -41,7 +43,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		namCap = new NamCap(loadImage("img/namcap/right.png"), 100, 100);
+		namCap = new NamCap(loadImage("img/namcap/right.png"), 75, 135);
 		charFrame = loadImage("img/frame.png");
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
@@ -59,8 +61,11 @@ public class DrawingSurface extends PApplet {
 	 * draws things
 	 */
 	public void draw() {
+		count ++;
 		textFont(emulogic);
 		imageMode(CENTER);
+		boolean print2 = false;
+		
 		
 		if (startScreen) {
 			background(0);
@@ -102,8 +107,26 @@ public class DrawingSurface extends PApplet {
 			text("POINTS: ", width / 40, height / 20);
 			
 			textAlign(RIGHT);
-			text("HIGHSCORE: ", width - width / 40, height / 20);
-
+			if (life() == 3) {
+			text("HIGHSCORE: " + 3, width - width / 40, height / 20);
+			
+			}
+			if (life() == 2) {
+				text("HIGHSCORE: " + 2, width - width / 40, height / 20);
+			} 
+			
+			System.out.println(namCap.getX() + "," + namCap.getY() + " and " + player.getX() + "," + player.getY());
+//			} else if (life() == 2) {
+//				text("HIGHSCORE: 2", width - width / 40, height / 20);
+//				lifeCount = 1;
+//			}
+//			} else if (life() == -15) {
+//				text("HIGHSCORE: " + 1, width - width / 40, height / 20);
+//			} else if (life() == -24) {
+//				text("HIGHSCORE: " + 0, width - width / 40, height / 20);
+			
+			
+			
 			// namcap
 			namCap.act(map);
 			namCap.draw(this);
@@ -116,11 +139,23 @@ public class DrawingSurface extends PApplet {
 //				kiwi.draw(this);
 //			}
 			
-			player.move();
+			//makes player move by grid and slower
+			if (count > 8) {
+				player.move();
+				count = 0;
+			}
 			player.draw(this);
+			
+			
+			/*
+			if (namCap.getX() == kiwi.getX() && namCap.getY() == kiwi.getY()) {
+				//something happens here
+			}
+			*/
 
 			// lives on bottom left
 		}
+		
 
 		else if (endScreen) {
 			background(0);
@@ -149,6 +184,38 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 
+	/**
+	 * finds the amount of lifes left
+	 * @return int of lifes left
+	 */
+	public int life() {
+		boolean print3 = true;
+		boolean print2 = false;
+		boolean print1 = false;
+		boolean print0 = false;
+		int whichPrint = 3;
+		//counter to see how many times it passes coordinate, to print lives??
+		if (namCap.getX() == player.getX() && namCap.getY() == player.getY()) { // and player is not on a rampagge
+			if (print3) {
+				print2 = true;
+				whichPrint = 2;
+				print3 = false;
+			}
+//			} else if (lifeCount == 2) {
+//				lifeCount = 1; 
+//				return lifeCount;
+//			} else if (lifeCount == 1) {
+//				lifeCount = 0;
+//				return lifeCount;
+//			}
+			//for testing purposes look line 132
+			//lifeCount --;
+		} else if (namCap.getX() == player.getX() && namCap.getY() == player.getY()) { //and player is on a rampage
+			lifeCount--;
+		}
+		return whichPrint;
+		}
+	
 	/**
 	 * moves the player based on the keys pressed, using the up, down, left, right arrow keys
 	 * if player attempts to go out of bounds, player is stopped

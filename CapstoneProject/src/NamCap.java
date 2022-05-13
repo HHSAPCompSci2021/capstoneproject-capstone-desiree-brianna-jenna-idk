@@ -30,7 +30,7 @@ public class NamCap {
 		this.y = y;
 		hasKiwi = false;
 		direction = 0;
-		step = 2.5;
+		step = 30;
 	}
 	
 	/**
@@ -74,6 +74,22 @@ public class NamCap {
 	{
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Gets the x value of the Player's location
+	 * @return x value of Player's location
+	 */
+	public int getX() {
+		return x;
+	}
+	
+	/**
+	 * Gets the y value of the Player's location
+	 * @return y value of the Player's location
+	 */
+	public int getY() {
+		return y;
 	}
 	
 	/**
@@ -130,7 +146,6 @@ public class NamCap {
 			return null;
 		}
 	}
-
 
 	// Additional private recursive methods
 	private ArrayList<Point> find(int i, int j, char target, boolean hasCloak, Map grid)

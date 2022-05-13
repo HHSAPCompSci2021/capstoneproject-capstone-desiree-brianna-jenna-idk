@@ -11,6 +11,7 @@ import processing.core.PImage;
 public class Kiwi extends Fruit {
 	
 	private PImage kiwi;
+	private int x, y;
 	
 	/**
 	 * Constructs a Kiwi with a set row and column.
@@ -22,6 +23,22 @@ public class Kiwi extends Fruit {
 	{
 		super(y, x);
 		kiwi = img;
+	}
+	
+	/**
+	 * Gets the x value of the Player's location
+	 * @return x value of Player's location
+	 */
+	public int getX() {
+		return x;
+	}
+	
+	/**
+	 * Gets the y value of the Player's location
+	 * @return y value of the Player's location
+	 */
+	public int getY() {
+		return y;
 	}
 	
 	/**

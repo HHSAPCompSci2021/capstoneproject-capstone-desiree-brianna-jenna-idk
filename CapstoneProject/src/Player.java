@@ -1,3 +1,5 @@
+import java.util.Timer;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -28,7 +30,7 @@ public class Player {
 		type="";
 		score=0;
 		direction=-1;
-		step=3;
+		step=30;
 		map=m;
 		lives=3;
 	}
@@ -70,8 +72,9 @@ public class Player {
 			xgrid=newX;
 			ygrid=newY;
 		}
+		
 	}
-	
+ 
 	/**
 	 * Sets the direction of the player
 	 * @param dir the angle of the player's direction (0 is the +x axis)
