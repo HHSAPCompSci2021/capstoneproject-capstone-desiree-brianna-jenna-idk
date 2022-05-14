@@ -14,7 +14,7 @@ public class NamCap {
 	
 	private boolean hasKiwi;
 	private PImage image;	
-	private int x, y, direction;
+	private int x, y, direction, xi, yi;
 	private double step;
 	
 	/**
@@ -27,7 +27,9 @@ public class NamCap {
 	{
 		image = img;
 		this.x = x;
+		xi=x;
 		this.y = y;
+		yi=y;
 		hasKiwi = false;
 		direction = 0;
 		step = 30;
@@ -94,6 +96,23 @@ public class NamCap {
 	 */
 	public int getY() {
 		return y;
+	}
+	
+	/**
+	 * Resets naM-caP to its intial position
+	 */
+	public void reset() {
+		x=xi;
+		y=yi;
+		direction=0;
+	}
+	
+	/**
+	 * Returns whether the naM-caP has eaten a kiwi
+	 * @return true if has eaten a kiwi, false if not
+	 */
+	public boolean hasEatenKiwi() {
+		return hasKiwi;
 	}
 	
 	/**

@@ -117,10 +117,9 @@ public class DrawingSurface extends PApplet {
 			} 
 			
 			// namcap
-			if(namCapCount > 8)
+			if(namCapCount%8==0)
 			{
 				namCap.act(map);
-				namCapCount = 0;
 			}
 			
 			namCap.draw(this);
@@ -134,9 +133,16 @@ public class DrawingSurface extends PApplet {
 //			}
 			
 			//makes player move by grid and slower
-			if (playerCount > 8) {
+			if (playerCount%8==0) {
 				player.move();
-				playerCount = 0;
+				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+					System.out.println("ate namCap");
+					player.increaseScore(50);
+					namCap.reset();
+				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+					System.out.println("lost life");
+					player.loseLife();
+				}
 			}
 			
 			player.draw(this);

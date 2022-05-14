@@ -87,6 +87,10 @@ public class Player {
 		direction=dir;
 	}
 	
+	public int getDirection() {
+		return direction;
+	}
+	
 	/**
 	 * Eats the fruit that is on the same space as it
 	 */
@@ -99,6 +103,7 @@ public class Player {
 	 * @return true if the Player now has 0 lives, false otherwise
 	 */
 	public boolean loseLife() {
+		System.out.println("lose life"+lives);
 		lives--;
 		reset();
 		if(lives==0) {
@@ -162,9 +167,17 @@ public class Player {
 	 * @return true if at same location, false if not
 	 */
 	public boolean atSameLocation(NamCap n) {
-		if(n.getX()==getX() && n.getY()==getY()) {
+		if(n.getX()/30==getX()/30 && n.getY()/30==getY()/30) {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Increases the Player's score by a certain amount
+	 * @param points amount of points to add to the score
+	 */
+	public void increaseScore(int points) {
+		score+=points;
 	}
 }
