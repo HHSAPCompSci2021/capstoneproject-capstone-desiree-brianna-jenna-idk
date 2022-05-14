@@ -15,8 +15,8 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
 	// private Image board;
-	private boolean startScreen, playScreen, endScreen;
-	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit;
+	private boolean startScreen, playScreen, endScreen, setup;
+	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit, life1, life2;
 	private PFont emulogic;
 	private String whichGhost, whichFruit;
 	private Map map;
@@ -91,6 +91,8 @@ public class DrawingSurface extends PApplet {
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
 			player = new Player(loadImage("img/" + whichGhost + ".png"), 45, 45, map);
+			life1 = loadImage("img/" + whichGhost + ".png");
+			life2 = loadImage("img/" + whichGhost + ".png");
 		}
 
 		else if (playScreen) {
@@ -149,7 +151,6 @@ public class DrawingSurface extends PApplet {
 			
 			player.draw(this);
 			
-			
 			/*
 			if (namCap.getX() == kiwi.getX() && namCap.getY() == kiwi.getY()) {
 				//something happens here
@@ -157,6 +158,8 @@ public class DrawingSurface extends PApplet {
 			*/
 
 			// lives on bottom left
+			image(life1, width / 22, height - height / 10, width / 30, width / 30);
+			image(life2, (width / 22) * 2, height - height / 10, width / 30, width / 30);
 		}
 		
 

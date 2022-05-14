@@ -58,7 +58,6 @@ public class NamCap {
 				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30;
 				y = (int) fruitLoc.get(fruitLoc.size() - 2).getX() * 30;
 			}
-			//System.out.println("x: " + x + ", y: " + y);
 		}
 		
 		else if(hasKiwi)
