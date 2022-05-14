@@ -103,6 +103,14 @@ public class Player {
 	}
 	
 	/**
+	 * Gets the number of lives
+	 * @return number of lives
+	 */
+	public int getLives() {
+		return lives;
+	}
+	
+	/**
 	 * Gets the x value of the Player's location
 	 * @return x value of Player's location
 	 */
