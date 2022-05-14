@@ -116,6 +116,17 @@ public class DrawingSurface extends PApplet {
 				text("HIGHSCORE: " + 2, width - width / 40, height / 20);
 			} 
 			
+			//fruit
+			ArrayList<Kiwi> kiwis = map.getKiwis();
+			for(int i = 0; i < kiwis.size(); i++)
+			{
+				if(namCap.atSameLocation(kiwis.get(i)))
+				{
+					kiwis.get(i).remove(map);
+					kiwis.remove(i);
+				}
+			}
+			
 			// namcap
 			if(namCapCount%8==0)
 			{
@@ -130,14 +141,6 @@ public class DrawingSurface extends PApplet {
 			}
 			
 			namCap.draw(this);
-			
-			//fruit
-//			ArrayList<Point> kiwis = map.getKiwis();
-//			for(Point p : kiwis)
-//			{
-//				kiwi.setLocation((int)p.getY() + 15, (int)p.getX() + 15);
-//				kiwi.draw(this);
-//			}
 			
 			//makes player move by grid and slower
 			if (playerCount%8==0) {

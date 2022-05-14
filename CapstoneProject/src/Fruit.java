@@ -8,7 +8,6 @@
 public class Fruit {
 	
 	private int row, col;
-	private boolean eaten;
 	
 	/**
 	 * Constructs a fruit with a set row and column.
@@ -17,9 +16,8 @@ public class Fruit {
 	 */
 	public Fruit(int r, int c)
 	{
-		this.row = r;
-		this.col = c;
-		eaten = false;
+		row = r;
+		col = c;
 	}
 
 	/**
@@ -36,12 +34,9 @@ public class Fruit {
 	/**
 	 * Removes the fruit from the map.
 	 */
-	public void remove()
+	public void remove(Map map)
 	{
-		if(eaten)
-		{
-			// remove
-		}
+		map.set(row / 30, col / 30, '.');
 	}
 	
 	/**

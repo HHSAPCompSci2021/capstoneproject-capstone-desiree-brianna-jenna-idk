@@ -137,10 +137,10 @@ public class NamCap {
 	 */
 	public void eatFruit(Fruit f)
 	{
-		f.remove();
-		// figure out which fruit it is
-		// if fruit is kiwi
-		// hasKiwi == true 
+		if(f instanceof Kiwi)
+		{
+			hasKiwi = true;
+		}
 	}
 	
 	/**
@@ -265,6 +265,16 @@ public class NamCap {
 		}
 						
 		return null;
+	}
+	
+	/**
+	 * Determines if the Player and NamCap are at the same spot
+	 * @param f The Fruit.
+	 * @return true if at same location, false if not
+	 */
+	public boolean atSameLocation(Fruit f) 
+	{
+		return(f.getX() / 30 == x / 30 && f.getY() / 30 == y / 30);
 	}
 
 }
