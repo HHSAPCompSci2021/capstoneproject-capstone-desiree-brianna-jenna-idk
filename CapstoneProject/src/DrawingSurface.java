@@ -122,6 +122,7 @@ public class DrawingSurface extends PApplet {
 			{
 				if(namCap.atSameLocation(kiwis.get(i)))
 				{
+					namCap.eatFruit(kiwis.get(i));
 					kiwis.get(i).remove(map);
 					kiwis.remove(i);
 				}
@@ -132,9 +133,11 @@ public class DrawingSurface extends PApplet {
 			{
 				namCap.act(map);
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+					System.out.println("player eats namCap");
 					player.increaseScore(50);
 					namCap.reset();
 				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+					System.out.println("namCap eats player");
 					player.loseLife();
 					namCap.reset();
 				}
@@ -146,9 +149,11 @@ public class DrawingSurface extends PApplet {
 			if (playerCount%8==0) {
 				player.move();
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+					System.out.println("player eats namCap");
 					player.increaseScore(50);
 					namCap.reset();
 				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+					System.out.println("namCap eats player");
 					player.loseLife();
 					namCap.reset();
 				}
@@ -159,6 +164,10 @@ public class DrawingSurface extends PApplet {
 			// lives on bottom left
 			image(life1, width / 22, height - height / 10, width / 30, width / 30);
 			image(life2, (width / 22) * 2, height - height / 10, width / 30, width / 30);
+			if(player.getLives()==0) {
+				endScreen=true;
+				playScreen=false;
+			}
 		}
 		
 
@@ -268,12 +277,6 @@ public class DrawingSurface extends PApplet {
 			}
 		}
 
-		// for testing purposes only
-		else if (playScreen) {
-			playScreen = false;
-			endScreen = true;
-		}
-
 		else if (endScreen) {
 			endScreen = false;
 			// depending on if the retry button is clicked or the exit button is clicked,
@@ -288,6 +291,7 @@ public class DrawingSurface extends PApplet {
 			if(mouseX > width / 2 && mouseX < width / 2 + width / 5 + width / 5 && mouseY > height / 2 && mouseY < height / 2 + height / 5)
 			{
 				playScreen = true;
+				player.resetLives();
 			}
 		}
 

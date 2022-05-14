@@ -100,16 +100,10 @@ public class Player {
 
 	/**
 	 * Removes a life from the Player
-	 * @return true if the Player now has 0 lives, false otherwise
 	 */
-	public boolean loseLife() {
-		System.out.println("lose life"+lives);
+	public void loseLife() {
 		lives--;
 		reset();
-		if(lives==0) {
-			return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -127,6 +121,13 @@ public class Player {
 	 */
 	public int getLives() {
 		return lives;
+	}
+	
+	/**
+	 * Resets the number of lives back to 3
+	 */
+	public void resetLives() {
+		lives=3;
 	}
 	
 	/**
