@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import processing.core.PApplet;
 
 /** 
@@ -14,7 +13,7 @@ import processing.core.PApplet;
  */
 public class Map {
 
-	protected char[][] grid;
+	private char[][] grid;
 	private float rx, ry;
 	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
 	
@@ -92,7 +91,7 @@ public class Map {
 	 * @param filename Name of the text file to be read.
 	 * @param gameData The grid that the game will be printed on.
 	 */
-	public void readData (String filename, char[][] gameData) {
+	public void readData(String filename, char[][] gameData) {
 		File dataFile = new File(filename);
 
 		if (dataFile.exists()) {

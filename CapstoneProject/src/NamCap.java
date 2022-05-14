@@ -171,7 +171,7 @@ public class NamCap {
 	 */
 	public ArrayList<Point> findLoc(int i, int j, Map grid)
 	{
-		return(find(y / 30, x / 30, i / 30, j / 30, grid));
+		return(findLoc(y / 30, x / 30, i / 30, j / 30, grid));
 	}
 
 	private ArrayList<Point> find(int i, int j, char target, Player player, Map grid)
@@ -279,7 +279,7 @@ public class NamCap {
 		return null;
 	}
 	
-	private ArrayList<Point> find(int x, int y, int i, int j, Map grid)
+	private ArrayList<Point> findLoc(int x, int y, int i, int j, Map grid)
 	{	
 		//System.out.println("x: " + x + ", y: " + y + ", i: " + i + ", j: " + j);
 		// BASE CASES
@@ -319,10 +319,10 @@ public class NamCap {
 			// Recursively call findPath() 4 times - once in each of the 4 fundamental directions (one space up, down, left, and right). Save the ArrayList that is returned by each.
 			// Of the 4 ArrayLists that are returned, find the ArrayList that is not null and has the smallest size.
 			
-			ArrayList<Point> one = find(x, y - 1, i, j, grid);
-			ArrayList<Point> two = find(x - y, j, i, j, grid);
-			ArrayList<Point> three = find(x, y + 1, i, j, grid);
-			ArrayList<Point> four = find(x + 1, y, i, j, grid);
+			ArrayList<Point> one = findLoc(x, y - 1, i, j, grid);
+			ArrayList<Point> two = findLoc(x - y, j, i, j, grid);
+			ArrayList<Point> three = findLoc(x, y + 1, i, j, grid);
+			ArrayList<Point> four = findLoc(x + 1, y, i, j, grid);
 			
 			ArrayList<Point> min = new ArrayList<Point>();
 			

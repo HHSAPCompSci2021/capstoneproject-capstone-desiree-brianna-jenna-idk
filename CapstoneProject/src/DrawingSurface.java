@@ -1,7 +1,5 @@
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -15,7 +13,7 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
 	// private Image board;
-	private boolean startScreen, playScreen, endScreen, setup;
+	private boolean startScreen, playScreen, endScreen;
 	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit, life1, life2;
 	private PFont emulogic;
 	private String whichGhost, whichFruit;
@@ -23,7 +21,6 @@ public class DrawingSurface extends PApplet {
 	private NamCap namCap;
 	private Player player;
 	private int playerCount, namCapCount;
-	private int lifeCount = 3;
 
 	/**
 	 * Declares the values for specific variables.
@@ -32,7 +29,7 @@ public class DrawingSurface extends PApplet {
 		startScreen = true;
 		playScreen = false;
 		endScreen = false;
-		map = new Map("Pathways/test1.txt");
+		map = new Map("map/test1.txt");
 		whichGhost = "blinky";
 		whichFruit = "kiwi";
 	}
