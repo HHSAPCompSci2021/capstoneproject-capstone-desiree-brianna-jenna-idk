@@ -10,7 +10,6 @@ import processing.core.PImage;
  */
 public class Player {
 	private PImage img;
-	private String type;
 	private int score;
 	private int xgrid; //x value of player on grid
 	private int ygrid; //y value of player on grid
@@ -21,9 +20,15 @@ public class Player {
 	private Map map;
 	private int lives;
 	
+
 	/**
-	 * Constructs a Player and initiates Player type to "" and the score to 0
-	 * x and y should be center of grid
+	 * Constructs a Player and initiates Player type to "" and the score to 0.
+	 * X and Y should be the center of grid.
+	 * 
+	 * @param img The Player's image.
+	 * @param x X-value of the Player. 
+	 * @param y Y-value of the Player.
+	 * @param m The Map the Player is on.
 	 */
 	public Player(PImage img, int x, int y, Map m) {
 		this.img = img;
@@ -31,7 +36,6 @@ public class Player {
 		xi=x;
 		ygrid = y;
 		yi=y;
-		type="";
 		score=0;
 		direction=-1;
 		step=30;
@@ -41,6 +45,7 @@ public class Player {
 	
 	/**
 	 * Draws the player.
+	 * 
 	 * @param g The PApplet used to draw.
 	 */
 	public void draw(PApplet g)
@@ -76,30 +81,35 @@ public class Player {
 			xgrid=newX;
 			ygrid=newY;
 		}
-		
 	}
  
 	/**
-	 * Sets the direction of the player
-	 * @param dir the angle of the player's direction (0 is the +x axis)
+	 * Sets the direction of the player.
+	 * 
+	 * @param dir The angle of the player's direction (0 is the +x axis).
 	 */
 	public void setDirection(int dir) {
 		direction=dir;
 	}
 	
+	/**
+	 * @return The Player's direction.
+	 */
 	public int getDirection() {
 		return direction;
 	}
 	
 	/**
 	 * Eats the fruit that is on the same space as it
+	 * 
+	 * @param f The Fruit the Player eats.
 	 */
 	public void eatFruit(Fruit f) {
 		
 	}
 
 	/**
-	 * Removes a life from the Player
+	 * Removes a life from the Player.
 	 */
 	public void loseLife() {
 		lives--;
@@ -107,7 +117,7 @@ public class Player {
 	}
 	
 	/**
-	 * Resets the Player to the starting position
+	 * Resets the Player to the starting position and direction.
 	 */
 	public void reset() {
 		setX(xi);
@@ -116,56 +126,56 @@ public class Player {
 	}
 	
 	/**
-	 * Gets the number of lives
-	 * @return number of lives
+	 * @return The number of lives the Player has.
 	 */
 	public int getLives() {
 		return lives;
 	}
 	
 	/**
-	 * Resets the number of lives back to 3
+	 * Resets the number of lives back to 3.
 	 */
 	public void resetLives() {
 		lives=3;
 	}
 	
 	/**
-	 * Gets the x value of the Player's location
-	 * @return x value of Player's location
+	 * @return X-value of the Player's location.
 	 */
 	public int getX() {
 		return xgrid;
 	}
 	
 	/**
-	 * Gets the y value of the Player's location
-	 * @return y value of the Player's location
+	 * @return Y-value of the Player's location.
 	 */
 	public int getY() {
 		return ygrid;
 	}
 	
 	/**
-	 * Sets the x value of the Player's location
-	 * @param xval new x value
+	 * Sets the X-value of the Player's location.
+	 * 
+	 * @param xval The new X-value.
 	 */
 	public void setX(int xval) {
 		xgrid = xval;
 	}
 	
 	/**
-	 * Sets the y value of the Player's location
-	 * @param yval new y value
+	 * Sets the Y-value of the Player's location.
+	 * 
+	 * @param yval The new Y-value.
 	 */
 	public void setY (int yval) {
 		ygrid = yval;
 	}
 	
 	/**
-	 * Determines if the Player and NamCap are at the same spot
-	 * @param n NamCap
-	 * @return true if at same location, false if not
+	 * Determines if the Player and naM-caP are at the same spot.
+	 * 
+	 * @param n naM-caP.
+	 * @return true if at same location, false if not.
 	 */
 	public boolean atSameLocation(NamCap n) {
 		if(n.getX()/30==xgrid/30 && n.getY()/30==ygrid/30) {
@@ -175,16 +185,17 @@ public class Player {
 	}
 	
 	/**
-	 * Increases the Player's score by a certain amount
-	 * @param points amount of points to add to the score
+	 * Increases the Player's score by a certain amount.
+	 * 
+	 * @param points The amount of points to add to the score.
 	 */
 	public void increaseScore(int points) {
 		score+=points;
 	}
 	
 	/**
-	 * Returns the score of the Player
-	 * @return score
+
+	 * @return The score of the Player.
 	 */
 	public int getScore() {
 		return score;

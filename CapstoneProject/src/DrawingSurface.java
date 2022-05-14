@@ -26,7 +26,7 @@ public class DrawingSurface extends PApplet {
 	private int lifeCount = 3;
 
 	/**
-	 * Construct an empty 2D array with some default dimensions.
+	 * Declares the values for specific variables.
 	 */
 	public DrawingSurface() {
 		startScreen = true;
@@ -38,7 +38,7 @@ public class DrawingSurface extends PApplet {
 	}
 
 	/**
-	 * sets up all of the images and font for the graphics
+	 * Sets up all of the images and font for the graphics.
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
@@ -56,15 +56,13 @@ public class DrawingSurface extends PApplet {
 	}
 
 	/**
-	 * draws things
+	 * Draws all the graphics.
 	 */
 	public void draw() {
 		playerCount++;
 		namCapCount++;
 		textFont(emulogic);
 		imageMode(CENTER);
-		boolean print2 = false;
-		
 		
 		if (startScreen) {
 			background(0);
@@ -170,7 +168,6 @@ public class DrawingSurface extends PApplet {
 			}
 		}
 		
-
 		else if (endScreen) {
 			background(0);
 			fill(255);
@@ -179,7 +176,6 @@ public class DrawingSurface extends PApplet {
 			fill(255, 255, 0);
 			text("GAME OVER", 400, 100);
 
-			
 			// selected ghost with tear
 			image(ghost, width / 4, height / 2, width / 3, height / 2);
 			image(tear, width / 5 + width / 10, height / 2 + height / 13, width / 15, height / 10);
@@ -199,8 +195,7 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	/**
-	 * moves the player based on the keys pressed, using the up, down, left, right arrow keys
-	 * if player attempts to go out of bounds, player is stopped
+	 * Moves the player based on the keys pressed, using the up, down, left, right arrow keys.
 	 */
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {

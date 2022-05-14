@@ -15,10 +15,10 @@ public class NamCap {
 	private boolean hasKiwi;
 	private PImage image;	
 	private int x, y, direction, xi, yi;
-	private double step;
 	
 	/**
 	 * Constructs the character naM-caP.
+	 * 
 	 * @param img The image for naM-caP.
 	 * @param x The x-coordinate of naM-caP.
 	 * @param y The y-coordinate of naM-caP.
@@ -32,11 +32,11 @@ public class NamCap {
 		yi=y;
 		hasKiwi = false;
 		direction = 0;
-		step = 30;
 	}
 	
 	/**
 	 * Draws naM-caP.
+	 * 
 	 * @param g The PApplet used to draw.
 	 */
 	public void draw(PApplet g)
@@ -78,6 +78,7 @@ public class NamCap {
 	
 	/**
 	 * Sets the location of naM-caP to a certain coordinate.
+	 * 
 	 * @param x The x-coordinate of the location.
 	 * @param y The y-coordinate of the location.
 	 */
@@ -88,23 +89,21 @@ public class NamCap {
 	}
 	
 	/**
-	 * Gets the x value of the Player's location
-	 * @return x value of Player's location
+	 * @return The x value of naM-caP's location.
 	 */
 	public int getX() {
 		return x;
 	}
 	
 	/**
-	 * Gets the y value of the Player's location
-	 * @return y value of the Player's location
+	 * @return The y value of naM-caP's location.
 	 */
 	public int getY() {
 		return y;
 	}
 	
 	/**
-	 * Resets naM-caP to its intial position
+	 * Resets naM-caP to its initial position and direction.
 	 */
 	public void reset() {
 		x=xi;
@@ -114,8 +113,7 @@ public class NamCap {
 	}
 	
 	/**
-	 * Returns whether the naM-caP has eaten a kiwi
-	 * @return true if has eaten a kiwi, false if not
+	 * @return true if naM-caP has eaten a kiwi, false if not.
 	 */
 	public boolean hasEatenKiwi() {
 		return hasKiwi;
@@ -139,6 +137,7 @@ public class NamCap {
 	
 	/**
 	 * Eats the Fruit and gains a special ability depending on the Fruit.
+	 * 
 	 * @param f The Fruit eaten.
 	 */
 	public void eatFruit(Fruit f)
@@ -150,30 +149,31 @@ public class NamCap {
 	}
 	
 	/**
-	* Solves the labyrinth in the smallest number of moves.
-	* 
-	* @param x The x coordinate of the starting point.
-	* @param y The y coordinate of the starting point.
-	* @return An ArrayList containing the coordinates of all locations on the shortest path to the exit, where the first 
-	* element is the location of the starting point and the last element is the location of the exit, or null if no path can be found.
-	*/
+	 * Finds a character in the Map in the smallest number of moves.
+	 * 
+	 * @param target The target character.
+	 * @param player The Player in the map.
+	 * @param grid The Map of the game.
+	 * @return An ArrayList of Points for the next moves naM-caP should make.
+	 */
 	public ArrayList<Point> find(char target, Player player, Map grid) {
 		return(find(y / 30, x / 30, target, player, grid));
 	}
 	
+
 	/**
+	 * Finds a location in the Map's grid in the smallest number of moves.
 	 * 
-	 * @param i
-	 * @param j
-	 * @param grid
-	 * @return
+	 * @param i The row of the Map.
+	 * @param j The column of the Map.
+	 * @param grid The Map of the game.
+	 * @return An ArrayList of Points for the next moes naM-caP should make.
 	 */
 	public ArrayList<Point> findLoc(int i, int j, Map grid)
 	{
 		return(find(y / 30, x / 30, i / 30, j / 30, grid));
 	}
 
-	// Additional private recursive methods
 	private ArrayList<Point> find(int i, int j, char target, Player player, Map grid)
 	{	
 		// BASE CASES
@@ -392,9 +392,10 @@ public class NamCap {
 	}
 	
 	/**
-	 * Determines if the Player and NamCap are at the same spot
+	 * Determines if the Fruit and naM-caP are at the same spot.
+	 * 
 	 * @param f The Fruit.
-	 * @return true if at same location, false if not
+	 * @return true if at same location, false if not.
 	 */
 	public boolean atSameLocation(Fruit f) 
 	{

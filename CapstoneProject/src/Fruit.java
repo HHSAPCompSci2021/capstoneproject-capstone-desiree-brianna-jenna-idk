@@ -1,3 +1,5 @@
+import processing.core.PApplet;
+
 /**
  * 
  * Represents the fruits that have special abilities.
@@ -5,14 +7,15 @@
  * @author Jenna Wang
  *
  */
-public class Fruit {
+public abstract class Fruit {
 	
 	private int row, col;
 	
 	/**
 	 * Constructs a fruit with a set row and column.
-	 * @param row The row of the fruit's location.
-	 * @param col The column of the fruit's location.
+	 * 
+	 * @param r The row of the fruit's location.
+	 * @param c The column of the fruit's location.
 	 */
 	public Fruit(int r, int c)
 	{
@@ -22,6 +25,7 @@ public class Fruit {
 
 	/**
 	 * Gives the fruit a new location.
+	 * 
 	 * @param row The new row you wish to place the fruit on.
 	 * @param col The new column you wish the place the fruit on.
 	 */
@@ -33,6 +37,8 @@ public class Fruit {
 	
 	/**
 	 * Removes the fruit from the map.
+	 * 
+	 * @param map The Map the fruit is on.
 	 */
 	public void remove(Map map)
 	{
@@ -41,14 +47,13 @@ public class Fruit {
 	
 	/**
 	 * Draws the fruit.
+	 * 
+	 * @param g The PApplet used to draw.
 	 */
-	public void draw()
-	{
-		
-	}
+	public abstract void draw(PApplet g);
 	
 	/**
-	 * @return x location of the kiwi.
+	 * @return X-Value of the Fruit.
 	 */
 	public int getX()
 	{
@@ -56,7 +61,7 @@ public class Fruit {
 	}
 	
 	/**
-	 * @return y location of the kiwi.
+	 * @return Y-value of the fruit.
 	 */
 	public int getY()
 	{

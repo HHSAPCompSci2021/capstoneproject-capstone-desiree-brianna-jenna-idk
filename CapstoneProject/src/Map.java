@@ -1,4 +1,3 @@
-import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,9 +7,9 @@ import java.util.Scanner;
 import processing.core.PApplet;
 
 /** 
- * draws the map
+ * Draws the Map of the game.
  * 
- * @author desiree
+ * @author Desiree
  *
  */
 public class Map {
@@ -20,15 +19,15 @@ public class Map {
 	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
 	
 	/**
-	 * Construct an empty 2D array with some default dimensions.
+	 * Construct a 2D character array with some default dimensions.
 	 */
 	public Map() {
 		grid = new char[20][30]; // y, x
 	}
 	
 	/**
-	 * draws a map from a text file
-	 * @param filename textfile to be gridded
+	 * Draws a map from a text file.
+	 * @param filename Text file to be drawn.
 	 */
 	public Map(String filename) {
 		grid = new char[20][30];
@@ -38,7 +37,6 @@ public class Map {
 	/**
 	 * (Graphical UI)
 	 * Draws the grid on a PApplet.
-	 * The specific way the grid is depicted is up to the coder.
 	 * 
 	 * @param marker The PApplet used for drawing.
 	 * @param x The x pixel coordinate of the upper left corner of the grid drawing. 
@@ -89,9 +87,10 @@ public class Map {
 	}
 	
 	/**
-	 * reads the textfile to print in the grid
-	 * @param filename name of the textfile to be printed
-	 * @param gameDatathe grid that the game will be printed on
+	 * Reads the text file to print in the grid.
+	 * 
+	 * @param filename Name of the text file to be read.
+	 * @param gameData The grid that the game will be printed on.
 	 */
 	public void readData (String filename, char[][] gameData) {
 		File dataFile = new File(filename);
@@ -127,20 +126,22 @@ public class Map {
 	}
 	
 	/**
-	 * checks if the next location is valid
-	 * @param x x value of next location
-	 * @param y y value of next location
-	 * @return if the next location is valid path or not
+	 * Checks if the location entered is valid.
+	 * 
+	 * @param x X-value of next location.
+	 * @param y Y-value of next location.
+	 * @return true if the next location is valid path or not.
 	 */
 	public boolean isValidLocation(int x, int y) {
 		return grid[y/30][x/30]=='.' || grid[y/30][x/30]=='k';
 	}
 
 	/**
-	 * gets the grid location
-	 * @param i y value
-	 * @param j x value
-	 * @return grid coordinate
+	 * Gets the grid's character.
+	 * 
+	 * @param i Y-value.
+	 * @param j X-value.
+	 * @return character in the grid's location.
 	 */
 	public char get(int i, int j)
 	{
@@ -148,10 +149,10 @@ public class Map {
 	}
 	
 	/** 
-	 * sets the new grid location
-	 * @param i y value
-	 * @param j x value
-	 * @param c new grid coordinate
+	 * Sets the character of the grid to a new character.
+	 * @param i Y-value.
+	 * @param j X-value.
+	 * @param c The new character.
 	 */
 	public void set(int i, int j, char c)
 	{
@@ -159,8 +160,7 @@ public class Map {
 	}
 	
 	/**
-	 * gets length of y grid
-	 * @return y length
+	 * @return The height of the grid.
 	 */
 	public int getLength()
 	{
@@ -168,9 +168,8 @@ public class Map {
 	}
 	
 	/**
-	 * gets length of x grid
-	 * @param x length of x
-	 * @return x length
+	 * @param x The column number.
+	 * @return The row length of the column.
 	 */
 	public int getRowLength(int x)
 	{
@@ -178,8 +177,7 @@ public class Map {
 	}
 	
 	/**
-	 * checks if grid has kiwis
-	 * @return true if kiwi, false if no kiwi
+	 * @return An ArrayList of the kiwis on the map.
 	 */
 	public ArrayList<Kiwi> getKiwis()
 	{
