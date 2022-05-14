@@ -53,10 +53,10 @@ public class NamCap {
 	 */
 	public void act(Map grid, Player player)
 	{	
-		//System.out.println(hasKiwi);
 		if(!hasKiwi)
 		{
 			ArrayList<Point> fruitLoc = find('k', player, grid);
+			//System.out.println(fruitLoc);
 			if(fruitLoc != null && fruitLoc.size() > 1)
 			{
 				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30;
@@ -67,7 +67,7 @@ public class NamCap {
 		else if(hasKiwi)
 		{
 			ArrayList<Point> playerLoc = findLoc(player.getX(), player.getY(), grid);
-			System.out.println(playerLoc);
+			//System.out.println(playerLoc);
 			if(playerLoc != null && playerLoc.size() > 1)
 			{
 				x = (int) playerLoc.get(playerLoc.size() - 2).getY() * 30;
@@ -160,14 +160,13 @@ public class NamCap {
 		return(find(y / 30, x / 30, target, player, grid));
 	}
 	
-
 	/**
 	 * Finds a location in the Map's grid in the smallest number of moves.
 	 * 
 	 * @param i The row of the Map.
 	 * @param j The column of the Map.
 	 * @param grid The Map of the game.
-	 * @return An ArrayList of Points for the next moes naM-caP should make.
+	 * @return An ArrayList of Points for the next moves naM-caP should make.
 	 */
 	public ArrayList<Point> findLoc(int i, int j, Map grid)
 	{
@@ -184,7 +183,7 @@ public class NamCap {
 		}
 
 		// Are you in a wall? Are you somewhere you have been before? Is there a player in the way?
-		if(grid.get(i, j) == '#' || grid.get(i, j) == '!' || i == player.getX() / 30 || j == player.getY() / 30)
+		if(grid.get(i, j) == '#' || grid.get(i, j) == '!' || i == player.getX() / 30 || j == player.getY() / 30 || grid.get(i, j) == '*')
 		{
 			return null;
 		}
@@ -212,7 +211,7 @@ public class NamCap {
 			ArrayList<Point> three = find(i, j + 1, target, player, grid);
 			ArrayList<Point> four = find(i + 1, j, target, player, grid);
 			
-			ArrayList<Point> min = new ArrayList<Point>();
+			ArrayList<Point> min = null;
 			
 			if(one != null)
 			{
@@ -279,9 +278,10 @@ public class NamCap {
 		return null;
 	}
 	
+	// x and y are namcap's coordinates
+	// i and j are the target coordinates
 	private ArrayList<Point> findLoc(int x, int y, int i, int j, Map grid)
 	{	
-		//System.out.println("x: " + x + ", y: " + y + ", i: " + i + ", j: " + j);
 		// BASE CASES
 		// Are you out of the grid bounds?
 		if(x >= grid.getLength() || x < 0 || y > grid.getRowLength(x) || y < 0)
@@ -289,14 +289,8 @@ public class NamCap {
 			return null;
 		}
 
-		// Are you in a wall?
-		if(grid.get(x, y) == '#')
-		{
-			return null;
-		}
-
-		// Are you somewhere you have been before?
-		if(grid.get(x, y) == '!')
+		// Are you in a wall? Are you somewhere you have been before? Are you at the starting box?
+		if(grid.get(x, y) == '#' || grid.get(x, y) == '!' || grid.get(x, y) == '*')
 		{
 			return null;
 		}
@@ -320,11 +314,11 @@ public class NamCap {
 			// Of the 4 ArrayLists that are returned, find the ArrayList that is not null and has the smallest size.
 			
 			ArrayList<Point> one = findLoc(x, y - 1, i, j, grid);
-			ArrayList<Point> two = findLoc(x - y, j, i, j, grid);
+			ArrayList<Point> two = findLoc(x - 1, y, i, j, grid);
 			ArrayList<Point> three = findLoc(x, y + 1, i, j, grid);
 			ArrayList<Point> four = findLoc(x + 1, y, i, j, grid);
 			
-			ArrayList<Point> min = new ArrayList<Point>();
+			ArrayList<Point> min = null;
 			
 			if(one != null)
 			{

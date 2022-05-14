@@ -192,7 +192,6 @@ public class Player {
 	}
 	
 	/**
-
 	 * @return The score of the Player.
 	 */
 	public int getScore() {

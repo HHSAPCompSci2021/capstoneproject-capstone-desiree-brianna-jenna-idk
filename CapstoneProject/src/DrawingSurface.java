@@ -14,9 +14,9 @@ public class DrawingSurface extends PApplet {
 
 	// private Image board;
 	private boolean startScreen, playScreen, endScreen;
-	private PImage title, charFrame, play, ghost, rightarrow, tear, retry, home, leftarrow, fruit, life1, life2;
+	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2;
 	private PFont emulogic;
-	private String whichGhost, whichFruit;
+	private String whichGhost;
 	private Map map;
 	private NamCap namCap;
 	private Player player;
@@ -31,7 +31,6 @@ public class DrawingSurface extends PApplet {
 		endScreen = false;
 		map = new Map("map/test1.txt");
 		whichGhost = "blinky";
-		whichFruit = "kiwi";
 	}
 
 	/**
@@ -40,15 +39,14 @@ public class DrawingSurface extends PApplet {
 	public void setup() {
 		title = loadImage("img/title.png");
 		namCap = new NamCap(loadImage("img/namcap/right.png"), 75, 135);
-		charFrame = loadImage("img/frame.png");
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
 		rightarrow = loadImage("img/triangle.png");
-		leftarrow = loadImage("img/leftarrow.png");
 		tear = loadImage("img/tear.png");
 		retry = loadImage("img/retry.png");
 		home = loadImage("img/home.png");
-		fruit = loadImage("img/kiwi.png");
+		kiwi = loadImage("img/kiwi.png");
+		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 	}
 
@@ -67,21 +65,26 @@ public class DrawingSurface extends PApplet {
 
 			// character select
 			textAlign(CENTER);
-			text("Character", width / 5, height / 4 + height / 25);
-			
-			image(charFrame, width / 5, height / 2 + height / 20, width / 4, height / 2);
-			image(ghost, width / 5, height / 2, width / 7, height / 5);
-			image(rightarrow, width / 5 + width / 6, height / 2, width / 11, height / 8);
-			
-			text(whichGhost, width / 5, (height / 3) * 2);
+			text("Character", width / 6, height / 2 - height / 7);
+			image(ghost, width / 6, height / 2, width / 7, height / 5);
+			image(rightarrow, width / 6 + width / 8, height / 2, width / 11, height / 8);
+			text(whichGhost, width / 6, height / 2 + height / 6);
 
 			// map select
+			text("Map", width/ 2, height / 4 + height / 10);
 			
 			// fruit select
-			image(charFrame, width /(float)1.25, height / 2 + height / 20, width / 4, height / 2);
-			image(leftarrow, width/(float)2.75 + width/(float)3.75, height / 2, width / 11, height / 8);
-			image(fruit, width/ (float) 1.25, height/2, width/7, height/5);
-			text(whichFruit, width / (float) 1.25, (height / 3) * 2 );
+			text("Fruit", width - width / 6, height / 4 + height / 10);
+			
+			textSize(14);
+			textAlign(LEFT);
+			// kiwi
+			image(kiwi, width - width / 3 + width / 20, height / 4 + height / (float)6.5, width/20, height/15);
+			text("Kiwi", width - width / 4, height / 4 + height / 6);
+			
+			// strawberry
+			image(strawberry, width - width / 3 + width / 20, height / 2 - height / 25, width/30, height/20);
+			text("strawberry", width - width / 4, height / 2 - height / 30);
 			
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
@@ -220,53 +223,34 @@ public class DrawingSurface extends PApplet {
 			
 			// right arrow
 			if(mouseX > (width / 5 + width / 6) - width / 11 && mouseX < (width / 5 + width / 6) + width / 11 && mouseY > height / 2 - height / 8 && mouseY < height / 2 + height / 8)
-			{
+			{    
 				if(whichGhost.equals("blinky"))
 				{
 					whichGhost = "pinky";
 					ghost = loadImage("img/pinky.png");
-					image(ghost, width / 5, height / 2, width / 7, height / 5);
 				}
 				
 				else if(whichGhost.equals("pinky"))
 				{
 					whichGhost = "inky";
 					ghost = loadImage("img/inky.png");
-					image(ghost, width / 5, height / 2, width / 7, height / 5);
 				}
 				
 				else if(whichGhost.equals("inky"))
 				{
 					whichGhost = "clyde";
 					ghost = loadImage("img/clyde.png");
-					image(ghost, width / 5, height / 2, width / 7, height / 5);
 				}
 				
 				else if(whichGhost.equals("clyde"))
 				{
 					whichGhost = "blinky";
 					ghost = loadImage("img/blinky.png");
-					image(ghost, width / 5, height / 2, width / 7, height / 5);
 				}
 			}
 			
-			//leftarrow
-			if(mouseX > (width / 3 + width / 4) - width / 11 && mouseX < (width / 3 + width / 4) + width / 11 && mouseY > height / 2 - height / 8 && mouseY < height / 2 + height / 8)
-			{
-				if(whichFruit.equals("kiwi"))
-				{
-					whichFruit = "strawberry";
-					fruit = loadImage("img/strawberry.png");
-					image(fruit, width / (float) 1.25, height / 2, width / 7, height / 5);
-				}
-				//for testing, since banana literally does nothing
-				else if(whichFruit.equals("strawberry")) 
-				{
-					whichFruit = "kiwi";
-					fruit = loadImage("img/kiwi.png");
-					image(fruit, width/(float) 1.25, height/2, width/7, height/5);
-				}
-			}
+			// checkboxes for fruit
+		
 		}
 
 		else if (endScreen) {
