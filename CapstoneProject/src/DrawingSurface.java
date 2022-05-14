@@ -116,16 +116,6 @@ public class DrawingSurface extends PApplet {
 				text("HIGHSCORE: " + 2, width - width / 40, height / 20);
 			} 
 			
-			//System.out.println(namCap.getX() + "," + namCap.getY() + " and " + player.getX() + "," + player.getY());
-//			} else if (life() == 2) {
-//				text("HIGHSCORE: 2", width - width / 40, height / 20);
-//				lifeCount = 1;
-//			}
-//			} else if (life() == -15) {
-//				text("HIGHSCORE: " + 1, width - width / 40, height / 20);
-//			} else if (life() == -24) {
-//				text("HIGHSCORE: " + 0, width - width / 40, height / 20);
-			
 			// namcap
 			if(namCapCount > 8)
 			{
@@ -150,12 +140,6 @@ public class DrawingSurface extends PApplet {
 			}
 			
 			player.draw(this);
-			
-			/*
-			if (namCap.getX() == kiwi.getX() && namCap.getY() == kiwi.getY()) {
-				//something happens here
-			}
-			*/
 
 			// lives on bottom left
 			image(life1, width / 22, height - height / 10, width / 30, width / 30);
