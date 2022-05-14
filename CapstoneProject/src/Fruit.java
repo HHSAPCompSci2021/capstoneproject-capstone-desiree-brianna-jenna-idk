@@ -45,14 +45,6 @@ public class Fruit {
 	}
 	
 	/**
-	 * Activate the ability specific to the fruit.
-	 */
-	public void useAbility()
-	{
-		
-	}
-	
-	/**
 	 * Draws the fruit.
 	 */
 	public void draw()
