@@ -120,6 +120,13 @@ public class DrawingSurface extends PApplet {
 			if(namCapCount%8==0)
 			{
 				namCap.act(map);
+				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+					player.increaseScore(50);
+					namCap.reset();
+				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+					player.loseLife();
+					namCap.reset();
+				}
 			}
 			
 			namCap.draw(this);
@@ -136,12 +143,11 @@ public class DrawingSurface extends PApplet {
 			if (playerCount%8==0) {
 				player.move();
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-					System.out.println("ate namCap");
 					player.increaseScore(50);
 					namCap.reset();
 				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
-					System.out.println("lost life");
 					player.loseLife();
+					namCap.reset();
 				}
 			}
 			
