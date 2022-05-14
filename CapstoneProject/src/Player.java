@@ -1,4 +1,3 @@
-import java.util.Timer;
 import processing.core.PApplet;
 import processing.core.PImage;
 
