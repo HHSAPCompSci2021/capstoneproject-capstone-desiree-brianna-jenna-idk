@@ -292,6 +292,8 @@ public class DrawingSurface extends PApplet {
 			{
 				playScreen = true;
 				player.resetLives();
+				player.reset();
+				namCap.reset();
 			}
 		}
 
