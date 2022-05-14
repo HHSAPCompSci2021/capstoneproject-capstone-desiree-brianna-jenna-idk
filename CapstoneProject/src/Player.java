@@ -167,7 +167,7 @@ public class Player {
 	 * @return true if at same location, false if not
 	 */
 	public boolean atSameLocation(NamCap n) {
-		if(n.getX()/30==getX()/30 && n.getY()/30==getY()/30) {
+		if(n.getX()/30==xgrid/30 && n.getY()/30==ygrid/30) {
 			return true;
 		}
 		return false;
