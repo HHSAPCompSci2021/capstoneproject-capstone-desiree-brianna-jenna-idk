@@ -89,6 +89,18 @@ public class Player {
 	public void eatFruit(Fruit f) {
 		
 	}
+
+	/**
+	 * Removes a life from the Player
+	 * @return true if the Player now has 0 lives, false otherwise
+	 */
+	public boolean loseLife() {
+		lives--;
+		if(lives==0) {
+			return true;
+		}
+		return false;
+	}
 	
 	/**
 	 * Gets the x value of the Player's location
