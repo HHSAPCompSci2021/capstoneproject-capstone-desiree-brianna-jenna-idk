@@ -141,4 +141,16 @@ public class Player {
 	public void setY (int yval) {
 		ygrid = yval;
 	}
+	
+	/**
+	 * Determines if the Player and NamCap are at the same spot
+	 * @param n NamCap
+	 * @return true if at same location, false if not
+	 */
+	public boolean atSameLocation(NamCap n) {
+		if(n.getX()==getX() && n.getY()==getY()) {
+			return true;
+		}
+		return false;
+	}
 }
