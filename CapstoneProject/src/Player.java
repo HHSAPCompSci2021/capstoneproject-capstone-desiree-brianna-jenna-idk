@@ -14,6 +14,8 @@ public class Player {
 	private int score;
 	private int xgrid; //x value of player on grid
 	private int ygrid; //y value of player on grid
+	private int xi;
+	private int yi;
 	private int direction;
 	private int step;
 	private Map map;
@@ -26,7 +28,9 @@ public class Player {
 	public Player(PImage img, int x, int y, Map m) {
 		this.img = img;
 		xgrid = x;
+		xi=x;
 		ygrid = y;
+		yi=y;
 		type="";
 		score=0;
 		direction=-1;
@@ -96,10 +100,20 @@ public class Player {
 	 */
 	public boolean loseLife() {
 		lives--;
+		reset();
 		if(lives==0) {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Resets the Player to the starting position
+	 */
+	public void reset() {
+		setX(xi);
+		setY(yi);
+		direction=-1;
 	}
 	
 	/**
