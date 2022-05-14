@@ -133,52 +133,34 @@ public class NamCap {
 	* element is the location of the starting point and the last element is the location of the exit, or null if no path can be found.
 	*/
 	public ArrayList<Point> find(char target, Map grid) {
-		return(find(y / 30, x / 30, target, false, grid));
+		return(find(y / 30, x / 30, target, grid));
 	}
 
 	// Additional private recursive methods
-	private ArrayList<Point> find(int i, int j, char target, boolean hasCloak, Map grid)
+	private ArrayList<Point> find(int i, int j, char target, Map grid)
 	{	
 		// BASE CASES
 		// Are you out of the grid bounds?
 		if(i >= grid.getLength() || i < 0 || j > grid.getRowLength(i) || j < 0)
 		{
-			//System.out.println("Out of bounds.");
 			return null;
 		}
 
 		// Are you in a wall?
 		if(grid.get(i, j) == '#')
 		{
-			//System.out.println("At a #");
-			return null;
-		}
-		
-		// Are you somewhere you have been before, while holding the cloak?
-		if(grid.get(i, j) == '$')
-		{
-			//System.out.println("At a $");
 			return null;
 		}
 
 		// Are you somewhere you have been before while not holding the cloak, and you don't currently have the cloak?
-		if(grid.get(i, j) == '!' && hasCloak == false)
+		if(grid.get(i, j) == '!')
 		{
-			//System.out.println("At a ! and hasCloak");
-			return null;
-		}
-
-		// Are you at a monster, and you don't current have the cloak?
-		if(grid.get(i, j) == 'A' && hasCloak == false)
-		{
-			//System.out.println("At a A and don't have cloak");
 			return null;
 		}
 
 		// Are you at the exit?
 		if(grid.get(i, j) == target)
 		{
-			//System.out.println("At an X");
 			ArrayList<Point> path = new ArrayList<Point>();
 			path.add(new Point(i, j));
 			return path;
@@ -189,31 +171,15 @@ public class NamCap {
 		{
 			// Save the character at grid location x,y in a local variable for later use
 			char location = grid.get(i, j);
-			
-			// If this is the spot with the cloak, switch the hasCloak boolean to true
-			if(location == '@')
-			{
-				hasCloak = true;
-			}
-			
-			// Add a "breadcrumb" character to the grid at x,y. Use 2 different breadcrumb characters depending on whether hasCloak is true or not.
-			if(hasCloak) // if holding cloak, breadcrumb $
-			{
-				grid.set(i, j, '$');
-			}
-			
-			else // if not holding cloak, breadcrumb !
-			{
-				grid.set(i, j, '!');
-			}
+			grid.set(i, j, '!');
 			
 			// Recursively call findPath() 4 times - once in each of the 4 fundamental directions (one space up, down, left, and right). Save the ArrayList that is returned by each.
 			// Of the 4 ArrayLists that are returned, find the ArrayList that is not null and has the smallest size.
 			
-			ArrayList<Point> one = find(i, j - 1, target, hasCloak, grid);
-			ArrayList<Point> two = find(i - 1, j, target, hasCloak, grid);
-			ArrayList<Point> three = find(i, j + 1, target, hasCloak, grid);
-			ArrayList<Point> four = find(i + 1, j, target, hasCloak, grid);
+			ArrayList<Point> one = find(i, j - 1, target, grid);
+			ArrayList<Point> two = find(i - 1, j, target, grid);
+			ArrayList<Point> three = find(i, j + 1, target, grid);
+			ArrayList<Point> four = find(i + 1, j, target, grid);
 			
 			ArrayList<Point> min = new ArrayList<Point>();
 			
