@@ -105,7 +105,7 @@ public class DrawingSurface extends PApplet {
 			fill(255);
 			textSize(15);
 			textAlign(LEFT);
-			text("POINTS: ", width / 40, height / 20);
+			text("POINTS: "+player.getScore(), width / 40, height / 20);
 			
 			textAlign(RIGHT);
 			if (player.getLives() == 3) {

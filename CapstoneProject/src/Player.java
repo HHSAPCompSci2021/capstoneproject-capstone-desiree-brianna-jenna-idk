@@ -181,4 +181,12 @@ public class Player {
 	public void increaseScore(int points) {
 		score+=points;
 	}
+	
+	/**
+	 * Returns the score of the Player
+	 * @return score
+	 */
+	public int getScore() {
+		return score;
+	}
 }
