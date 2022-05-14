@@ -49,12 +49,14 @@ public class NamCap {
 	 * Otherwise, naM-caP will try and travel to the nearest kiwi.
 	 * 
 	 * @param grid The Map naM-caP is on.
+	 * @param player The Player on the grid.
 	 */
-	public void act(Map grid)
+	public void act(Map grid, Player player)
 	{	
+		//System.out.println(hasKiwi);
 		if(!hasKiwi)
 		{
-			ArrayList<Point> fruitLoc = find('k', grid);
+			ArrayList<Point> fruitLoc = find('k', player, grid);
 			if(fruitLoc != null && fruitLoc.size() > 1)
 			{
 				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30;
@@ -64,10 +66,13 @@ public class NamCap {
 		
 		else if(hasKiwi)
 		{
-			step = 3.5;
-//			ArrayList<Point> playerLoc = find()
-			// find shortest distance to player
-			// chase the player
+			ArrayList<Point> playerLoc = findLoc(player.getX(), player.getY(), grid);
+			System.out.println(playerLoc);
+			if(playerLoc != null && playerLoc.size() > 1)
+			{
+				x = (int) playerLoc.get(playerLoc.size() - 2).getY() * 30;
+				y = (int) playerLoc.get(playerLoc.size() - 2).getX() * 30;
+			}
 		}
 	}
 	
@@ -105,6 +110,7 @@ public class NamCap {
 		x=xi;
 		y=yi;
 		direction=0;
+		hasKiwi = false;
 	}
 	
 	/**
@@ -151,12 +157,24 @@ public class NamCap {
 	* @return An ArrayList containing the coordinates of all locations on the shortest path to the exit, where the first 
 	* element is the location of the starting point and the last element is the location of the exit, or null if no path can be found.
 	*/
-	public ArrayList<Point> find(char target, Map grid) {
-		return(find(y / 30, x / 30, target, grid));
+	public ArrayList<Point> find(char target, Player player, Map grid) {
+		return(find(y / 30, x / 30, target, player, grid));
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @param j
+	 * @param grid
+	 * @return
+	 */
+	public ArrayList<Point> findLoc(int i, int j, Map grid)
+	{
+		return(find(y / 30, x / 30, i / 30, j / 30, grid));
 	}
 
 	// Additional private recursive methods
-	private ArrayList<Point> find(int i, int j, char target, Map grid)
+	private ArrayList<Point> find(int i, int j, char target, Player player, Map grid)
 	{	
 		// BASE CASES
 		// Are you out of the grid bounds?
@@ -165,14 +183,8 @@ public class NamCap {
 			return null;
 		}
 
-		// Are you in a wall?
-		if(grid.get(i, j) == '#')
-		{
-			return null;
-		}
-
-		// Are you somewhere you have been before while not holding the cloak, and you don't currently have the cloak?
-		if(grid.get(i, j) == '!')
+		// Are you in a wall? Are you somewhere you have been before? Is there a player in the way?
+		if(grid.get(i, j) == '#' || grid.get(i, j) == '!' || i == player.getX() / 30 || j == player.getY() / 30)
 		{
 			return null;
 		}
@@ -195,10 +207,10 @@ public class NamCap {
 			// Recursively call findPath() 4 times - once in each of the 4 fundamental directions (one space up, down, left, and right). Save the ArrayList that is returned by each.
 			// Of the 4 ArrayLists that are returned, find the ArrayList that is not null and has the smallest size.
 			
-			ArrayList<Point> one = find(i, j - 1, target, grid);
-			ArrayList<Point> two = find(i - 1, j, target, grid);
-			ArrayList<Point> three = find(i, j + 1, target, grid);
-			ArrayList<Point> four = find(i + 1, j, target, grid);
+			ArrayList<Point> one = find(i, j - 1, target, player, grid);
+			ArrayList<Point> two = find(i - 1, j, target, player, grid);
+			ArrayList<Point> three = find(i, j + 1, target, player, grid);
+			ArrayList<Point> four = find(i + 1, j, target, player, grid);
 			
 			ArrayList<Point> min = new ArrayList<Point>();
 			
@@ -260,6 +272,118 @@ public class NamCap {
 			{
 				// Add this location to the beginning of the list, then return it.
 				min.add(new Point(i, j)); 
+				return min;
+			}
+		}
+						
+		return null;
+	}
+	
+	private ArrayList<Point> find(int x, int y, int i, int j, Map grid)
+	{	
+		//System.out.println("x: " + x + ", y: " + y + ", i: " + i + ", j: " + j);
+		// BASE CASES
+		// Are you out of the grid bounds?
+		if(x >= grid.getLength() || x < 0 || y > grid.getRowLength(x) || y < 0)
+		{
+			return null;
+		}
+
+		// Are you in a wall?
+		if(grid.get(x, y) == '#')
+		{
+			return null;
+		}
+
+		// Are you somewhere you have been before?
+		if(grid.get(x, y) == '!')
+		{
+			return null;
+		}
+
+		// Are you at the exit?
+		if(x == i && y == j)
+		{
+			ArrayList<Point> path = new ArrayList<Point>();
+			path.add(new Point(x, y));
+			return path;
+		}
+				
+		// RECURSIVE CASE
+		else
+		{
+			// Save the character at grid location x,y in a local variable for later use
+			char location = grid.get(x, y);
+			grid.set(x, y, '!');
+			
+			// Recursively call findPath() 4 times - once in each of the 4 fundamental directions (one space up, down, left, and right). Save the ArrayList that is returned by each.
+			// Of the 4 ArrayLists that are returned, find the ArrayList that is not null and has the smallest size.
+			
+			ArrayList<Point> one = find(x, y - 1, i, j, grid);
+			ArrayList<Point> two = find(x - y, j, i, j, grid);
+			ArrayList<Point> three = find(x, y + 1, i, j, grid);
+			ArrayList<Point> four = find(x + 1, y, i, j, grid);
+			
+			ArrayList<Point> min = new ArrayList<Point>();
+			
+			if(one != null)
+			{
+				min = one;
+			}
+			
+			else if(two != null)
+			{
+				min = two;
+			}
+			
+			else if(three != null)
+			{
+				min = three;
+			}
+			
+			else if(four != null)
+			{
+				min = four;
+			}
+			
+			if(two != null)
+			{
+				if(two.size() < min.size())
+				{
+					min = two;
+				}
+			}
+			
+			if(three != null)
+			{
+				if(three.size() < min.size())
+				{
+					min = three;
+				}
+			}
+			
+			if(four != null)
+			{
+				if(four.size() < min.size())
+				{
+					min = four;
+				}
+			}
+
+			// Put the original saved character back into the grid at x,y (to remove the breadcrumb and prevent any permanent modification to the grid)
+			grid.set(x, y, location);
+			
+			// If all 4 of the ArrayLists returned by the recursive calls are null:
+			if(one == null && two == null && three == null && four == null)
+			{
+				return null;
+			}
+			
+			// If you have found the smallest non-null ArrayList:
+			if(min.size() != 0)
+			{
+				// Add this location to the beginning of the list, then return it.
+				min.add(new Point(x, y)); 
 				return min;
 			}
 		}
