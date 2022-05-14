@@ -7,7 +7,7 @@ import processing.core.PFont;
 import processing.core.PImage;
 
 /**
- * draws the surface
+ * Draws the graphics of the game.
  * 
  * @author Desiree, Jenna
  *
@@ -22,8 +22,7 @@ public class DrawingSurface extends PApplet {
 	private Map map;
 	private NamCap namCap;
 	private Player player;
-	private Kiwi kiwi;
-	private int count = 0;
+	private int playerCount, namCapCount;
 	private int lifeCount = 3;
 
 	/**
@@ -53,7 +52,6 @@ public class DrawingSurface extends PApplet {
 		retry = loadImage("img/retry.png");
 		home = loadImage("img/home.png");
 		fruit = loadImage("img/kiwi.png");
-		kiwi = new Kiwi (loadImage("img/kiwi.png"), 0, 0);
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 	}
 
@@ -61,7 +59,8 @@ public class DrawingSurface extends PApplet {
 	 * draws things
 	 */
 	public void draw() {
-		count ++;
+		playerCount++;
+		namCapCount++;
 		textFont(emulogic);
 		imageMode(CENTER);
 		boolean print2 = false;
@@ -115,7 +114,7 @@ public class DrawingSurface extends PApplet {
 				text("HIGHSCORE: " + 2, width - width / 40, height / 20);
 			} 
 			
-			System.out.println(namCap.getX() + "," + namCap.getY() + " and " + player.getX() + "," + player.getY());
+			//System.out.println(namCap.getX() + "," + namCap.getY() + " and " + player.getX() + "," + player.getY());
 //			} else if (life() == 2) {
 //				text("HIGHSCORE: 2", width - width / 40, height / 20);
 //				lifeCount = 1;
@@ -125,10 +124,13 @@ public class DrawingSurface extends PApplet {
 //			} else if (life() == -24) {
 //				text("HIGHSCORE: " + 0, width - width / 40, height / 20);
 			
-			
-			
 			// namcap
-			namCap.act(map);
+			if(namCapCount > 8)
+			{
+				namCap.act(map);
+				namCapCount = 0;
+			}
+			
 			namCap.draw(this);
 			
 			//fruit
@@ -140,10 +142,11 @@ public class DrawingSurface extends PApplet {
 //			}
 			
 			//makes player move by grid and slower
-			if (count > 8) {
+			if (playerCount > 8) {
 				player.move();
-				count = 0;
+				playerCount = 0;
 			}
+			
 			player.draw(this);
 			
 			

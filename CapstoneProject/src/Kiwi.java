@@ -26,22 +26,6 @@ public class Kiwi extends Fruit {
 	}
 	
 	/**
-	 * Gets the x value of the Player's location
-	 * @return x value of Player's location
-	 */
-	public int getX() {
-		return x;
-	}
-	
-	/**
-	 * Gets the y value of the Player's location
-	 * @return y value of the Player's location
-	 */
-	public int getY() {
-		return y;
-	}
-	
-	/**
 	 * Draws a kiwi.
 	 * @param g The PApplet used to draw.
 	 */

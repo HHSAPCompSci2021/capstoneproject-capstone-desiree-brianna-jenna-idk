@@ -16,13 +16,14 @@ import processing.core.PApplet;
 public class Map {
 
 	protected char[][] grid;
+	private float rx, ry;
 	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
 	
 	/**
 	 * Construct an empty 2D array with some default dimensions.
 	 */
 	public Map() {
-		grid = new char[20][30]; //y, x
+		grid = new char[20][30]; // y, x
 	}
 	
 	/**
@@ -47,14 +48,14 @@ public class Map {
 	 */
 	public void draw(PApplet marker, float x, float y, float width, float height) {
 		marker.fill(255);
+		marker.noStroke();
 		float rw = 30;
 		float rh = 30;
 		
-		marker.noStroke();
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {				
-				float rx = x + j * rw;
-				float ry = y + i * rw;
+				rx = x + j * rw;
+				ry = y + i * rw;
 				
 				char a = grid[i][j];
 				
@@ -132,7 +133,7 @@ public class Map {
 	 * @return if the next location is valid path or not
 	 */
 	public boolean isValidLocation(int x, int y) {
-		return grid[y/30][x/30]=='.';
+		return grid[y/30][x/30]=='.' || grid[y/30][x/30]=='k';
 	}
 
 	/**

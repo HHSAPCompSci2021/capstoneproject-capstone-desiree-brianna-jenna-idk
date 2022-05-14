@@ -121,18 +121,4 @@ public class Player {
 	public void setY (int yval) {
 		ygrid = yval;
 	}
-//	/**
-//	 * (Graphical UI)
-//	 * Draws the Player on a PApplet.
-//	 * The specific way the grid is depicted is up to the coder.
-//	 * 
-//	 * @param marker The PApplet used for drawing.
-//	 * @param x The x pixel coordinate of the upper left corner of the grid drawing. 
-//	 * @param y The y pixel coordinate of the upper left corner of the grid drawing.
-//	 * @param width The pixel width of the grid drawing.
-//	 * @param height The pixel height of the grid drawing.
-//	 */
-//	public void draw(PApplet marker, float x, float y, float width, float height) {
-//		
-//	}
 }

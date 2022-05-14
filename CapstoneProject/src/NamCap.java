@@ -53,16 +53,21 @@ public class NamCap {
 		if(!hasKiwi)
 		{
 			ArrayList<Point> fruitLoc = find('k', grid);
-			if(fruitLoc != null && fruitLoc.size() != 0)
+			if(fruitLoc != null && fruitLoc.size() > 1)
 			{
-				x = (int) fruitLoc.get(0).getX();
-				y = (int) fruitLoc.get(0).getY();
+				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30;
+				y = (int) fruitLoc.get(fruitLoc.size() - 2).getX() * 30;
 			}
+			//System.out.println("x: " + x + ", y: " + y);
 		}
 		
-		step = 3.5;
+		else if(hasKiwi)
+		{
+			step = 3.5;
+//			ArrayList<Point> playerLoc = find()
 			// find shortest distance to player
 			// chase the player
+		}
 	}
 	
 	/**
@@ -129,22 +134,7 @@ public class NamCap {
 	* element is the location of the starting point and the last element is the location of the exit, or null if no path can be found.
 	*/
 	public ArrayList<Point> find(char target, Map grid) {
-		ArrayList<Point> answer = find(x, y, target, false, grid);
-		if(answer != null)
-		{
-			for(int i = 0; i < answer.size(); i++)
-			{
-				grid.set((int) answer.get(i).getX(), (int) answer.get(i).getY(), ')');
-			}
-			
-			return find(x, y, target, false, grid);
-		}
-		
-		else
-		{
-			//System.out.println("No path found.");
-			return null;
-		}
+		return(find(y / 30, x / 30, target, false, grid));
 	}
 
 	// Additional private recursive methods
@@ -152,7 +142,7 @@ public class NamCap {
 	{	
 		// BASE CASES
 		// Are you out of the grid bounds?
-		if(i > grid.getLength() || i < 0 || j > grid.getRowLength(i) || j < 0)
+		if(i >= grid.getLength() || i < 0 || j > grid.getRowLength(i) || j < 0)
 		{
 			//System.out.println("Out of bounds.");
 			return null;
