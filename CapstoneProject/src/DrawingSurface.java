@@ -108,11 +108,11 @@ public class DrawingSurface extends PApplet {
 			text("POINTS: ", width / 40, height / 20);
 			
 			textAlign(RIGHT);
-			if (life() == 3) {
+			if (player.getLives() == 3) {
 			text("HIGHSCORE: " + 3, width - width / 40, height / 20);
 			
 			}
-			if (life() == 2) {
+			if (player.getLives() == 2) {
 				text("HIGHSCORE: " + 2, width - width / 40, height / 20);
 			} 
 			
@@ -189,38 +189,6 @@ public class DrawingSurface extends PApplet {
 
 		}
 	}
-
-	/**
-	 * finds the amount of lifes left
-	 * @return int of lifes left
-	 */
-	public int life() {
-		boolean print3 = true;
-		boolean print2 = false;
-		boolean print1 = false;
-		boolean print0 = false;
-		int whichPrint = 3;
-		//counter to see how many times it passes coordinate, to print lives??
-		if (namCap.getX() == player.getX() && namCap.getY() == player.getY()) { // and player is not on a rampagge
-			if (print3) {
-				print2 = true;
-				whichPrint = 2;
-				print3 = false;
-			}
-//			} else if (lifeCount == 2) {
-//				lifeCount = 1; 
-//				return lifeCount;
-//			} else if (lifeCount == 1) {
-//				lifeCount = 0;
-//				return lifeCount;
-//			}
-			//for testing purposes look line 132
-			//lifeCount --;
-		} else if (namCap.getX() == player.getX() && namCap.getY() == player.getY()) { //and player is on a rampage
-			lifeCount--;
-		}
-		return whichPrint;
-		}
 	
 	/**
 	 * moves the player based on the keys pressed, using the up, down, left, right arrow keys
