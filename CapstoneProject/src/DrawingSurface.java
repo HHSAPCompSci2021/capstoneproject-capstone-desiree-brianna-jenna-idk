@@ -111,6 +111,7 @@ public class DrawingSurface extends PApplet {
 			
 			//fruit
 			ArrayList<Kiwi> kiwis = map.getKiwis();
+			System.out.println(kiwis.size());
 			for(int i = 0; i < kiwis.size(); i++)
 			{
 				if(namCap.atSameLocation(kiwis.get(i)))
@@ -125,6 +126,11 @@ public class DrawingSurface extends PApplet {
 				kiwiCount++;
 				if(kiwiCount%100==0) {
 					namCap.wearOutKiwi();
+					System.out.println(kiwis.size());
+					if(kiwis.size()==0) {
+						System.out.println("reset map");
+						map = new Map("map/test1.txt");
+					}
 				}
 			}			
 			// namcap
