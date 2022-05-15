@@ -7,7 +7,7 @@ import processing.core.PImage;
  * 
  * naM-caP is the main antagonist of the game, whose goal is to eat kiwis to gain the ability to hunt the player down.
  * 
- * @author Jenna Wang
+ * @author Brianna, Desiree, Jenna
  * 
  */
 public class NamCap {

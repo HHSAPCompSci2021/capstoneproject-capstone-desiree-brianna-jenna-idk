@@ -4,7 +4,7 @@ import processing.core.PImage;
 /**
  * Player is the protagonist of the game that the user controls. The objective of the Player is to catch naM-caP, unless naM-caP is in its superpower phase, and earn as many points as possible
  * 
- * @author Brianna Wang
+ * @author Brianna, Desiree, Jenna
  */
 public class Player {
 	private PImage img;

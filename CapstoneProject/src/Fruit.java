@@ -4,7 +4,7 @@ import processing.core.PApplet;
  * 
  * Represents the fruits that have special abilities.
  * 
- * @author Jenna Wang
+ * @author Brianna, Jenna
  *
  */
 public abstract class Fruit {

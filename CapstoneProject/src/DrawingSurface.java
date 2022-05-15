@@ -7,7 +7,7 @@ import processing.core.PImage;
 /**
  * Draws the graphics of the game.
  * 
- * @author Desiree, Jenna
+ * @author Brianna, Desiree, Jenna
  *
  */
 public class DrawingSurface extends PApplet {

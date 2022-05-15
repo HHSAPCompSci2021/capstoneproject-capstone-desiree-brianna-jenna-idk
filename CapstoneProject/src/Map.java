@@ -8,7 +8,7 @@ import processing.core.PApplet;
 /** 
  * Draws the Map of the game.
  * 
- * @author Desiree
+ * @author Brianna, Desiree, Jenna
  *
  */
 public class Map {
