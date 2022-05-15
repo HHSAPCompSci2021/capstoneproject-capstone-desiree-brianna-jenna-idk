@@ -17,6 +17,7 @@ public class Player {
 	private int step;
 	private Map map;
 	private int lives;
+	private int highscore;
 	
 
 	/**
@@ -197,5 +198,33 @@ public class Player {
 	 */
 	public int getScore() {
 		return score;
+	}
+	
+	/**
+	 * @return The Player's high score.
+	 */
+	public int getHighScore()
+	{
+		return highscore;
+	}
+	
+	/**
+	 * Sets the high score of the Player.
+	 * 
+	 * @param hs The new high score.
+	 */
+	public void setHighScore(int hs)
+	{
+		highscore = hs;
+	}
+	
+	/**
+	 * Sets the score of the Player.
+	 * 
+	 * @param score The new score.
+	 */
+	public void setScore(int score)
+	{
+		this.score = score;
 	}
 }

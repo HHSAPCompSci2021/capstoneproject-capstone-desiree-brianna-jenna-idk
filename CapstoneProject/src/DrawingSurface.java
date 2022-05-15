@@ -104,16 +104,10 @@ public class DrawingSurface extends PApplet {
 			fill(255);
 			textSize(15);
 			textAlign(LEFT);
-			text("POINTS: "+player.getScore(), width / 40, height / 20);
+			text("POINTS: "+player.getScore(), width / 40, height / 28);
 			
 			textAlign(RIGHT);
-			if (player.getLives() == 3) {
-			text("HIGHSCORE: " + 3, width - width / 40, height / 20);
-			
-			}
-			if (player.getLives() == 2) {
-				text("HIGHSCORE: " + 2, width - width / 40, height / 20);
-			} 
+			text("HIGHSCORE: " + player.getHighScore(), width - width / 40, height / 28);
 			
 			//fruit
 			ArrayList<Kiwi> kiwis = map.getKiwis();
@@ -138,11 +132,11 @@ public class DrawingSurface extends PApplet {
 			{
 				namCap.act(map, player);
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-					System.out.println("player eats namCap");
+					//System.out.println("player eats namCap");
 					player.increaseScore(50);
 					namCap.reset();
 				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
-					System.out.println("namCap eats player");
+					//System.out.println("namCap eats player");
 					player.loseLife();
 					namCap.reset();
 				}
@@ -154,11 +148,11 @@ public class DrawingSurface extends PApplet {
 			if (playerCount%8==0) {
 				player.move();
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-					System.out.println("player eats namCap");
+					//System.out.println("player eats namCap");
 					player.increaseScore(50);
 					namCap.reset();
 				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
-					System.out.println("namCap eats player");
+					//System.out.println("namCap eats player");
 					player.loseLife();
 					namCap.reset();
 				}
@@ -184,10 +178,15 @@ public class DrawingSurface extends PApplet {
 		
 		else if (endScreen) {
 			background(0);
-			fill(255);
 			textSize(50);
 			textAlign(CENTER);
 			fill(255, 255, 0);
+			
+			if(player.getHighScore() < player.getScore())
+			{
+				player.setHighScore(player.getScore());
+			}
+			
 			text("GAME OVER", 400, 100);
 
 			// selected ghost with tear
@@ -197,14 +196,13 @@ public class DrawingSurface extends PApplet {
 			textAlign(LEFT);
 			textSize(20);
 			fill(255);
-			text("POINTS: ", width / 2 - width / 20, height / 2 - height / 10);
-			text("HIGHSCORE: ", width / 2 - width / 20, height / 2);
+			text("POINTS: " + player.getScore(), width / 2 - width / 15, height / 2 - height / 10);
+			text("HIGHSCORE: " + player.getHighScore(), width / 2 - width / 15, height / 2);
 			
 			// buttons
 			imageMode(CORNER);
 			image(home, width / 2 - width / 20, height / 2 + height / 10, width / 5, height / 10);
 			image(retry, width / 2 + width / 5, height / 2 + height / 10, width / 5, height / 10);
-
 		}
 	}
 	
@@ -280,6 +278,7 @@ public class DrawingSurface extends PApplet {
 			
 			if(mouseX > width / 2 && mouseX < width / 2 + width / 5 + width / 5 && mouseY > height / 2 && mouseY < height / 2 + height / 5)
 			{
+				player.setScore(0);
 				playScreen = true;
 				player.resetLives();
 				player.reset();
