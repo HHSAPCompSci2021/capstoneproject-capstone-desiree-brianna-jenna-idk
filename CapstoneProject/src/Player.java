@@ -68,13 +68,13 @@ public class Player {
 			newY+=step;
 		}
 		if(newX<0) {
-			newX+=885;
+			newX+=900;
 		}else if (newX>=885) {
-			newX-=885;
+			newX-=900;
 		}else if(newY<0) {
-			newY+=585;
+			newY+=600;
 		}else if (newY>=585) {
-			newY-=585;
+			newY-=600;
 		}
 		if(map.isValidLocation(newX,newY)) {
 			xgrid=newX;

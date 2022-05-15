@@ -59,8 +59,8 @@ public class NamCap {
 			//System.out.println(fruitLoc);
 			if(fruitLoc != null && fruitLoc.size() > 1)
 			{
-				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30;
-				y = (int) fruitLoc.get(fruitLoc.size() - 2).getX() * 30;
+				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30 + 15;
+				y = (int) fruitLoc.get(fruitLoc.size() - 2).getX() * 30 + 15;
 			}
 		}
 		
@@ -70,8 +70,8 @@ public class NamCap {
 			//System.out.println(playerLoc);
 			if(playerLoc != null && playerLoc.size() > 1)
 			{
-				x = (int) playerLoc.get(playerLoc.size() - 2).getY() * 30;
-				y = (int) playerLoc.get(playerLoc.size() - 2).getX() * 30;
+				x = (int) playerLoc.get(playerLoc.size() - 2).getY() * 30 + 15;
+				y = (int) playerLoc.get(playerLoc.size() - 2).getX() * 30 + 15;
 			}
 		}
 	}

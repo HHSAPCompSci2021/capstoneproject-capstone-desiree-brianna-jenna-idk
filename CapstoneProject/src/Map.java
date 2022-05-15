@@ -14,7 +14,6 @@ import processing.core.PApplet;
 public class Map {
 
 	private char[][] grid;
-	private float rx, ry;
 	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
 	
 	/**
@@ -51,8 +50,8 @@ public class Map {
 		
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {				
-				rx = x + j * rw;
-				ry = y + i * rw;
+				float rx = x + j * rw;
+				float ry = y + i * rw;
 				
 				char a = grid[i][j];
 				
@@ -74,13 +73,12 @@ public class Map {
 				
 				else if(a == 'k')
 				{
-					marker.fill(255);
+					//marker.fill(255);
 					marker.rect(rx,  ry,  rw,  rh);
-					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+15);
+					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+16);
 					kiwi.draw(marker);
 					kiwis.add(kiwi);
 				}
-				
 			}
 		}
 	}
