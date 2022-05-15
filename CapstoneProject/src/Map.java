@@ -77,7 +77,10 @@ public class Map {
 					marker.rect(rx,  ry,  rw,  rh);
 					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+16);
 					kiwi.draw(marker);
-					kiwis.add(kiwi);
+					if(kiwis.size() <= 3)
+					{
+						kiwis.add(kiwi);
+					}
 				}
 			}
 		}
