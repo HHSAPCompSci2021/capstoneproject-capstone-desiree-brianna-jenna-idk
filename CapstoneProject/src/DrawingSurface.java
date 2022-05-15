@@ -20,7 +20,7 @@ public class DrawingSurface extends PApplet {
 	private Map map;
 	private NamCap namCap;
 	private Player player;
-	private int playerCount, namCapCount;
+	private int playerCount, namCapCount, kiwiCount;
 
 	/**
 	 * Declares the values for specific variables.
@@ -48,6 +48,7 @@ public class DrawingSurface extends PApplet {
 		kiwi = loadImage("img/kiwi.png");
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
+		kiwiCount=1;
 	}
 
 	/**
@@ -121,11 +122,17 @@ public class DrawingSurface extends PApplet {
 				if(namCap.atSameLocation(kiwis.get(i)))
 				{
 					namCap.eatFruit(kiwis.get(i));
+					kiwiCount=1;
 					kiwis.get(i).remove(map);
 					kiwis.remove(i);
 				}
 			}
-			
+			if(namCap.hasEatenKiwi()) {
+				kiwiCount++;
+				if(kiwiCount%100==0) {
+					namCap.wearOutKiwi();
+				}
+			}			
 			// namcap
 			if(namCapCount%8==0)
 			{

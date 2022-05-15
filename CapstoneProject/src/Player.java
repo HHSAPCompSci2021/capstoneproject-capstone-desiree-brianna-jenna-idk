@@ -189,6 +189,7 @@ public class Player {
 	 */
 	public void increaseScore(int points) {
 		score+=points;
+		reset();
 	}
 	
 	/**

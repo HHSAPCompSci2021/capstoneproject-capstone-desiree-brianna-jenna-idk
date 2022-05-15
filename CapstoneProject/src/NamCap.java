@@ -149,6 +149,13 @@ public class NamCap {
 	}
 	
 	/**
+	 * Changes hasKiwi to false
+	 */
+	public void wearOutKiwi() {
+		hasKiwi=false;
+	}
+	
+	/**
 	 * Finds a character in the Map in the smallest number of moves.
 	 * 
 	 * @param target The target character.
