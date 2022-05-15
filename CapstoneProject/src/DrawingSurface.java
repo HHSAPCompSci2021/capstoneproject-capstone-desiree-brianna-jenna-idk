@@ -160,8 +160,15 @@ public class DrawingSurface extends PApplet {
 			player.draw(this);
 
 			// lives on bottom left
-			image(life1, width / 22, height - height / 10, width / 30, width / 30);
-			image(life2, (width / 22) * 2, height - height / 10, width / 30, width / 30);
+			if(player.getLives() >= 2)
+			{
+				image(life1, width / 22, height - height / 10, width / 30, width / 30);
+				if(player.getLives() == 3)
+				{
+					image(life2, (width / 22) * 2, height - height / 10, width / 30, width / 30);
+				}
+			}
+			
 			if(player.getLives()==0) {
 				endScreen=true;
 				playScreen=false;
