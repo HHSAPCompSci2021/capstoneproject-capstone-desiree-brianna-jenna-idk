@@ -3,6 +3,11 @@ import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * taken from recursionIn2DArrays
+ * @author Desiree
+ *
+ */
 public class Main {
 
 	public static void main(String args[]) {

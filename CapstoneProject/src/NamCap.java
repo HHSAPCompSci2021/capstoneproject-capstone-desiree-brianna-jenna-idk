@@ -84,6 +84,7 @@ public class NamCap {
 				x = (int) playerLoc.get(playerLoc.size() - 2).getY() * 30 + 15;
 				y = (int) playerLoc.get(playerLoc.size() - 2).getX() * 30 + 15;
 			}
+		//	System.out.println(playerLoc.get(playerLoc.size() - 2).getY() + " ");
 		}
 	}
 	

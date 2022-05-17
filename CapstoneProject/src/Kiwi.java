@@ -5,7 +5,7 @@ import processing.core.PImage;
  * 
  * Kiwi gives naM-caP the ability to hunt down the player.
  * 
- * @author Brianna, Jenna
+ * @author Brianna, Jenna, Desiree
  *
  */
 public class Kiwi extends Fruit {

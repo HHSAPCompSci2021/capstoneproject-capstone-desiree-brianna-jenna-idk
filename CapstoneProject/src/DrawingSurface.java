@@ -149,7 +149,7 @@ public class DrawingSurface extends PApplet {
 			namCap.draw(this);
 			
 			//makes player move by grid and slower
-			if (playerCount%8==0) {
+			if (playerCount%7==0) {
 				player.move();
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					//System.out.println("player eats namCap");
