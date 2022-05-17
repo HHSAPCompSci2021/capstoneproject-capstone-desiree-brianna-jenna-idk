@@ -162,7 +162,7 @@ public class NamCap {
 	/**
 	 * Changes hasKiwi to false
 	 */
-	public void wearOutKiwi() {
+	public void setKiwiFalse() {
 		hasKiwi=false;
 	}
 	
