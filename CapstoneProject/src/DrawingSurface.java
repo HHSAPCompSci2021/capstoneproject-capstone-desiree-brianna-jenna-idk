@@ -119,17 +119,16 @@ public class DrawingSurface extends PApplet {
 					kiwiCount=1;
 					kiwis.get(i).remove(map);
 					kiwis.remove(i);
+					if(kiwis.size()==0) {
+						map = new Map("map/test1.txt");
+					}
+					
 				}
 			}
 			if(namCap.hasEatenKiwi()) {
 				kiwiCount++;
 				if(kiwiCount%150==0) {
-					namCap.wearOutKiwi();
-					if(kiwis.size()==0) {
-						map = new Map("map/test1.txt");
-						player.reset();
-						namCap.reset();
-					}
+					namCap.setKiwiFalse();
 				}
 			}			
 			// namcap
