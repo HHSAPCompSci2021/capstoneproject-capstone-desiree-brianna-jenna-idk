@@ -41,7 +41,18 @@ public class NamCap {
 	 */
 	public void draw(PApplet g)
 	{
-		g.image(image, x, y, 30, 30);
+		if(hasKiwi)
+		{
+			g.push();
+			g.tint(0, 0, 255);
+			g.image(image, x, y, 30, 30);
+			g.pop();
+		}
+		
+		else
+		{
+			g.image(image, x, y, 30, 30);
+		}
 	}
 	
 	/**
@@ -56,7 +67,7 @@ public class NamCap {
 		if(!hasKiwi)
 		{
 			ArrayList<Point> fruitLoc = find('k', player, grid);
-			//System.out.println(fruitLoc);
+			System.out.println(fruitLoc);
 			if(fruitLoc != null && fruitLoc.size() > 1)
 			{
 				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30 + 15;
@@ -189,9 +200,11 @@ public class NamCap {
 			return null;
 		}
 
+		//System.out.println("i: " + i + ", j: " + j + ", (i, j): " + grid.get(i, j));
 		// Are you in a wall? Are you somewhere you have been before? Is there a player in the way?
-		if(grid.get(i, j) == '#' || grid.get(i, j) == '!' || i == player.getX() / 30 || j == player.getY() / 30 || grid.get(i, j) == '*')
+		if(grid.get(i, j) == '#' || grid.get(i, j) == '!' || (i == player.getX() / 30 && j == player.getY() / 30) || grid.get(i, j) == '*')
 		{
+			//System.out.println("here1");
 			return null;
 		}
 

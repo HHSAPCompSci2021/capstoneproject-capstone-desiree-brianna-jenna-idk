@@ -14,6 +14,7 @@ import processing.core.PApplet;
 public class Map {
 
 	private char[][] grid;
+	private int kCount;
 	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
 	
 	/**
@@ -77,7 +78,7 @@ public class Map {
 					marker.rect(rx,  ry,  rw,  rh);
 					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+16);
 					kiwi.draw(marker);
-					if(kiwis.size() <= 3)
+					if(kiwis.size() < kCount)
 					{
 						kiwis.add(kiwi);
 					}
@@ -107,9 +108,15 @@ public class Map {
 					while (in.hasNext()) {
 						String line = in.nextLine();
 						for(int i = 0; i < line.length(); i++)
+						{
 							if (count < gameData.length && i < gameData[count].length)
 								gameData[count][i] = line.charAt(i);
+							if(line.charAt(i) == 'k')
+							{
+								kCount++;
+							}
 
+						}
 						count++;
 					}
 

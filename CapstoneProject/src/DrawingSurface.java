@@ -38,7 +38,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		namCap = new NamCap(loadImage("img/namcap/right.png"), 75, 135);
+		namCap = new NamCap(loadImage("img/namcap/right.png"), 45, 360);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
 		rightarrow = loadImage("img/triangle.png");
