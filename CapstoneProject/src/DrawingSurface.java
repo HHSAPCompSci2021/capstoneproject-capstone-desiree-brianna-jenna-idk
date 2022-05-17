@@ -123,7 +123,7 @@ public class DrawingSurface extends PApplet {
 			}
 			if(namCap.hasEatenKiwi()) {
 				kiwiCount++;
-				if(kiwiCount%100==0) {
+				if(kiwiCount%150==0) {
 					namCap.wearOutKiwi();
 					if(kiwis.size()==0) {
 						map = new Map("map/test1.txt");
