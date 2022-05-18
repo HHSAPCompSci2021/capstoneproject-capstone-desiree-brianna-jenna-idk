@@ -56,7 +56,9 @@ public class Player {
 	public void move() {
 		int newX = xgrid;
 		int newY = ygrid;
+		
 		if (direction == 0) {
+			System.out.println("moving forward" + xgrid + "," + ygrid + "newX = " + newX);
 			newX += step;
 		} else if (direction == 90) {
 			newY -= step;
@@ -67,6 +69,7 @@ public class Player {
 		}
 		if (newX < 0) {
 			newX += 900;
+			System.out.println("trying to turn left");
 		} else if (newX >= 885) {
 			newX -= 900;
 		} else if (newY < 0) {
@@ -77,6 +80,18 @@ public class Player {
 		if (map.isValidLocation(newX, newY)) {
 			xgrid = newX;
 			ygrid = newY;
+		}
+		if (!map.isValidLocation(newX, newY)) {
+			if (direction == 0) {
+				System.out.println("forward" + xgrid + "," + ygrid + "newX = " + newX);
+				newX += step;
+			} else if (direction == 90) {
+				newY -= step;
+			} else if (direction == 180) {
+				newX -= step;
+			} else if (direction == 270) {
+				newY += step;
+			}
 		}
 	}
 
@@ -111,8 +126,16 @@ public class Player {
 		setX(xi);
 		setY(yi);
 		direction = -1;
+		hasStrawberry = false;
 	}
 
+	/**
+	 * @return true if naM-caP has eaten a kiwi, false if not.
+	 */
+	public boolean hasEatenStrawberry() {
+		return hasStrawberry;
+	}
+	
 	/**
 	 * @return The number of lives the Player has.
 	 */
@@ -195,7 +218,7 @@ public class Player {
 	/**
 	 * Changes hasKiwi to false
 	 */
-	public void setKiwiFalse() {
+	public void setStrawberryFalse() {
 		hasStrawberry=false;
 	}
 

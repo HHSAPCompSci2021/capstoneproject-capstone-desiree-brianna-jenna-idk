@@ -149,6 +149,12 @@ public class DrawingSurface extends PApplet {
 					player.increaseScore(100);
 				}
 			}
+			if (player.hasEatenStrawberry()) {
+				strawberryCount++;
+				if (strawberryCount % 150 == 0) {
+					player.setStrawberryFalse();
+				}
+			}
 			
 			// namcap
 			if(namCapCount%8==0)
