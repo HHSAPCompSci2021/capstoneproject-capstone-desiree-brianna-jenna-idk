@@ -20,7 +20,7 @@ public class DrawingSurface extends PApplet {
 	private Map map;
 	private NamCap namCap;
 	private Player player;
-	private int playerCount, namCapCount, kiwiCount;
+	private int playerCount, namCapCount, kiwiCount, strawberryCount;
 
 	/**
 	 * Declares the values for specific variables.
@@ -49,6 +49,7 @@ public class DrawingSurface extends PApplet {
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 		kiwiCount=1;
+		strawberryCount = 1;
 	}
 
 	/**
@@ -109,7 +110,7 @@ public class DrawingSurface extends PApplet {
 			textAlign(RIGHT);
 			text("HIGHSCORE: " + player.getHighScore(), width - width / 40, height / 28);
 			
-			//fruit
+			//kiwi
 			ArrayList<Kiwi> kiwis = map.getKiwis();
 			for(int i = 0; i < kiwis.size(); i++)
 			{
@@ -130,7 +131,25 @@ public class DrawingSurface extends PApplet {
 				if(kiwiCount%150==0) {
 					namCap.setKiwiFalse();
 				}
-			}			
+			}	
+			
+			//strawberry
+			ArrayList<Strawberry> strawberrys = map.getStrawberrys();
+			for (int j = 0; j < strawberrys.size(); j++)
+			{
+				if (player.atSameLocationFruit(strawberrys.get(j)))
+				{
+					player.eatFruit(strawberrys.get(j));
+					strawberryCount = 1;
+					strawberrys.get(j).remove(map);
+					strawberrys.remove(j);
+					if (strawberrys.size() == 0) {
+						map = new Map("map/test1.txt");
+					}
+					player.increaseScore(100);
+				}
+			}
+			
 			// namcap
 			if(namCapCount%8==0)
 			{
@@ -149,7 +168,7 @@ public class DrawingSurface extends PApplet {
 			namCap.draw(this);
 			
 			//makes player move by grid and slower
-			if (playerCount%7==0) {
+			if (playerCount%2==0) {
 				player.move();
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					//System.out.println("player eats namCap");

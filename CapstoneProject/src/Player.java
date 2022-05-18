@@ -11,15 +11,12 @@ import processing.core.PImage;
 public class Player {
 	private PImage img;
 	private int score;
-	private int xgrid; // x value of player on grid
-	private int ygrid; // y value of player on grid
-	private int xi;
-	private int yi;
-	private int direction;
-	private int step;
+	private int xgrid, ygrid; // x and y value of player on grid
+	private int xi, yi;
+	private int direction, step;
 	private Map map;
-	private int lives;
-	private int highscore;
+	private int lives, highscore;
+	private boolean hasStrawberry;
 
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0. X and
@@ -41,6 +38,7 @@ public class Player {
 		step = 30;
 		map = m;
 		lives = 3;
+		hasStrawberry = false;
 	}
 
 	/**
@@ -96,15 +94,6 @@ public class Player {
 	 */
 	public int getDirection() {
 		return direction;
-	}
-
-	/**
-	 * Eats the fruit that is on the same space as it
-	 * 
-	 * @param f The Fruit the Player eats.
-	 */
-	public void eatFruit(Fruit f) {
-
 	}
 
 	/**
@@ -181,6 +170,33 @@ public class Player {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean atSameLocationFruit(Fruit f) {
+		if (f.getX() / 30 == xgrid / 30 && f.getY() / 30 == ygrid / 30) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Eats the Fruit and gains a special ability depending on the Fruit.
+	 * 
+	 * @param f The Fruit eaten.
+	 */
+	public void eatFruit(Fruit f)
+	{
+		if(f instanceof Strawberry)
+		{
+			hasStrawberry = true;
+		}
+	}
+	
+	/**
+	 * Changes hasKiwi to false
+	 */
+	public void setKiwiFalse() {
+		hasStrawberry=false;
 	}
 
 	/**
