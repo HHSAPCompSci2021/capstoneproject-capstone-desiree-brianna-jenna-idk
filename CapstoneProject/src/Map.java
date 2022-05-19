@@ -14,8 +14,9 @@ import processing.core.PApplet;
 public class Map {
 
 	private char[][] grid;
-	private int kCount;
+	private int kCount, sCount;
 	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
+	private ArrayList<Strawberry> strawberrys = new ArrayList<Strawberry>();
 	
 	/**
 	 * Construct a 2D character array with some default dimensions.
@@ -83,6 +84,17 @@ public class Map {
 						kiwis.add(kiwi);
 					}
 				}
+				
+				else if(a == 's')
+				{
+					marker.rect(rx, ry, rw, rh);
+					Strawberry strawberry = new Strawberry(marker.loadImage("img/strawberry.png"), (int) ry + 15, (int) rx + 16);
+					strawberry.draw(marker);
+					if (strawberrys.size() < sCount)
+					{
+						strawberrys.add(strawberry);
+					}
+				}
 			}
 		}
 	}
@@ -114,6 +126,9 @@ public class Map {
 							if(line.charAt(i) == 'k')
 							{
 								kCount++;
+							} else if (line.charAt(i) == 's')
+							{
+								sCount++;
 							}
 
 						}
@@ -140,7 +155,7 @@ public class Map {
 	 * @return true if the next location is valid path or not.
 	 */
 	public boolean isValidLocation(int x, int y) {
-		return grid[y/30][x/30]=='.' || grid[y/30][x/30]=='k';
+		return grid[y/30][x/30]=='.' || grid[y/30][x/30]=='k' || grid[y/30][x/30] == 's';
 	}
 
 	/**
@@ -227,5 +242,12 @@ public class Map {
 		}
 		
 		return output;
+}
+	/**
+	 * @return An arraylist of the strawberrys on the map
+	 */
+	public ArrayList<Strawberry> getStrawberrys()
+	{
+		return strawberrys;
 	}
 } 
