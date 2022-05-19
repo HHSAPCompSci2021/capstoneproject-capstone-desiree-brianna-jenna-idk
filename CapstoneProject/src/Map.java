@@ -14,15 +14,19 @@ import processing.core.PApplet;
 public class Map {
 
 	private char[][] grid;
-	private int kCount, sCount;
-	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
-	private ArrayList<Strawberry> strawberrys = new ArrayList<Strawberry>();
+	private int kCount, sCount, eatenK, eatenS;
+	private ArrayList<Kiwi> kiwis;
+	private ArrayList<Strawberry> strawberrys;
 	
 	/**
 	 * Construct a 2D character array with some default dimensions.
 	 */
 	public Map() {
 		grid = new char[20][30]; // y, x
+		kiwis = new ArrayList<Kiwi>();
+		strawberrys = new ArrayList<Strawberry>();
+		eatenK = 0;
+		eatenS = 0;
 	}
 	
 	/**
@@ -32,6 +36,10 @@ public class Map {
 	public Map(String filename) {
 		grid = new char[20][30];
 		this.readData(filename, grid);
+		kiwis = new ArrayList<Kiwi>();
+		strawberrys = new ArrayList<Strawberry>();
+		eatenK = 0;
+		eatenS = 0;
 	}
 
 	/**
@@ -45,6 +53,9 @@ public class Map {
 	 * @param height The pixel height of the grid drawing.
 	 */
 	public void draw(PApplet marker, float x, float y, float width, float height) {
+		System.out.println(eatenK);
+		System.out.println(kCount);
+		System.out.println(kiwis.size());
 		marker.fill(255);
 		marker.noStroke();
 		float rw = 30;
@@ -75,11 +86,11 @@ public class Map {
 				
 				else if(a == 'k')
 				{
-					//marker.fill(255);
+					marker.fill(255);
 					marker.rect(rx,  ry,  rw,  rh);
 					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+16);
 					kiwi.draw(marker);
-					if(kiwis.size() < kCount)
+					if(kiwis.size() < kCount - eatenS)
 					{
 						kiwis.add(kiwi);
 					}
@@ -87,10 +98,11 @@ public class Map {
 				
 				else if(a == 's')
 				{
+					marker.fill(255);
 					marker.rect(rx, ry, rw, rh);
 					Strawberry strawberry = new Strawberry(marker.loadImage("img/strawberry.png"), (int) ry + 15, (int) rx + 16);
 					strawberry.draw(marker);
-					if (strawberrys.size() < sCount)
+					if (strawberrys.size() < sCount - eatenS)
 					{
 						strawberrys.add(strawberry);
 					}
@@ -244,10 +256,39 @@ public class Map {
 		return output;
 }
 	/**
-	 * @return An arraylist of the strawberrys on the map
+	 * @return An ArrayList of the strawberries on the map.
 	 */
 	public ArrayList<Strawberry> getStrawberrys()
 	{
 		return strawberrys;
+	}
+	
+	/**
+	 * Removes a Fruit from its given ArrayList.
+	 * 
+	 * @param f The Fruit to be removed.
+	 */
+	public void removeFruit(Fruit f)
+	{
+		if(f instanceof Kiwi)
+		{
+			kiwis.remove(f);
+		}
+		
+		if(f instanceof Strawberry)
+		{
+			strawberrys.remove(f);
+		}
+
+	}
+	
+	public void addEatenKiwis()
+	{
+		eatenK++;
+	}
+	
+	public void addEatenStrawberries()
+	{
+		eatenS++;
 	}
 } 

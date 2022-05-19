@@ -38,7 +38,8 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		namCap = new NamCap(loadImage("img/namcap/right.png"), 45, 360);
+		//namCap = new NamCap(loadImage("img/namcap/right.png"), 795, 45);
+		namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
 		rightarrow = loadImage("img/triangle.png");
@@ -90,7 +91,7 @@ public class DrawingSurface extends PApplet {
 			
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
-			player = new Player(loadImage("img/" + whichGhost + ".png"), 45, 45, map);
+			player = new Player(loadImage("img/" + whichGhost + ".png"), 135, 45, map);
 			life1 = loadImage("img/" + whichGhost + ".png");
 			life2 = loadImage("img/" + whichGhost + ".png");
 		}
@@ -112,14 +113,18 @@ public class DrawingSurface extends PApplet {
 			
 			//kiwi
 			ArrayList<Kiwi> kiwis = map.getKiwis();
+			
+			System.out.println(kiwis);
+	
 			for(int i = 0; i < kiwis.size(); i++)
 			{
 				if(namCap.atSameLocation(kiwis.get(i)))
 				{
 					namCap.eatFruit(kiwis.get(i));
 					kiwiCount=1;
-					kiwis.get(i).remove(map);
-					kiwis.remove(i);
+					kiwis.get(i).remove(map); // remove from map
+					map.removeFruit(kiwis.get(i)); // remove from arraylist
+					map.addEatenKiwis();
 					if(kiwis.size()==0) {
 						map = new Map("map/test1.txt");
 					}
@@ -141,18 +146,9 @@ public class DrawingSurface extends PApplet {
 				{
 					player.eatFruit(strawberrys.get(j));
 					strawberryCount = 1;
-					strawberrys.get(j).remove(map);
-					strawberrys.remove(j);
-					if (strawberrys.size() == 0) {
-						map = new Map("map/test1.txt");
-					}
-					player.increaseScore(100);
-				}
-			}
-			if (player.hasEatenStrawberry()) {
-				strawberryCount++;
-				if (strawberryCount % 150 == 0) {
-					player.setStrawberryFalse();
+					strawberrys.get(j).remove(map); // remove from map
+					map.removeFruit(strawberrys.get(j)); // remove from arraylist
+					map.addEatenStrawberries();
 				}
 			}
 			
@@ -163,6 +159,7 @@ public class DrawingSurface extends PApplet {
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					//System.out.println("player eats namCap");
 					player.increaseScore(50);
+					player.reset();
 					namCap.reset();
 				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
 					//System.out.println("namCap eats player");
@@ -179,6 +176,7 @@ public class DrawingSurface extends PApplet {
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					//System.out.println("player eats namCap");
 					player.increaseScore(50);
+					player.reset();
 					namCap.reset();
 				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
 					//System.out.println("namCap eats player");

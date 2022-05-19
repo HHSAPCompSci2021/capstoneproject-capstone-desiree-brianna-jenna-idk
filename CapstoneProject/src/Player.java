@@ -16,7 +16,6 @@ public class Player {
 	private int direction, step;
 	private Map map;
 	private int lives, highscore;
-	private boolean hasStrawberry;
 
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0. X and
@@ -38,7 +37,6 @@ public class Player {
 		step = 30;
 		map = m;
 		lives = 3;
-		hasStrawberry = false;
 	}
 
 	/**
@@ -126,16 +124,8 @@ public class Player {
 		setX(xi);
 		setY(yi);
 		direction = -1;
-		hasStrawberry = false;
 	}
 
-	/**
-	 * @return true if naM-caP has eaten a kiwi, false if not.
-	 */
-	public boolean hasEatenStrawberry() {
-		return hasStrawberry;
-	}
-	
 	/**
 	 * @return The number of lives the Player has.
 	 */
@@ -195,11 +185,12 @@ public class Player {
 		return false;
 	}
 	
+	/**
+	 * @param f The Fruit.
+	 * @return If the Player is at the same location as the given Fruit.
+	 */
 	public boolean atSameLocationFruit(Fruit f) {
-		if (f.getX() / 30 == xgrid / 30 && f.getY() / 30 == ygrid / 30) {
-			return true;
-		}
-		return false;
+		return(f.getX() / 30 == xgrid / 30 && f.getY() / 30 == ygrid / 30);
 	}
 	
 	/**
@@ -211,17 +202,10 @@ public class Player {
 	{
 		if(f instanceof Strawberry)
 		{
-			hasStrawberry = true;
+			increaseScore(100);
 		}
 	}
 	
-	/**
-	 * Changes hasKiwi to false
-	 */
-	public void setStrawberryFalse() {
-		hasStrawberry=false;
-	}
-
 	/**
 	 * Increases the Player's score by a certain amount.
 	 * 
@@ -229,7 +213,6 @@ public class Player {
 	 */
 	public void increaseScore(int points) {
 		score += points;
-		reset();
 	}
 
 	/**

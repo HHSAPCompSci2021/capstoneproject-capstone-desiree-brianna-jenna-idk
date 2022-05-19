@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 /**
  * 
- * Strawbetter awards the player 100 points if eaten.
+ * Strawberry awards the player 100 points if eaten.
  * 
  * @author Brianna, Jenna, Desiree
  *
