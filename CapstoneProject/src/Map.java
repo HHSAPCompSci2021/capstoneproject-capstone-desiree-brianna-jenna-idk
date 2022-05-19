@@ -190,4 +190,42 @@ public class Map {
 	{
 		return kiwis;
 	}
+	
+	/**
+	 * 
+	 * Code a toString() method that nicely prints the grid to the commandline.
+	 * 
+	 */
+	public String toString() {
+		String output = "";
+		
+		for(int i = 0; i < grid.length; i++) // rows, x-axis
+		{
+			for(int j = 0; j < grid[i].length; j++) // columns, y-axis
+			{
+				if(grid[i][j] == '#')
+				{
+					output += "#";
+				}
+				
+				else if(grid[i][j] == '*')
+				{
+					output += "*";
+				}
+				
+				else if(grid[i][j] == '.')
+				{
+					output += ".";
+				}
+				else if(grid[i][j] == 'k')
+				{
+					output += "k";
+				}
+			}
+			
+			output += "\n";
+		}
+		
+		return output;
+	}
 } 
