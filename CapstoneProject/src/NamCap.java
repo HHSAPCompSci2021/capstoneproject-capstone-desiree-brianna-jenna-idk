@@ -69,43 +69,9 @@ public class NamCap {
 	 */
 	public void act(Map grid, Player player)
 	{	
-		// bfs
-//		if(!hasKiwi)
-//		{
-//			Coordinate p = getKiwiPath(y / 30, x / 30, grid);
-//			while(p.getParent() != null) {
-//				//System.out.println("here");
-//				 fruitLoc.add(p);
-//				 p = p.getParent();
-//		     }
-//			
-//			//System.out.println(fruitLoc)
-//			 x = fruitLoc.get(fruitLoc.size() - 1).y * 30 + 15;
-//			 y = fruitLoc.get(fruitLoc.size() - 1).x * 30 + 15;
-//		}
-		
-//		else if(hasKiwi)
-//		{
-//			 
-//			 Coordinate p2 = getPlayerPath(x / 30, y / 30, grid, player);
-//			 while(p2.getParent() != null)
-//			 {
-//				 System.out.println(playerLoc);
-//				 playerLoc.add(p2);
-//				 p2 = p2.getParent();
-//			 }
-//			 
-//			 
-//			 x = playerLoc.get(playerLoc.size() - 1).y * 30 + 15;
-//			 y = playerLoc.get(playerLoc.size() - 1).x * 30 + 15;
-//		}
-		
-
-		// dfs
 		if(!hasKiwi)
 		{
 			ArrayList<Point> fruitLoc = find('k', player, grid);
-			//System.out.println(fruitLoc);
 			if(fruitLoc != null && fruitLoc.size() > 1)
 			{
 				x = (int) fruitLoc.get(fruitLoc.size() - 2).getY() * 30 + 15;
@@ -116,13 +82,11 @@ public class NamCap {
 		else if(hasKiwi)
 		{
 			ArrayList<Point> playerLoc = findLoc(player.getX(), player.getY(), grid);
-			//System.out.println(playerLoc);
 			if(playerLoc != null && playerLoc.size() > 1)
 			{
 				x = (int) playerLoc.get(playerLoc.size() - 2).getY() * 30 + 15;
 				y = (int) playerLoc.get(playerLoc.size() - 2).getX() * 30 + 15;
 			}
-		//	System.out.println(playerLoc.get(playerLoc.size() - 2).getY() + " ");
 		}
 		
 	}

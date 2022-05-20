@@ -2,8 +2,6 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import javax.swing.JCheckBox;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -17,15 +15,14 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
 	// private Image board;
-	private boolean startScreen, playScreen, endScreen;
-	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2;
+	private boolean startScreen, playScreen, endScreen, choiceScreen, kiwiButton, strawberryButton;
+	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, rectangle, cross;
 	private PFont emulogic;
 	private String whichGhost;
 	private Map map;
 	private NamCap namCap;
 	private Player player;
 	private int playerCount, namCapCount, kiwiCount, tempDir;
-	private JCheckBox strawberryButton, kiwiButton;
 	private ArrayList<Kiwi> kiwis;
 
 	/**
@@ -35,10 +32,13 @@ public class DrawingSurface extends PApplet {
 		startScreen = true;
 		playScreen = false;
 		endScreen = false;
+		choiceScreen = false;
 		map = new Map("map/test1.txt");
 		whichGhost = "blinky";
 		tempDir = -1;
 		kiwis = new ArrayList<Kiwi>();
+		kiwiButton = true;
+		strawberryButton = true;
 	}
 
 	/**
@@ -46,7 +46,6 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		// namCap = new NamCap(loadImage("img/namcap/right.png"), 795, 45);
 		namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
@@ -57,6 +56,8 @@ public class DrawingSurface extends PApplet {
 		kiwi = loadImage("img/kiwi.png");
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
+		rectangle = loadImage("img/rectangle.png");
+		cross = loadImage("img/cross.png");
 		kiwiCount = 1;
 	}
 
@@ -88,14 +89,6 @@ public class DrawingSurface extends PApplet {
 
 			textSize(14);
 			textAlign(LEFT);
-			
-		    kiwiButton = new JCheckBox("Chin");
-		    kiwiButton.setMnemonic(KeyEvent.VK_C); 
-		    kiwiButton.setSelected(true);
-
-		    strawberryButton = new JCheckBox("Glasses");
-		    strawberryButton.setMnemonic(KeyEvent.VK_G); 
-		    strawberryButton.setSelected(true);
 
 			// kiwi
 			image(kiwi, width - width / 3 + width / 20, height / 4 + height / (float) 6.5, width / 20, height / 15);
@@ -112,12 +105,26 @@ public class DrawingSurface extends PApplet {
 					((int) map.getPlayerInitialLocation().getY() * 30) + 15, map);
 			life1 = loadImage("img/" + whichGhost + ".png");
 			life2 = loadImage("img/" + whichGhost + ".png");
+
+			// checkboxes
+			image(rectangle, width / (float) 3.75 + width / (float) 2.5, height / 4 + height / (float) 6.5, width / 25,
+					height / 20);
+			image(rectangle, width / (float) 3.75 + width / (float) 2.5, height / 2 - height / 25, width / 25,
+					height / 20);
+			if (kiwiButton) {
+				image(cross, width / (float) 3.75 + width / (float) 2.5, height / 4 + height / (float) 6.5, width / 25,
+						height / 20);
+			}
+			if (strawberryButton) {
+				image(cross, width / (float) 3.75 + width / (float) 2.5, height / 2 - height / 25, width / 25,
+						height / 20);
+			}
 		} else if (playScreen) {
 			background(0);
 
 			if (map != null) {
 				map.draw(this, 0, 0, width / 3, height);
-				//System.out.println("width: " + width/3 + "height: " + height);
+				// System.out.println("width: " + width/3 + "height: " + height);
 			}
 
 			fill(255);
@@ -128,68 +135,66 @@ public class DrawingSurface extends PApplet {
 			textAlign(RIGHT);
 			text("HIGHSCORE: " + player.getHighScore(), width - width / 40, height / 28);
 
-			//kiwi
-			ArrayList<Point> kiwiLoc = map.getKiwiLoc();
-			//System.out.println(kiwiLoc);
-			int kiwiNum = 0;
-			for(Point p : kiwiLoc)
-			{
-				Kiwi k = new Kiwi(kiwi, p.x * 30 + 15, p.y * 30 + 16);
-				//System.out.println("p.x: " + p.x + ", p.y: " + p.y);
-				k.draw(this);
-				kiwiNum++;
-				if(kiwis.size() < kiwiNum)
-				{
-					kiwis.add(k);
+			// kiwi
+			if (kiwiButton) {
+				ArrayList<Point> kiwiLoc = map.getKiwiLoc();
+				int kiwiNum = 0;
+				for (Point p : kiwiLoc) {
+					Kiwi k = new Kiwi(kiwi, p.x * 30 + 15, p.y * 30 + 16);
+					k.draw(this);
+					kiwiNum++;
+					if (kiwis.size() < kiwiNum) {
+						kiwis.add(k);
+					}
 				}
-			}
-			
-			System.out.println(kiwis);
-	
-			for(int i = 0; i < kiwis.size(); i++)
-			{
-				if(namCap.atSameLocation(kiwis.get(i)))
-				{
-					namCap.eatFruit(kiwis.get(i));
-					kiwiCount=1;
-					map.set((kiwis.get(i).getY() - 15) / 30, (kiwis.get(i).getX() - 15) / 30, '.'); // remove from map
-					kiwis.remove(i); // remove from arraylist
-					map.removeKiwiLoc(i);
-					if (kiwis.size() == 0) {
-						map = new Map("map/test1.txt");
+
+				System.out.println(kiwis);
+
+				for (int i = 0; i < kiwis.size(); i++) {
+					if (namCap.atSameLocation(kiwis.get(i))) {
+						namCap.eatFruit(kiwis.get(i));
+						kiwiCount = 1;
+						map.set((kiwis.get(i).getY() - 15) / 30, (kiwis.get(i).getX() - 15) / 30, '.'); // remove from
+																										// map
+						kiwis.remove(i); // remove from arraylist
+						map.removeKiwiLoc(i);
+						if (kiwis.size() == 0) {
+							map = new Map("map/test1.txt");
+						}
+					}
+				}
+				if (namCap.hasEatenKiwi()) {
+					kiwiCount++;
+					if (kiwiCount % 150 == 0) {
+						namCap.setKiwiFalse();
 					}
 				}
 			}
-			if (namCap.hasEatenKiwi()) {
-				kiwiCount++;
-				if (kiwiCount % 150 == 0) {
-					namCap.setKiwiFalse();
+
+			// strawberry
+			if (strawberryButton) {
+				ArrayList<Point> strawberryLoc = map.getStrawberryLoc();
+				ArrayList<Strawberry> strawberrys = new ArrayList<Strawberry>();
+				for (Point p : strawberryLoc) {
+					Strawberry sb = new Strawberry(strawberry, p.x * 30 + 15, p.y * 30 + 16);
+					sb.draw(this);
+					strawberrys.add(sb);
 				}
-			}	
-			
-			//strawberry
-			ArrayList<Point> strawberryLoc = map.getStrawberryLoc();
-			ArrayList<Strawberry> strawberrys = new ArrayList<Strawberry>();
-			for(Point p : strawberryLoc)
-			{
-				Strawberry sb = new Strawberry(strawberry, p.x * 30 + 15, p.y * 30 + 16);
-				sb.draw(this);
-				strawberrys.add(sb);
-			}
-			
-			for (int j = 0; j < strawberrys.size(); j++)
-			{
-				if (player.atSameLocationFruit(strawberrys.get(j)))
-				{
-					player.eatFruit(strawberrys.get(j));
-					map.set((strawberrys.get(j).getY() - 15) / 30, (strawberrys.get(j).getX() - 15) / 30, '.'); // remove from map
-					strawberrys.remove(j); // remove from arraylist
-					map.removeStrawberryLoc(j);
+
+				for (int j = 0; j < strawberrys.size(); j++) {
+					if (player.atSameLocationFruit(strawberrys.get(j))) {
+						player.eatFruit(strawberrys.get(j));
+						map.set((strawberrys.get(j).getY() - 15) / 30, (strawberrys.get(j).getX() - 15) / 30, '.'); // remove
+																													// from
+																													// map
+						strawberrys.remove(j); // remove from arraylist
+						map.removeStrawberryLoc(j);
+					}
 				}
 			}
 
 			// namcap
-			if(namCapCount%8==0) {
+			if (namCapCount % 8 == 0) {
 				namCap.act(map, player);
 				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					player.increaseScore(50);
@@ -201,8 +206,8 @@ public class DrawingSurface extends PApplet {
 				}
 			}
 			namCap.draw(this);
-			
-			if(playerCount%8==0) {
+
+			if (playerCount % 8 == 0) {
 				if (player.canMove(tempDir)) {
 					player.setDirection(tempDir);
 				}
@@ -229,6 +234,9 @@ public class DrawingSurface extends PApplet {
 				endScreen = true;
 				playScreen = false;
 			}
+
+		} else if (choiceScreen) {
+			// dropdown menu with choice to choose between animals
 		} else if (endScreen) {
 			background(0);
 			textSize(50);
@@ -281,7 +289,11 @@ public class DrawingSurface extends PApplet {
 		if (startScreen) {
 			// play button
 			if (mouseX > width / 2 - width / 5 && mouseX < width / 2 + width / 5
-					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) { // change coords for new button
+					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) { // change
+																													// coords
+																													// for
+																													// new
+																													// button
 				startScreen = false;
 				playScreen = true;
 			}
@@ -299,13 +311,31 @@ public class DrawingSurface extends PApplet {
 					whichGhost = "clyde";
 					ghost = loadImage("img/clyde.png");
 				} else if (whichGhost.equals("clyde")) {
+					whichGhost = "choiceGhost";
+					ghost = loadImage("img/choiceGhost.png");
+				} else if (whichGhost.equals("choiceGhost")) {
 					whichGhost = "blinky";
 					ghost = loadImage("img/blinky.png");
+					choiceScreen = true;
 				}
 			}
 
 			// checkboxes for fruit
-
+			if (mouseX >= 575 && mouseX <= 605) {
+				if (mouseY <= (float) 3675 / 13 && mouseY >= (float) 3220 / 13) {
+					if (kiwiButton) {
+						kiwiButton = false;
+					} else {
+						kiwiButton = true;
+					}
+				} else if (mouseY >= (float) 3714 / 13 && mouseY <= (float) 4169 / 13) {
+					if (strawberryButton) {
+						strawberryButton = false;
+					} else {
+						strawberryButton = true;
+					}
+				}
+			}
 		}
 
 		else if (endScreen) {

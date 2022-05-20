@@ -1,5 +1,4 @@
 public class Coordinate {
-	
 	int x;
 	int y;
 	Coordinate parent;
