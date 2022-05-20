@@ -104,12 +104,6 @@ public class Player {
 		int newX = xgrid;
 		int newY = ygrid;
 
-		if (newX / 30 <= 20 && newY / 30 <= 30) {
-			if (map.get(newX / 30, newY / 30) == '*') {
-				newX -= step;
-			}
-		}
-
 		if (dir == 0) {
 			newX += step;
 		} else if (dir == 90) {
