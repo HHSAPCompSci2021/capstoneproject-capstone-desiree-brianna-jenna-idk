@@ -189,27 +189,32 @@ public class DrawingSurface extends PApplet {
 			}
 
 			// namcap
-			namCap.act(map, player);
-			if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-				player.increaseScore(50);
-				player.reset();
-				namCap.reset();
-			} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
-				player.loseLife();
-				namCap.reset();
+			if(namCapCount%8==0) {
+				namCap.act(map, player);
+				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+					player.increaseScore(50);
+					player.reset();
+					namCap.reset();
+				} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+					player.loseLife();
+					namCap.reset();
+				}
 			}
 			namCap.draw(this);
-			if (player.canMove(tempDir)) {
-				player.setDirection(tempDir);
-			}
-			player.move();
-			if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-				player.increaseScore(50);
-				player.reset();
-				namCap.reset();
-			} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
-				player.loseLife();
-				namCap.reset();
+			
+			if(playerCount%8==0) {
+				if (player.canMove(tempDir)) {
+					player.setDirection(tempDir);
+				}
+				player.move();
+				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+					player.increaseScore(50);
+					player.reset();
+					namCap.reset();
+				} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+					player.loseLife();
+					namCap.reset();
+				}
 			}
 			player.draw(this);
 
