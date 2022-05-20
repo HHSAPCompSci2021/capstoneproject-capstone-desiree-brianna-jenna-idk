@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -23,8 +24,9 @@ public class DrawingSurface extends PApplet {
 	private Map map;
 	private NamCap namCap;
 	private Player player;
-	private int playerCount, namCapCount, kiwiCount, tempDir, strawberryCount;
+	private int playerCount, namCapCount, kiwiCount, tempDir;
 	private JCheckBox strawberryButton, kiwiButton;
+	private ArrayList<Kiwi> kiwis;
 
 	/**
 	 * Declares the values for specific variables.
@@ -36,6 +38,7 @@ public class DrawingSurface extends PApplet {
 		map = new Map("map/test1.txt");
 		whichGhost = "blinky";
 		tempDir = -1;
+		kiwis = new ArrayList<Kiwi>();
 	}
 
 	/**
@@ -55,7 +58,6 @@ public class DrawingSurface extends PApplet {
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 		kiwiCount = 1;
-		strawberryCount = 1;
 	}
 
 	/**
@@ -115,7 +117,7 @@ public class DrawingSurface extends PApplet {
 
 			if (map != null) {
 				map.draw(this, 0, 0, width / 3, height);
-				System.out.println("width: " + width/3 + "height: " + height);
+				//System.out.println("width: " + width/3 + "height: " + height);
 			}
 
 			fill(255);
@@ -126,15 +128,33 @@ public class DrawingSurface extends PApplet {
 			textAlign(RIGHT);
 			text("HIGHSCORE: " + player.getHighScore(), width - width / 40, height / 28);
 
-			// kiwi
-			ArrayList<Kiwi> kiwis = map.getKiwis();
-			for (int i = 0; i < kiwis.size(); i++) {
-				if (namCap.atSameLocation(kiwis.get(i))) {
+			//kiwi
+			ArrayList<Point> kiwiLoc = map.getKiwiLoc();
+			//System.out.println(kiwiLoc);
+			int kiwiNum = 0;
+			for(Point p : kiwiLoc)
+			{
+				Kiwi k = new Kiwi(kiwi, p.x * 30 + 15, p.y * 30 + 16);
+				//System.out.println("p.x: " + p.x + ", p.y: " + p.y);
+				k.draw(this);
+				kiwiNum++;
+				if(kiwis.size() < kiwiNum)
+				{
+					kiwis.add(k);
+				}
+			}
+			
+			System.out.println(kiwis);
+	
+			for(int i = 0; i < kiwis.size(); i++)
+			{
+				if(namCap.atSameLocation(kiwis.get(i)))
+				{
 					namCap.eatFruit(kiwis.get(i));
-					kiwiCount = 1;
-					kiwis.get(i).remove(map); // remove from map
-					map.removeFruit(kiwis.get(i)); // remove from arraylist
-					map.addEatenKiwis();
+					kiwiCount=1;
+					map.set((kiwis.get(i).getY() - 15) / 30, (kiwis.get(i).getX() - 15) / 30, '.'); // remove from map
+					kiwis.remove(i); // remove from arraylist
+					map.removeKiwiLoc(i);
 					if (kiwis.size() == 0) {
 						map = new Map("map/test1.txt");
 					}
@@ -145,17 +165,26 @@ public class DrawingSurface extends PApplet {
 				if (kiwiCount % 150 == 0) {
 					namCap.setKiwiFalse();
 				}
+			}	
+			
+			//strawberry
+			ArrayList<Point> strawberryLoc = map.getStrawberryLoc();
+			ArrayList<Strawberry> strawberrys = new ArrayList<Strawberry>();
+			for(Point p : strawberryLoc)
+			{
+				Strawberry sb = new Strawberry(strawberry, p.x * 30 + 15, p.y * 30 + 16);
+				sb.draw(this);
+				strawberrys.add(sb);
 			}
-
-			// strawberry
-			ArrayList<Strawberry> strawberrys = map.getStrawberrys();
-			for (int j = 0; j < strawberrys.size(); j++) {
-				if (player.atSameLocationFruit(strawberrys.get(j))) {
+			
+			for (int j = 0; j < strawberrys.size(); j++)
+			{
+				if (player.atSameLocationFruit(strawberrys.get(j)))
+				{
 					player.eatFruit(strawberrys.get(j));
-					strawberryCount = 1;
-					strawberrys.get(j).remove(map); // remove from map
-					map.removeFruit(strawberrys.get(j)); // remove from arraylist
-					map.addEatenStrawberries();
+					map.set((strawberrys.get(j).getY() - 15) / 30, (strawberrys.get(j).getX() - 15) / 30, '.'); // remove from map
+					strawberrys.remove(j); // remove from arraylist
+					map.removeStrawberryLoc(j);
 				}
 			}
 
