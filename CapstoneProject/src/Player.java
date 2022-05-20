@@ -11,15 +11,11 @@ import processing.core.PImage;
 public class Player {
 	private PImage img;
 	private int score;
-	private int xgrid; // x value of player on grid
-	private int ygrid; // y value of player on grid
-	private int xi;
-	private int yi;
-	private int direction;
-	private int step;
+	private int xgrid, ygrid; // x and y value of player on grid
+	private int xi, yi;
+	private int direction, step;
 	private Map map;
-	private int lives;
-	private int highscore;
+	private int lives, highscore;
 
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0. X and
@@ -58,7 +54,9 @@ public class Player {
 	public void move() {
 		int newX = xgrid;
 		int newY = ygrid;
+		
 		if (direction == 0) {
+			System.out.println("moving forward" + xgrid + "," + ygrid + "newX = " + newX);
 			newX += step;
 		} else if (direction == 90) {
 			newY -= step;
@@ -69,6 +67,7 @@ public class Player {
 		}
 		if (newX < 0) {
 			newX += 900;
+			System.out.println("trying to turn left");
 		} else if (newX >= 885) {
 			newX -= 900;
 		} else if (newY < 0) {
@@ -79,6 +78,18 @@ public class Player {
 		if (map.isValidLocation(newX, newY)) {
 			xgrid = newX;
 			ygrid = newY;
+		}
+		if (!map.isValidLocation(newX, newY)) {
+			if (direction == 0) {
+				System.out.println("forward" + xgrid + "," + ygrid + "newX = " + newX);
+				newX += step;
+			} else if (direction == 90) {
+				newY -= step;
+			} else if (direction == 180) {
+				newX -= step;
+			} else if (direction == 270) {
+				newY += step;
+			}
 		}
 	}
 	
@@ -125,15 +136,6 @@ public class Player {
 	 */
 	public int getDirection() {
 		return direction;
-	}
-
-	/**
-	 * Eats the fruit that is on the same space as it
-	 * 
-	 * @param f The Fruit the Player eats.
-	 */
-	public void eatFruit(Fruit f) {
-
 	}
 
 	/**
@@ -211,7 +213,28 @@ public class Player {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * @param f The Fruit.
+	 * @return If the Player is at the same location as the given Fruit.
+	 */
+	public boolean atSameLocationFruit(Fruit f) {
+		return(f.getX() / 30 == xgrid / 30 && f.getY() / 30 == ygrid / 30);
+	}
+	
+	/**
+	 * Eats the Fruit and gains a special ability depending on the Fruit.
+	 * 
+	 * @param f The Fruit eaten.
+	 */
+	public void eatFruit(Fruit f)
+	{
+		if(f instanceof Strawberry)
+		{
+			increaseScore(100);
+		}
+	}
+	
 	/**
 	 * Increases the Player's score by a certain amount.
 	 * 
@@ -219,7 +242,6 @@ public class Player {
 	 */
 	public void increaseScore(int points) {
 		score += points;
-		reset();
 	}
 
 	/**

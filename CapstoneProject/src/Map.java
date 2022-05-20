@@ -15,14 +15,19 @@ import processing.core.PApplet;
 public class Map {
 
 	private char[][] grid;
-	private int kCount;
-	private ArrayList<Kiwi> kiwis = new ArrayList<Kiwi>();
+	private int kCount, sCount, eatenK, eatenS;
+	private ArrayList<Kiwi> kiwis;
+	private ArrayList<Strawberry> strawberrys;
 	
 	/**
 	 * Construct a 2D character array with some default dimensions.
 	 */
 	public Map() {
 		grid = new char[20][30]; // y, x
+		kiwis = new ArrayList<Kiwi>();
+		strawberrys = new ArrayList<Strawberry>();
+		eatenK = 0;
+		eatenS = 0;
 	}
 	
 	/**
@@ -32,6 +37,10 @@ public class Map {
 	public Map(String filename) {
 		grid = new char[20][30];
 		this.readData(filename, grid);
+		kiwis = new ArrayList<Kiwi>();
+		strawberrys = new ArrayList<Strawberry>();
+		eatenK = 0;
+		eatenS = 0;
 	}
 
 	/**
@@ -45,6 +54,9 @@ public class Map {
 	 * @param height The pixel height of the grid drawing.
 	 */
 	public void draw(PApplet marker, float x, float y, float width, float height) {
+		System.out.println(eatenK);
+		System.out.println(kCount);
+		System.out.println(kiwis.size());
 		marker.fill(255);
 		marker.noStroke();
 		float rw = 30;
@@ -75,13 +87,25 @@ public class Map {
 				
 				else if(a == 'k')
 				{
-					//marker.fill(255);
+					marker.fill(255);
 					marker.rect(rx,  ry,  rw,  rh);
 					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+16);
 					kiwi.draw(marker);
-					if(kiwis.size() < kCount)
+					if(kiwis.size() < kCount - eatenS)
 					{
 						kiwis.add(kiwi);
+					}
+				}
+				
+				else if(a == 's')
+				{
+					marker.fill(255);
+					marker.rect(rx, ry, rw, rh);
+					Strawberry strawberry = new Strawberry(marker.loadImage("img/strawberry.png"), (int) ry + 15, (int) rx + 16);
+					strawberry.draw(marker);
+					if (strawberrys.size() < sCount - eatenS)
+					{
+						strawberrys.add(strawberry);
 					}
 				}
 			}
@@ -115,6 +139,9 @@ public class Map {
 							if(line.charAt(i) == 'k')
 							{
 								kCount++;
+							} else if (line.charAt(i) == 's')
+							{
+								sCount++;
 							}
 
 						}
@@ -141,7 +168,7 @@ public class Map {
 	 * @return true if the next location is valid path or not.
 	 */
 	public boolean isValidLocation(int x, int y) {
-		return grid[y/30][x/30]=='.' || grid[y/30][x/30]=='k';
+		return grid[y/30][x/30]=='.' || grid[y/30][x/30]=='k' || grid[y/30][x/30] == 's';
 	}
 
 	/**
@@ -205,5 +232,79 @@ public class Map {
 			}
 		}
 		return new Point(1,1);
+	}
+	
+	/**
+	 * 
+	 * Code a toString() method that nicely prints the grid to the commandline.
+	 * 
+	 */
+	public String toString() {
+		String output = "";
+		
+		for(int i = 0; i < grid.length; i++) // rows, x-axis
+		{
+			for(int j = 0; j < grid[i].length; j++) // columns, y-axis
+			{
+				if(grid[i][j] == '#')
+				{
+					output += "#";
+				}
+				
+				else if(grid[i][j] == '*')
+				{
+					output += "*";
+				}
+				
+				else if(grid[i][j] == '.')
+				{
+					output += ".";
+				}
+				else if(grid[i][j] == 'k')
+				{
+					output += "k";
+				}
+			}
+			
+			output += "\n";
+		}
+		
+		return output;
+}
+	/**
+	 * @return An ArrayList of the strawberries on the map.
+	 */
+	public ArrayList<Strawberry> getStrawberrys()
+	{
+		return strawberrys;
+	}
+	
+	/**
+	 * Removes a Fruit from its given ArrayList.
+	 * 
+	 * @param f The Fruit to be removed.
+	 */
+	public void removeFruit(Fruit f)
+	{
+		if(f instanceof Kiwi)
+		{
+			kiwis.remove(f);
+		}
+		
+		if(f instanceof Strawberry)
+		{
+			strawberrys.remove(f);
+		}
+
+	}
+	
+	public void addEatenKiwis()
+	{
+		eatenK++;
+	}
+	
+	public void addEatenStrawberries()
+	{
+		eatenS++;
 	}
 } 
