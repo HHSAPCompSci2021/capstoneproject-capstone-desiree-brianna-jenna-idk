@@ -56,7 +56,7 @@ public class Player {
 		int newY = ygrid;
 
 		if (direction == 0) {
-			System.out.println("moving forward" + xgrid + "," + ygrid + "newX = " + newX);
+			//System.out.println("moving forward" + xgrid + "," + ygrid + "newX = " + newX);
 			newX += step;
 		} else if (direction == 90) {
 			newY -= step;
@@ -67,7 +67,7 @@ public class Player {
 		}
 		if (newX < 0) {
 			newX += 900;
-			System.out.println("trying to turn left");
+			//System.out.println("trying to turn left");
 		} else if (newX >= 885) {
 			newX -= 900;
 		} else if (newY < 0) {
@@ -79,18 +79,18 @@ public class Player {
 			xgrid = newX;
 			ygrid = newY;
 		}
-		if (!map.isValidLocation(newX, newY)) {
-			if (direction == 0) {
-				System.out.println("forward" + xgrid + "," + ygrid + "newX = " + newX);
-				newX += step;
-			} else if (direction == 90) {
-				newY -= step;
-			} else if (direction == 180) {
-				newX -= step;
-			} else if (direction == 270) {
-				newY += step;
-			}
-		}
+//		if (!map.isValidLocation(newX, newY)) {
+//			if (direction == 0) {
+//				//System.out.println("forward" + xgrid + "," + ygrid + "newX = " + newX);
+//				newX += step;
+//			} else if (direction == 90) {
+//				newY -= step;
+//			} else if (direction == 180) {
+//				newX -= step;
+//			} else if (direction == 270) {
+//				newY += step;
+//			}
+//		}
 	}
 
 	/**
