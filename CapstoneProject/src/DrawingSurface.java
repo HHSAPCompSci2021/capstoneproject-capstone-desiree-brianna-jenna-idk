@@ -20,7 +20,7 @@ public class DrawingSurface extends PApplet {
 	private Map map;
 	private NamCap namCap;
 	private Player player;
-	private int playerCount, namCapCount, kiwiCount;
+	private int playerCount, namCapCount, kiwiCount, tempDir;
 
 	/**
 	 * Declares the values for specific variables.
@@ -31,6 +31,7 @@ public class DrawingSurface extends PApplet {
 		endScreen = false;
 		map = new Map("map/test1.txt");
 		whichGhost = "blinky";
+		tempDir=-1;
 	}
 
 	/**
@@ -89,12 +90,13 @@ public class DrawingSurface extends PApplet {
 			
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
-			player = new Player(loadImage("img/" + whichGhost + ".png"), 45, 45, map);
+			player = new Player(loadImage("img/" + whichGhost + ".png"), ((int)map.getPlayerInitialLocation().getX()*30)+15, ((int)map.getPlayerInitialLocation().getY()*30)+15, map);
 			life1 = loadImage("img/" + whichGhost + ".png");
 			life2 = loadImage("img/" + whichGhost + ".png");
 		}
 
 		else if (playScreen) {
+//			System.out.println(player.getX()/30+","+(player.getY()/30)+":"+player.getDirection());
 			background(0);
 
 			if (map != null) {
@@ -150,6 +152,9 @@ public class DrawingSurface extends PApplet {
 			
 			//makes player move by grid and slower
 			if (playerCount%7==0) {
+				if(player.canMove(tempDir)) {
+					player.setDirection(tempDir);
+				}
 				player.move();
 				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					//System.out.println("player eats namCap");
@@ -215,13 +220,17 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {
-			player.setDirection(90);
+			tempDir=90;
+//			player.setDirection(90);
 		} else if (keyCode == KeyEvent.VK_DOWN) {
-			player.setDirection(270);
+			tempDir=270;
+//			player.setDirection(270);
 		} else if (keyCode == KeyEvent.VK_LEFT) {
-			player.setDirection(180);
+			tempDir=180;
+//			player.setDirection(180);
 		} else if (keyCode == KeyEvent.VK_RIGHT) {
-			player.setDirection(0);
+			tempDir=0;
+//			player.setDirection(0);
 		}
 	}
 

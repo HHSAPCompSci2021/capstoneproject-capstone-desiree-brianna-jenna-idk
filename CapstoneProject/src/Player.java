@@ -81,6 +81,35 @@ public class Player {
 			ygrid = newY;
 		}
 	}
+	
+	/**
+	 * Returns if the player can move one space forward in the direction
+	 * @param dir the new direction of the Player
+	 * @return true if the player can move one space forward in the direction, false if not
+	 */
+	public boolean canMove(int dir) {
+		int newX = xgrid;
+		int newY = ygrid;
+		if (dir == 0) {
+			newX += step;
+		} else if (dir == 90) {
+			newY -= step;
+		} else if (dir == 180) {
+			newX -= step;
+		} else if (dir == 270) {
+			newY += step;
+		}
+		if (newX < 0) {
+			newX += 900;
+		} else if (newX >= 885) {
+			newX -= 900;
+		} else if (newY < 0) {
+			newY += 600;
+		} else if (newY >= 585) {
+			newY -= 600;
+		}
+		return map.isValidLocation(newX, newY);
+	}
 
 	/**
 	 * Sets the direction of the player.

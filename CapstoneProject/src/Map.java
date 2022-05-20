@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -189,5 +190,20 @@ public class Map {
 	public ArrayList<Kiwi> getKiwis()
 	{
 		return kiwis;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Point getPlayerInitialLocation() {
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if(grid[i][j]=='*') {
+					return new Point(j,i);
+				}
+			}
+		}
+		return new Point(1,1);
 	}
 } 
