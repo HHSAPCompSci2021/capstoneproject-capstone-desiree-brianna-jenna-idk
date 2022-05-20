@@ -54,7 +54,7 @@ public class Player {
 	public void move() {
 		int newX = xgrid;
 		int newY = ygrid;
-		
+
 		if (direction == 0) {
 			System.out.println("moving forward" + xgrid + "," + ygrid + "newX = " + newX);
 			newX += step;
@@ -92,15 +92,24 @@ public class Player {
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns if the player can move one space forward in the direction
+	 * 
 	 * @param dir the new direction of the Player
-	 * @return true if the player can move one space forward in the direction, false if not
+	 * @return true if the player can move one space forward in the direction, false
+	 *         if not
 	 */
 	public boolean canMove(int dir) {
 		int newX = xgrid;
 		int newY = ygrid;
+
+		if (newX / 30 <= 20 && newY / 30 <= 30) {
+			if (map.get(newX / 30, newY / 30) == '*') {
+				newX -= step;
+			}
+		}
+
 		if (dir == 0) {
 			newX += step;
 		} else if (dir == 90) {
@@ -110,6 +119,7 @@ public class Player {
 		} else if (dir == 270) {
 			newY += step;
 		}
+		
 		if (newX < 0) {
 			newX += 900;
 		} else if (newX >= 885) {
@@ -119,6 +129,7 @@ public class Player {
 		} else if (newY >= 585) {
 			newY -= 600;
 		}
+
 		return map.isValidLocation(newX, newY);
 	}
 
@@ -213,28 +224,26 @@ public class Player {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param f The Fruit.
 	 * @return If the Player is at the same location as the given Fruit.
 	 */
 	public boolean atSameLocationFruit(Fruit f) {
-		return(f.getX() / 30 == xgrid / 30 && f.getY() / 30 == ygrid / 30);
+		return (f.getX() / 30 == xgrid / 30 && f.getY() / 30 == ygrid / 30);
 	}
-	
+
 	/**
 	 * Eats the Fruit and gains a special ability depending on the Fruit.
 	 * 
 	 * @param f The Fruit eaten.
 	 */
-	public void eatFruit(Fruit f)
-	{
-		if(f instanceof Strawberry)
-		{
+	public void eatFruit(Fruit f) {
+		if (f instanceof Strawberry) {
 			increaseScore(100);
 		}
 	}
-	
+
 	/**
 	 * Increases the Player's score by a certain amount.
 	 * 

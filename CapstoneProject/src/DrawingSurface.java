@@ -1,5 +1,8 @@
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+
+import javax.swing.JCheckBox;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -21,6 +24,7 @@ public class DrawingSurface extends PApplet {
 	private NamCap namCap;
 	private Player player;
 	private int playerCount, namCapCount, kiwiCount, tempDir, strawberryCount;
+	private JCheckBox strawberryButton, kiwiButton;
 
 	/**
 	 * Declares the values for specific variables.
@@ -31,7 +35,7 @@ public class DrawingSurface extends PApplet {
 		endScreen = false;
 		map = new Map("map/test1.txt");
 		whichGhost = "blinky";
-		tempDir=-1;
+		tempDir = -1;
 	}
 
 	/**
@@ -39,7 +43,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		//namCap = new NamCap(loadImage("img/namcap/right.png"), 795, 45);
+		// namCap = new NamCap(loadImage("img/namcap/right.png"), 795, 45);
 		namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
@@ -50,7 +54,7 @@ public class DrawingSurface extends PApplet {
 		kiwi = loadImage("img/kiwi.png");
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
-		kiwiCount=1;
+		kiwiCount = 1;
 		strawberryCount = 1;
 	}
 
@@ -62,7 +66,7 @@ public class DrawingSurface extends PApplet {
 		namCapCount++;
 		textFont(emulogic);
 		imageMode(CENTER);
-		
+
 		if (startScreen) {
 			background(0);
 			image(title, width / 2, height / 8, width / 3, height / 9);
@@ -75,77 +79,78 @@ public class DrawingSurface extends PApplet {
 			text(whichGhost, width / 6, height / 2 + height / 6);
 
 			// map select
-			text("Map", width/ 2, height / 4 + height / 10);
-			
+			text("Map", width / 2, height / 4 + height / 10);
+
 			// fruit select
 			text("Fruit", width - width / 6, height / 4 + height / 10);
-			
+
 			textSize(14);
 			textAlign(LEFT);
+			
+		    kiwiButton = new JCheckBox("Chin");
+		    kiwiButton.setMnemonic(KeyEvent.VK_C); 
+		    kiwiButton.setSelected(true);
+
+		    strawberryButton = new JCheckBox("Glasses");
+		    strawberryButton.setMnemonic(KeyEvent.VK_G); 
+		    strawberryButton.setSelected(true);
+
 			// kiwi
-			image(kiwi, width - width / 3 + width / 20, height / 4 + height / (float)6.5, width/20, height/15);
+			image(kiwi, width - width / 3 + width / 20, height / 4 + height / (float) 6.5, width / 20, height / 15);
 			text("Kiwi", width - width / 4, height / 4 + height / 6);
-			
+
 			// strawberry
-			image(strawberry, width - width / 3 + width / 20, height / 2 - height / 25, width/30, height/20);
+			image(strawberry, width - width / 3 + width / 20, height / 2 - height / 25, width / 30, height / 20);
 			text("strawberry", width - width / 4, height / 2 - height / 30);
-			
+
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
-			player = new Player(loadImage("img/" + whichGhost + ".png"), ((int)map.getPlayerInitialLocation().getX()*30)+15, ((int)map.getPlayerInitialLocation().getY()*30)+15, map);
+			player = new Player(loadImage("img/" + whichGhost + ".png"),
+					((int) map.getPlayerInitialLocation().getX() * 30) + 15,
+					((int) map.getPlayerInitialLocation().getY() * 30) + 15, map);
 			life1 = loadImage("img/" + whichGhost + ".png");
 			life2 = loadImage("img/" + whichGhost + ".png");
-		}
-
-		else if (playScreen) {
-//			System.out.println(player.getX()/30+","+(player.getY()/30)+":"+player.getDirection());
+		} else if (playScreen) {
 			background(0);
 
 			if (map != null) {
-				map.draw(this, 0, 0, width/3, height);
+				map.draw(this, 0, 0, width / 3, height);
+				System.out.println("width: " + width/3 + "height: " + height);
 			}
 
 			fill(255);
 			textSize(15);
 			textAlign(LEFT);
-			text("POINTS: "+player.getScore(), width / 40, height / 28);
-			
+			text("POINTS: " + player.getScore(), width / 40, height / 28);
+
 			textAlign(RIGHT);
 			text("HIGHSCORE: " + player.getHighScore(), width - width / 40, height / 28);
-			
-			//kiwi
+
+			// kiwi
 			ArrayList<Kiwi> kiwis = map.getKiwis();
-			
-			System.out.println(kiwis);
-	
-			for(int i = 0; i < kiwis.size(); i++)
-			{
-				if(namCap.atSameLocation(kiwis.get(i)))
-				{
+			for (int i = 0; i < kiwis.size(); i++) {
+				if (namCap.atSameLocation(kiwis.get(i))) {
 					namCap.eatFruit(kiwis.get(i));
-					kiwiCount=1;
+					kiwiCount = 1;
 					kiwis.get(i).remove(map); // remove from map
 					map.removeFruit(kiwis.get(i)); // remove from arraylist
 					map.addEatenKiwis();
-					if(kiwis.size()==0) {
+					if (kiwis.size() == 0) {
 						map = new Map("map/test1.txt");
 					}
-					
 				}
 			}
-			if(namCap.hasEatenKiwi()) {
+			if (namCap.hasEatenKiwi()) {
 				kiwiCount++;
-				if(kiwiCount%150==0) {
+				if (kiwiCount % 150 == 0) {
 					namCap.setKiwiFalse();
 				}
-			}	
-			
-			//strawberry
+			}
+
+			// strawberry
 			ArrayList<Strawberry> strawberrys = map.getStrawberrys();
-			for (int j = 0; j < strawberrys.size(); j++)
-			{
-				if (player.atSameLocationFruit(strawberrys.get(j)))
-				{
+			for (int j = 0; j < strawberrys.size(); j++) {
+				if (player.atSameLocationFruit(strawberrys.get(j))) {
 					player.eatFruit(strawberrys.get(j));
 					strawberryCount = 1;
 					strawberrys.get(j).remove(map); // remove from map
@@ -153,107 +158,85 @@ public class DrawingSurface extends PApplet {
 					map.addEatenStrawberries();
 				}
 			}
-			
+
 			// namcap
-			if(namCapCount%8==0)
-			{
-				namCap.act(map, player);
-				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-					//System.out.println("player eats namCap");
-					player.increaseScore(50);
-					player.reset();
-					namCap.reset();
-				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
-					//System.out.println("namCap eats player");
-					player.loseLife();
-					namCap.reset();
-				}
+			namCap.act(map, player);
+			if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+				player.increaseScore(50);
+				player.reset();
+				namCap.reset();
+			} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+				player.loseLife();
+				namCap.reset();
 			}
-			
 			namCap.draw(this);
-			
-			//makes player move by grid and slower
-			if (playerCount%7==0) {
-				if(player.canMove(tempDir)) {
-					player.setDirection(tempDir);
-				}
-				player.move();
-				if(player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-					//System.out.println("player eats namCap");
-					player.increaseScore(50);
-					player.reset();
-					namCap.reset();
-				}else if(player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
-					//System.out.println("namCap eats player");
-					player.loseLife();
-					namCap.reset();
-				}
+			if (player.canMove(tempDir)) {
+				player.setDirection(tempDir);
 			}
-			
+			player.move();
+			if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
+				player.increaseScore(50);
+				player.reset();
+				namCap.reset();
+			} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
+				player.loseLife();
+				namCap.reset();
+			}
 			player.draw(this);
 
 			// lives on bottom left
-			if(player.getLives() >= 2)
-			{
+			if (player.getLives() >= 2) {
 				image(life1, width / 22, height - height / 10, width / 30, width / 30);
-				if(player.getLives() == 3)
-				{
+				if (player.getLives() == 3) {
 					image(life2, (width / 22) * 2, height - height / 10, width / 30, width / 30);
 				}
 			}
-			
-			if(player.getLives()==0) {
-				endScreen=true;
-				playScreen=false;
+			if (player.getLives() == 0) {
+				endScreen = true;
+				playScreen = false;
 			}
-		}
-		
-		else if (endScreen) {
+		} else if (endScreen) {
 			background(0);
 			textSize(50);
 			textAlign(CENTER);
 			fill(255, 255, 0);
-			
-			if(player.getHighScore() < player.getScore())
-			{
+
+			if (player.getHighScore() < player.getScore()) {
 				player.setHighScore(player.getScore());
 			}
-			
+
 			text("GAME OVER", 400, 100);
 
 			// selected ghost with tear
 			image(ghost, width / 4, height / 2, width / 3, height / 2);
 			image(tear, width / 5 + width / 10, height / 2 + height / 13, width / 15, height / 10);
-			
+
 			textAlign(LEFT);
 			textSize(20);
 			fill(255);
 			text("POINTS: " + player.getScore(), width / 2 - width / 15, height / 2 - height / 10);
 			text("HIGHSCORE: " + player.getHighScore(), width / 2 - width / 15, height / 2);
-			
+
 			// buttons
 			imageMode(CORNER);
 			image(home, width / 2 - width / 20, height / 2 + height / 10, width / 5, height / 10);
 			image(retry, width / 2 + width / 5, height / 2 + height / 10, width / 5, height / 10);
 		}
 	}
-	
+
 	/**
-	 * Moves the player based on the keys pressed, using the up, down, left, right arrow keys.
+	 * Moves the player based on the keys pressed, using the up, down, left, right
+	 * arrow keys.
 	 */
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {
-			tempDir=90;
-//			player.setDirection(90);
+			tempDir = 90;
 		} else if (keyCode == KeyEvent.VK_DOWN) {
-			tempDir=270;
-//			player.setDirection(270);
+			tempDir = 270;
 		} else if (keyCode == KeyEvent.VK_LEFT) {
-			tempDir=180;
-//			player.setDirection(180);
+			tempDir = 180;
 		} else if (keyCode == KeyEvent.VK_RIGHT) {
-			tempDir=0;
-//			player.setDirection(0);
+			tempDir = 0;
 		}
 	}
 
@@ -263,57 +246,47 @@ public class DrawingSurface extends PApplet {
 	public void mousePressed() {
 		if (startScreen) {
 			// play button
-			if (mouseX > width / 2 - width / 5 && mouseX < width / 2 + width / 5 && mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) // change coords for new button
-			{
+			if (mouseX > width / 2 - width / 5 && mouseX < width / 2 + width / 5
+					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) { // change coords for new button
 				startScreen = false;
 				playScreen = true;
 			}
-			
+
 			// right arrow
-			if(mouseX > (width / 5 + width / 6) - width / 11 && mouseX < (width / 5 + width / 6) + width / 11 && mouseY > height / 2 - height / 8 && mouseY < height / 2 + height / 8)
-			{    
-				if(whichGhost.equals("blinky"))
-				{
+			if (mouseX > (width / 5 + width / 6) - width / 11 && mouseX < (width / 5 + width / 6) + width / 11
+					&& mouseY > height / 2 - height / 8 && mouseY < height / 2 + height / 8) {
+				if (whichGhost.equals("blinky")) {
 					whichGhost = "pinky";
 					ghost = loadImage("img/pinky.png");
-				}
-				
-				else if(whichGhost.equals("pinky"))
-				{
+				} else if (whichGhost.equals("pinky")) {
 					whichGhost = "inky";
 					ghost = loadImage("img/inky.png");
-				}
-				
-				else if(whichGhost.equals("inky"))
-				{
+				} else if (whichGhost.equals("inky")) {
 					whichGhost = "clyde";
 					ghost = loadImage("img/clyde.png");
-				}
-				
-				else if(whichGhost.equals("clyde"))
-				{
+				} else if (whichGhost.equals("clyde")) {
 					whichGhost = "blinky";
 					ghost = loadImage("img/blinky.png");
 				}
 			}
-			
+
 			// checkboxes for fruit
-		
+
 		}
 
 		else if (endScreen) {
 			endScreen = false;
 			// depending on if the retry button is clicked or the exit button is clicked,
 			// change screens
-			
+
 			// home button
-			if(mouseX > width / 2 - width / 20 - width / 5 && mouseX < width / 2 - width / 20 + width / 5 && mouseY > height / 2 && mouseY < height / 2 + height / 5)
-			{
+			if (mouseX > width / 2 - width / 20 - width / 5 && mouseX < width / 2 - width / 20 + width / 5
+					&& mouseY > height / 2 && mouseY < height / 2 + height / 5) {
 				startScreen = true;
 			}
-			
-			if(mouseX > width / 2 && mouseX < width / 2 + width / 5 + width / 5 && mouseY > height / 2 && mouseY < height / 2 + height / 5)
-			{
+
+			if (mouseX > width / 2 && mouseX < width / 2 + width / 5 + width / 5 && mouseY > height / 2
+					&& mouseY < height / 2 + height / 5) {
 				player.setScore(0);
 				playScreen = true;
 				player.resetLives();
@@ -321,6 +294,5 @@ public class DrawingSurface extends PApplet {
 				namCap.reset();
 			}
 		}
-
 	}
 }

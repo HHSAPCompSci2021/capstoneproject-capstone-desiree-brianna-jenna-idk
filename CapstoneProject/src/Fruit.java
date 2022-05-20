@@ -17,8 +17,7 @@ public abstract class Fruit {
 	 * @param r The row of the fruit's location.
 	 * @param c The column of the fruit's location.
 	 */
-	public Fruit(int r, int c)
-	{
+	public Fruit(int r, int c) {
 		row = r;
 		col = c;
 	}
@@ -29,8 +28,7 @@ public abstract class Fruit {
 	 * @param row The new row you wish to place the fruit on.
 	 * @param col The new column you wish the place the fruit on.
 	 */
-	public void setLocation(int row, int col)
-	{
+	public void setLocation(int row, int col) {
 		this.row = row;
 		this.col = col;
 	}
@@ -40,8 +38,7 @@ public abstract class Fruit {
 	 * 
 	 * @param map The Map the fruit is on.
 	 */
-	public void remove(Map map)
-	{
+	public void remove(Map map) {
 		map.set(row / 30, col / 30, '.');
 	}
 	

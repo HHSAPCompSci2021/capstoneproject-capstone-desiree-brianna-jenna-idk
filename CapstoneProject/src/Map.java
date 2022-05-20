@@ -69,42 +69,29 @@ public class Map {
 				
 				char a = grid[i][j];
 				
-				if (a == '#') 
-				{ 
+				if (a == '#') { 
 					marker.fill(0);
 					marker.rect(rx,  ry,  rw,  rh);
-				} 
-				
-				else if (a == '.') 
-				{
+				} else if (a == '.') {
 					marker.fill(255);
 					marker.rect(rx,  ry,  rw,  rh);
-				}
-				else if (a == '*') {
+				} else if (a == '*') {
 					marker.fill(255, 0, 0);
 					marker.rect(rx,  ry,  rw,  rh);
-				}
-				
-				else if(a == 'k')
-				{
+				} else if(a == 'k')	{
 					marker.fill(255);
 					marker.rect(rx,  ry,  rw,  rh);
 					Kiwi kiwi=new Kiwi(marker.loadImage("img/kiwi.png"),(int)ry+15,(int)rx+16);
 					kiwi.draw(marker);
-					if(kiwis.size() < kCount - eatenS)
-					{
+					if(kiwis.size() < kCount - eatenS) {
 						kiwis.add(kiwi);
 					}
-				}
-				
-				else if(a == 's')
-				{
+				} else if(a == 's') {
 					marker.fill(255);
 					marker.rect(rx, ry, rw, rh);
 					Strawberry strawberry = new Strawberry(marker.loadImage("img/strawberry.png"), (int) ry + 15, (int) rx + 16);
 					strawberry.draw(marker);
-					if (strawberrys.size() < sCount - eatenS)
-					{
+					if (strawberrys.size() < sCount - eatenS) {
 						strawberrys.add(strawberry);
 					}
 				}
@@ -132,29 +119,23 @@ public class Map {
 					
 					while (in.hasNext()) {
 						String line = in.nextLine();
-						for(int i = 0; i < line.length(); i++)
-						{
+						for(int i = 0; i < line.length(); i++) {
 							if (count < gameData.length && i < gameData[count].length)
 								gameData[count][i] = line.charAt(i);
-							if(line.charAt(i) == 'k')
-							{
+							if(line.charAt(i) == 'k') {
 								kCount++;
-							} else if (line.charAt(i) == 's')
-							{
+							} else if (line.charAt(i) == 's') {
 								sCount++;
 							}
-
 						}
 						count++;
 					}
-
 			} catch (IOException ex) {
 				throw new IllegalArgumentException("Data file " + filename + " cannot be read.");
 			} finally {
 				if (in != null)
 					in.close();
 			}
-			
 		} else {
 			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
 		}
@@ -178,8 +159,7 @@ public class Map {
 	 * @param j X-value.
 	 * @return character in the grid's location.
 	 */
-	public char get(int i, int j)
-	{
+	public char get(int i, int j) {
 		return grid[i][j];
 	}
 	
@@ -189,16 +169,14 @@ public class Map {
 	 * @param j X-value.
 	 * @param c The new character.
 	 */
-	public void set(int i, int j, char c)
-	{
+	public void set(int i, int j, char c) {
 		grid[i][j] = c;
 	}
 	
 	/**
 	 * @return The height of the grid.
 	 */
-	public int getLength()
-	{
+	public int getLength() {
 		return grid.length;
 	}
 	
@@ -206,22 +184,20 @@ public class Map {
 	 * @param x The column number.
 	 * @return The row length of the column.
 	 */
-	public int getRowLength(int x)
-	{
+	public int getRowLength(int x) {
 		return grid[x].length;
 	}
 	
 	/**
 	 * @return An ArrayList of the kiwis on the map.
 	 */
-	public ArrayList<Kiwi> getKiwis()
-	{
+	public ArrayList<Kiwi> getKiwis() {
 		return kiwis;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * gets the starting location for the player
+	 * @return the tarting position
 	 */
 	public Point getPlayerInitialLocation() {
 		for (int i = 0; i < grid.length; i++) {
@@ -242,69 +218,53 @@ public class Map {
 	public String toString() {
 		String output = "";
 		
-		for(int i = 0; i < grid.length; i++) // rows, x-axis
-		{
-			for(int j = 0; j < grid[i].length; j++) // columns, y-axis
-			{
-				if(grid[i][j] == '#')
-				{
+		for(int i = 0; i < grid.length; i++) { // rows, x-axis
+			for(int j = 0; j < grid[i].length; j++) { // columns, y-axis
+				if(grid[i][j] == '#') {
 					output += "#";
-				}
-				
-				else if(grid[i][j] == '*')
-				{
+				} else if(grid[i][j] == '*') {
 					output += "*";
-				}
-				
-				else if(grid[i][j] == '.')
-				{
+				} else if(grid[i][j] == '.') {
 					output += ".";
-				}
-				else if(grid[i][j] == 'k')
-				{
+				} else if(grid[i][j] == 'k') {
 					output += "k";
 				}
 			}
-			
 			output += "\n";
 		}
-		
 		return output;
-}
+	}
 	/**
 	 * @return An ArrayList of the strawberries on the map.
 	 */
-	public ArrayList<Strawberry> getStrawberrys()
-	{
+	public ArrayList<Strawberry> getStrawberrys() {
 		return strawberrys;
 	}
 	
 	/**
 	 * Removes a Fruit from its given ArrayList.
-	 * 
 	 * @param f The Fruit to be removed.
 	 */
-	public void removeFruit(Fruit f)
-	{
-		if(f instanceof Kiwi)
-		{
+	public void removeFruit(Fruit f) {
+		if(f instanceof Kiwi) {
 			kiwis.remove(f);
 		}
-		
-		if(f instanceof Strawberry)
-		{
+		if(f instanceof Strawberry) {
 			strawberrys.remove(f);
 		}
-
 	}
 	
-	public void addEatenKiwis()
-	{
+	/**
+	 * adds one when a kiwi is eaten by the naM-caP
+	 */
+	public void addEatenKiwis() {
 		eatenK++;
 	}
 	
-	public void addEatenStrawberries()
-	{
+	/** 
+	 * adds one when a strawberry is eaten by the player
+	 */
+	public void addEatenStrawberries() {
 		eatenS++;
 	}
 } 
