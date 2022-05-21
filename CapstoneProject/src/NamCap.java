@@ -89,9 +89,9 @@ public class NamCap {
 				 p2 = p2.getParent();
 			 }
 			 
-			 System.out.println("x: " + player.getX() + ", y: " + player.getY());
-			 System.out.println("nx: " + x + ", ny: " + y);
-			 System.out.println("playerLoc: " + playerLoc);
+//			 System.out.println("x: " + player.getX() + ", y: " + player.getY());
+//			 System.out.println("nx: " + x + ", ny: " + y);
+//			 System.out.println("playerLoc: " + playerLoc);
 
 			 x = playerLoc.get(playerLoc.size() - 1).y * 30 + 15;
 			 y = playerLoc.get(playerLoc.size() - 1).x * 30 + 15;
@@ -266,9 +266,8 @@ public class NamCap {
         while(!q2.isEmpty()) {
             Coordinate p = q2.remove();
 
-            System.out.println("x: " + p.x + ", y: " + p.y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-            //System.out.println("x: " + p.x + ", y: " + p.y + ", playerx: " + (player.getX() - 15) / 30 + ", playery: " + (player.getY() - 15) / 30);
-            if(p.x == (player.getX()) / 30 && p.y == (player.getY()) / 30)
+            //System.out.println("x: " + p.x + ", y: " + p.y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
+            if(p.x == (player.getY()) / 30 && p.y == (player.getX()) / 30)
             {
             	//System.out.println("p: " + p);
             	return p;
@@ -309,7 +308,7 @@ public class NamCap {
      */
     public boolean isFree(int x, int y, Map grid, Player player) {
     	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's')); 
+        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
     }
     
     /**
@@ -321,7 +320,7 @@ public class NamCap {
      */
     public boolean isFree2(int x, int y, Map grid, Player player) {
     	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || (x == player.getX() / 30 && y == player.getY() / 30))); 
+        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*' || (x == player.getX() / 30 && y == player.getY() / 30))); 
        
     }
 }

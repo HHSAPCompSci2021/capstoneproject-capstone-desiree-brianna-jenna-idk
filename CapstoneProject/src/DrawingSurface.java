@@ -15,8 +15,8 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
 	// private Image board;
-	private boolean startScreen, playScreen, endScreen, choiceScreen, kiwiButton, strawberryButton;
-	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, rectangle, cross;
+	private boolean startScreen, playScreen, endScreen, strawberryButton;
+	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross;
 	private PFont emulogic;
 	private String whichGhost;
 	private Map map;
@@ -32,12 +32,10 @@ public class DrawingSurface extends PApplet {
 		startScreen = true;
 		playScreen = false;
 		endScreen = false;
-		choiceScreen = false;
 		map = new Map("map/test1.txt");
 		whichGhost = "blinky";
 		tempDir = -1;
 		kiwis = new ArrayList<Kiwi>();
-		kiwiButton = true;
 		strawberryButton = true;
 	}
 
@@ -46,7 +44,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		//namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
+		// namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
 		namCap = new NamCap(loadImage("img/namcap/right.png"), 225, 555);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
@@ -57,7 +55,6 @@ public class DrawingSurface extends PApplet {
 		kiwi = loadImage("img/kiwi.png");
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
-		rectangle = loadImage("img/rectangle.png");
 		cross = loadImage("img/cross.png");
 		kiwiCount = 1;
 	}
@@ -108,24 +105,14 @@ public class DrawingSurface extends PApplet {
 			life2 = loadImage("img/" + whichGhost + ".png");
 
 			// checkboxes
-			image(rectangle, width / (float) 3.75 + width / (float) 2.5, height / 4 + height / (float) 6.5, width / 25,
-					height / 20);
-			image(rectangle, width / (float) 3.75 + width / (float) 2.5, height / 2 - height / 25, width / 25,
-					height / 20);
-			if (kiwiButton) {
-				image(cross, width / (float) 3.75 + width / (float) 2.5, height / 4 + height / (float) 6.5, width / 25,
-						height / 20);
-			}
 			if (strawberryButton) {
-				image(cross, width / (float) 3.75 + width / (float) 2.5, height / 2 - height / 25, width / 25,
-						height / 20);
+				image(cross, width - width / 3 + width / 20, height / 2 - height / 25, width / 25, height / 20);
 			}
 		} else if (playScreen) {
 			background(0);
 
 			if (map != null) {
 				map.draw(this, 0, 0, width / 3, height);
-				// System.out.println("width: " + width/3 + "height: " + height);
 			}
 
 			fill(255);
@@ -137,24 +124,21 @@ public class DrawingSurface extends PApplet {
 			text("HIGHSCORE: " + player.getHighScore(), width - width / 40, height / 28);
 
 			// kiwi
-			if (kiwiButton) {
-				ArrayList<Point> kiwiLoc = map.getKiwiLoc();
-				int kiwiNum = 0;
-				for (Point p : kiwiLoc) {
-					Kiwi k = new Kiwi(kiwi, p.x * 30 + 15, p.y * 30 + 16);
-					k.draw(this);
-					kiwiNum++;
-					if (kiwis.size() < kiwiNum) {
-						kiwis.add(k);
-					}
+			ArrayList<Point> kiwiLoc = map.getKiwiLoc();
+			int kiwiNum = 0;
+			for (Point p : kiwiLoc) {
+				Kiwi k = new Kiwi(kiwi, p.x * 30 + 15, p.y * 30 + 16);
+				k.draw(this);
+				kiwiNum++;
+				if (kiwis.size() < kiwiNum) {
+					kiwis.add(k);
 				}
-	
-			for(int i = 0; i < kiwis.size(); i++)
-			{
-				if(namCap.atSameLocation(kiwis.get(i)))
-				{
+			}
+
+			for (int i = 0; i < kiwis.size(); i++) {
+				if (namCap.atSameLocation(kiwis.get(i))) {
 					namCap.eatFruit(kiwis.get(i));
-					kiwiCount=1;
+					kiwiCount = 1;
 					map.set((kiwis.get(i).getY() - 15) / 30, (kiwis.get(i).getX() - 15) / 30, '.'); // remove from map
 					kiwis.remove(i); // remove from arraylist
 					map.removeKiwiLoc(i);
@@ -164,9 +148,9 @@ public class DrawingSurface extends PApplet {
 				}
 				if (namCap.hasEatenKiwi()) {
 					kiwiCount++;
-					if (kiwiCount % 150 == 0) {
-						namCap.setKiwiFalse();
-					}
+				}
+				if (kiwiCount % 150 == 0) {
+					namCap.setKiwiFalse();
 				}
 			}
 
@@ -183,7 +167,9 @@ public class DrawingSurface extends PApplet {
 				for (int j = 0; j < strawberrys.size(); j++) {
 					if (player.atSameLocationFruit(strawberrys.get(j))) {
 						player.eatFruit(strawberrys.get(j));
-						map.set((strawberrys.get(j).getY() - 15) / 30, (strawberrys.get(j).getX() - 15) / 30, '.'); // remove from map
+						map.set((strawberrys.get(j).getY() - 15) / 30, (strawberrys.get(j).getX() - 15) / 30, '.'); // remove
+																													// from
+																													// map
 						strawberrys.remove(j); // remove from arraylist
 						map.removeStrawberryLoc(j);
 					}
@@ -227,13 +213,12 @@ public class DrawingSurface extends PApplet {
 					image(life2, (width / 22) * 2, height - height / 10, width / 30, width / 30);
 				}
 			}
+
 			if (player.getLives() == 0) {
 				endScreen = true;
 				playScreen = false;
 			}
 
-		} else if (choiceScreen) {
-			// dropdown menu with choice to choose between animals
 		} else if (endScreen) {
 			background(0);
 			textSize(50);
@@ -261,7 +246,6 @@ public class DrawingSurface extends PApplet {
 			image(home, width / 2 - width / 20, height / 2 + height / 10, width / 5, height / 10);
 			image(retry, width / 2 + width / 5, height / 2 + height / 10, width / 5, height / 10);
 		}
-		}
 	}
 
 	/**
@@ -287,7 +271,7 @@ public class DrawingSurface extends PApplet {
 		if (startScreen) {
 			// play button
 			if (mouseX > width / 2 - width / 5 && mouseX < width / 2 + width / 5
-					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) { // change coords for new button
+					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) {
 				startScreen = false;
 				playScreen = true;
 			}
@@ -310,32 +294,23 @@ public class DrawingSurface extends PApplet {
 				} else if (whichGhost.equals("choiceGhost")) {
 					whichGhost = "blinky";
 					ghost = loadImage("img/blinky.png");
-					choiceScreen = true;
 				}
 			}
 
 			// checkboxes for fruit
-			if (mouseX >= 575 && mouseX <= 605) {
-				if (mouseY <= (float) 3675 / 13 && mouseY >= (float) 3220 / 13) {
-					if (kiwiButton) {
-						kiwiButton = false;
-					} else {
-						kiwiButton = true;
-					}
-				} else if (mouseY >= (float) 3714 / 13 && mouseY <= (float) 4169 / 13) {
-					if (strawberryButton) {
-						strawberryButton = false;
-					} else {
-						strawberryButton = true;
-					}
+			if (mouseX >= width - width / 3 + width / 20 - width / 25
+					&& mouseX <= width - width / 3 + width / 20 + width / 25
+					&& mouseY >= height / 2 - height / 25 - height / 20
+					&& mouseY <= height / 2 - height / 25 + height / 20) {
+				if (strawberryButton) {
+					strawberryButton = false;
+				} else {
+					strawberryButton = true;
 				}
 			}
-		}
 
-		else if (endScreen) {
+		} else if (endScreen) {
 			endScreen = false;
-			// depending on if the retry button is clicked or the exit button is clicked,
-			// change screens
 
 			// home button
 			if (mouseX > width / 2 - width / 20 - width / 5 && mouseX < width / 2 - width / 20 + width / 5
