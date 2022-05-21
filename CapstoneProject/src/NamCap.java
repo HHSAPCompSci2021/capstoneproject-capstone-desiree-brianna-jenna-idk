@@ -1,4 +1,3 @@
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,8 +16,6 @@ public class NamCap {
 	private boolean hasKiwi;
 	private PImage image;	
 	private int x, y, xi, yi, direction;
-	private ArrayList<Coordinate> fruitLoc, playerLoc;
-	//private ArrayList<Point> fruitLoc, playerLoc;
 	
 	/**
 	 * Constructs the character naM-caP.
@@ -36,7 +33,6 @@ public class NamCap {
 		yi=y;
 		hasKiwi = false;
 		direction = 0;
-		fruitLoc = new ArrayList<Coordinate>();
 	}
 	
 	/**
@@ -72,30 +68,31 @@ public class NamCap {
 		// bfs
 		if(!hasKiwi)
 		{
-			Coordinate p = getKiwiPath(y / 30, x / 30, grid);
+			Coordinate p = getKiwiPath(y / 30, x / 30, grid, player);
+			ArrayList<Coordinate> fruitLoc = new ArrayList<Coordinate>();
 			while(p.getParent() != null) {
-				//System.out.println("here");
 				 fruitLoc.add(p);
 				 p = p.getParent();
 		     }
-			
-			//System.out.println(fruitLoc)
+		
 			 x = fruitLoc.get(fruitLoc.size() - 1).y * 30 + 15;
 			 y = fruitLoc.get(fruitLoc.size() - 1).x * 30 + 15;
 		}
 
 		else if(hasKiwi)
 		{
-			 
-			 Coordinate p2 = getPlayerPath(x / 30, y / 30, grid, player);
+			 Coordinate p2 = getPlayerPath(y / 30, x / 30, grid, player);
+			 ArrayList<Coordinate> playerLoc = new ArrayList<Coordinate>();
 			 while(p2.getParent() != null)
 			 {
-				 System.out.println(playerLoc);
 				 playerLoc.add(p2);
 				 p2 = p2.getParent();
 			 }
 			 
-			 
+			 System.out.println("x: " + player.getX() + ", y: " + player.getY());
+			 System.out.println("nx: " + x + ", ny: " + y);
+			 System.out.println("playerLoc: " + playerLoc);
+
 			 x = playerLoc.get(playerLoc.size() - 1).y * 30 + 15;
 			 y = playerLoc.get(playerLoc.size() - 1).x * 30 + 15;
 		}
@@ -198,109 +195,50 @@ public class NamCap {
 	 * @param grid
 	 * @return 
 	 */
-    public Coordinate getKiwiPath(int x, int y, Map grid) {
+    public Coordinate getKiwiPath(int x, int y, Map grid, Player player) {
 
+        Map map = new Map();
     	Queue<Coordinate> q = new LinkedList<Coordinate>();
         q.add(new Coordinate(x,y, null));
-        //System.out.println(grid.toString());
+        
+        for(int i = 0; i < grid.getLength(); i++)
+        {
+        	for(int j = 0; j < grid.getRowLength(i); j++)
+        	{
+        		map.set(i, j, grid.get(i, j));
+        	}
+        }
 
         while(!q.isEmpty()) {
             Coordinate p = q.remove();
-            char location = grid.get(p.x, p.y);
 
-            if (grid.get(p.x, p.y) == 'k') {
+            if (map.get(p.x, p.y) == 'k') {
                 return p;
             }
+            
+            map.set(p.x, p.y, '!');
 
-            if(isFree(p.x+1,p.y, grid)) {
-                grid.set(p.x, p.y, '!');
+            if(isFree(p.x+1,p.y, map, player)) {
                 Coordinate nextP = new Coordinate(p.x+1,p.y, p);
                 q.add(nextP);
             }
 
-            if(isFree(p.x-1,p.y, grid)) {
-            	grid.set(p.x, p.y, '!');
+            if(isFree(p.x-1,p.y, map, player)) {
                 Coordinate nextP = new Coordinate(p.x-1,p.y, p);
                 q.add(nextP);
             }
 
-            if(isFree(p.x,p.y+1, grid)) {
-            	grid.set(p.x, p.y, '!');
+            if(isFree(p.x,p.y+1, map, player)) {
                 Coordinate nextP = new Coordinate(p.x,p.y+1, p);
                 q.add(nextP);
             }
 
-             if(isFree(p.x,p.y-1, grid)) {
-            	grid.set(p.x, p.y, '!');
+             if(isFree(p.x,p.y-1, map, player)) {
                 Coordinate nextP = new Coordinate(p.x,p.y-1, p);
                 q.add(nextP);
             }
-             
-            grid.set(p.x, p.y, location);
         }
         return null;
-    }
-    
-    public Coordinate getPlayerPath(int x, int y, Map grid, Player player) {
-
-    	Queue<Coordinate> q2 = new LinkedList<Coordinate>();
-        q2.add(new Coordinate(x,y, null));
-
-        while(!q2.isEmpty()) {
-            Coordinate p = q2.remove();
-            char location = grid.get(p.x, p.y);
-
-            //System.out.println("x: " + p.x + ", y: " + p.y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-            if(p.x == player.getX() / 30 && p.y == player.getY() / 30)
-            {
-            	return p;
-            }
-//            if (grid.get(p.x, p.y) == 'k') {
-//                //System.out.println("Exit is reached!");
-//                return p;
-//            }
-
-            if(isFree2(p.x+1,p.y, grid, player)) {
-                grid.set(p.x, p.y, '!');
-                Coordinate nextP = new Coordinate(p.x+1,p.y, p);
-                q2.add(nextP);
-            }
-
-            if(isFree2(p.x-1,p.y, grid, player)) {
-            	grid.set(p.x, p.y, '!');
-                Coordinate nextP = new Coordinate(p.x-1,p.y, p);
-                q2.add(nextP);
-            }
-
-            if(isFree2(p.x,p.y+1, grid, player)) {
-            	grid.set(p.x, p.y, '!');
-                Coordinate nextP = new Coordinate(p.x,p.y+1, p);
-                q2.add(nextP);
-            }
-
-             if(isFree2(p.x,p.y-1, grid, player)) {
-            	grid.set(p.x, p.y, '!');
-                Coordinate nextP = new Coordinate(p.x,p.y-1, p);
-                q2.add(nextP);
-            }
-             
-            grid.set(p.x, p.y, location);
-
-        }
-        return null;
-    }
-
-    /**
-     * Checks if the location is in bounds and either a path or a kiwi.
-     * 
-     * @param x
-     * @param y
-     * @param grid
-     * @return
-     */
-    public boolean isFree(int x, int y, Map grid) {
-    	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k')); 
     }
     
     /**
@@ -311,9 +249,79 @@ public class NamCap {
      * @param player
      * @return
      */
+    public Coordinate getPlayerPath(int x, int y, Map grid, Player player) {
+
+    	Map map = new Map();
+    	Queue<Coordinate> q2 = new LinkedList<Coordinate>();
+        q2.add(new Coordinate(x,y, null));
+
+        for(int i = 0; i < grid.getLength(); i++)
+        {
+        	for(int j = 0; j < grid.getRowLength(i); j++)
+        	{
+        		map.set(i, j, grid.get(i, j));
+        	}
+        }
+        
+        while(!q2.isEmpty()) {
+            Coordinate p = q2.remove();
+
+            System.out.println("x: " + p.x + ", y: " + p.y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
+            //System.out.println("x: " + p.x + ", y: " + p.y + ", playerx: " + (player.getX() - 15) / 30 + ", playery: " + (player.getY() - 15) / 30);
+            if(p.x == (player.getX()) / 30 && p.y == (player.getY()) / 30)
+            {
+            	//System.out.println("p: " + p);
+            	return p;
+            }
+
+            map.set(p.x, p.y, '!');
+            
+            if(isFree2(p.x+1,p.y, map, player)) {
+                Coordinate nextP = new Coordinate(p.x+1,p.y, p);
+                q2.add(nextP);
+            }
+
+            if(isFree2(p.x-1,p.y, map, player)) {
+                Coordinate nextP = new Coordinate(p.x-1,p.y, p);
+                q2.add(nextP);
+            }
+
+            if(isFree2(p.x,p.y+1, map, player)) {
+                Coordinate nextP = new Coordinate(p.x,p.y+1, p);
+                q2.add(nextP);
+            }
+
+             if(isFree2(p.x,p.y-1, map, player)) {
+                Coordinate nextP = new Coordinate(p.x,p.y-1, p);
+                q2.add(nextP);
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * @param x The row number of the starting position.
+     * @param y The column number of the starting position
+     * @param grid The Map.
+     * @param player The Player.
+     * @return true if the location is in the boundaries of the Map and it contains either a path, or strawberry.
+     */
+    public boolean isFree(int x, int y, Map grid, Player player) {
+    	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
+        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's')); 
+    }
+    
+    /**
+     * @param x The row number of the starting position.
+     * @param y The column number of the starting position
+     * @param grid The Map.
+     * @param player The Player.
+     * @return true if the location is in the boundaries of the Map and it contains either a path, strawberry, or Player.
+     */
     public boolean isFree2(int x, int y, Map grid, Player player) {
     	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.'  || grid.get(x, y) == 'k' || (x == player.getX() && y == player.getY()))); 
+        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || (x == player.getX() / 30 && y == player.getY() / 30))); 
        
     }
 }

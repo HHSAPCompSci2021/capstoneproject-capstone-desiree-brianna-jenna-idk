@@ -46,7 +46,8 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
+		//namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
+		namCap = new NamCap(loadImage("img/namcap/right.png"), 225, 555);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
 		rightarrow = loadImage("img/triangle.png");
@@ -147,20 +148,18 @@ public class DrawingSurface extends PApplet {
 						kiwis.add(k);
 					}
 				}
-
-				System.out.println(kiwis);
-
-				for (int i = 0; i < kiwis.size(); i++) {
-					if (namCap.atSameLocation(kiwis.get(i))) {
-						namCap.eatFruit(kiwis.get(i));
-						kiwiCount = 1;
-						map.set((kiwis.get(i).getY() - 15) / 30, (kiwis.get(i).getX() - 15) / 30, '.'); // remove from
-																										// map
-						kiwis.remove(i); // remove from arraylist
-						map.removeKiwiLoc(i);
-						if (kiwis.size() == 0) {
-							map = new Map("map/test1.txt");
-						}
+	
+			for(int i = 0; i < kiwis.size(); i++)
+			{
+				if(namCap.atSameLocation(kiwis.get(i)))
+				{
+					namCap.eatFruit(kiwis.get(i));
+					kiwiCount=1;
+					map.set((kiwis.get(i).getY() - 15) / 30, (kiwis.get(i).getX() - 15) / 30, '.'); // remove from map
+					kiwis.remove(i); // remove from arraylist
+					map.removeKiwiLoc(i);
+					if (kiwis.size() == 0) {
+						map = new Map("map/test1.txt");
 					}
 				}
 				if (namCap.hasEatenKiwi()) {
@@ -184,9 +183,7 @@ public class DrawingSurface extends PApplet {
 				for (int j = 0; j < strawberrys.size(); j++) {
 					if (player.atSameLocationFruit(strawberrys.get(j))) {
 						player.eatFruit(strawberrys.get(j));
-						map.set((strawberrys.get(j).getY() - 15) / 30, (strawberrys.get(j).getX() - 15) / 30, '.'); // remove
-																													// from
-																													// map
+						map.set((strawberrys.get(j).getY() - 15) / 30, (strawberrys.get(j).getX() - 15) / 30, '.'); // remove from map
 						strawberrys.remove(j); // remove from arraylist
 						map.removeStrawberryLoc(j);
 					}
@@ -264,6 +261,7 @@ public class DrawingSurface extends PApplet {
 			image(home, width / 2 - width / 20, height / 2 + height / 10, width / 5, height / 10);
 			image(retry, width / 2 + width / 5, height / 2 + height / 10, width / 5, height / 10);
 		}
+		}
 	}
 
 	/**
@@ -289,11 +287,7 @@ public class DrawingSurface extends PApplet {
 		if (startScreen) {
 			// play button
 			if (mouseX > width / 2 - width / 5 && mouseX < width / 2 + width / 5
-					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) { // change
-																													// coords
-																													// for
-																													// new
-																													// button
+					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) { // change coords for new button
 				startScreen = false;
 				playScreen = true;
 			}
