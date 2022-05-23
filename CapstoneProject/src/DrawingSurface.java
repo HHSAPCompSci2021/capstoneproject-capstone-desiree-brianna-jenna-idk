@@ -17,7 +17,7 @@ public class DrawingSurface extends PApplet {
 
 	// private Image board;
 	private boolean startScreen, playScreen, endScreen, strawberryButton, choiceGhost;
-	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mystery, downarrow, eyes;
+	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mystery, eyes;
 	private PFont emulogic;
 	private String whichGhost, input;
 	private Map map;
@@ -60,7 +60,6 @@ public class DrawingSurface extends PApplet {
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 		cross = loadImage("img/cross.png");
 		mystery=loadImage("img/mystery.png");
-		downarrow=loadImage("img/downarrow.png");
 		kiwiCount = 1;
 		eyes = loadImage("img/eyes.png");
 	}
@@ -198,7 +197,7 @@ public class DrawingSurface extends PApplet {
 					break;
 				}
 			}
-			
+						
 			if (namCap.hasEatenKiwi()) {
 				kiwiCount++;
 			}
@@ -232,7 +231,7 @@ public class DrawingSurface extends PApplet {
 			// namcap
 			if (namCapCount % 8 == 0) {
 				namCap.act(map, player);
-				System.out.println(namCap.getX()+","+namCap.getY()+":"+map.get(namCap.getY()/30,namCap.getX()/30)+" "+namCap.isFree(namCap.getY(),namCap.getX(),map,player)+","+namCap.isFree2(namCap.getY(),namCap.getX(),map,player));
+				//System.out.println(namCap.getX()+","+namCap.getY()+":"+map.get(namCap.getY()/30,namCap.getX()/30)+" "+namCap.isFree(namCap.getY(),namCap.getX(),map,player)+","+namCap.isFree2(namCap.getY(),namCap.getX(),map,player));
 				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					player.increaseScore(100);
 					player.reset();
@@ -431,6 +430,7 @@ public class DrawingSurface extends PApplet {
 				player.reset();
 				namCap.reset();
 				map = new Map("map/test"+mapNum+".txt");
+				kiwis.clear();
 			}
 		}
 	}
