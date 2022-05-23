@@ -87,7 +87,6 @@ public class DrawingSurface extends PApplet {
 				text("#" + input, width / 6, height / 2 + height / 5);
 				if(input.matches("[0-9A-Fa-f]{6}"))
 				{
-					System.out.println("here");
 					push();
 					tint(Integer.valueOf(input.substring(0, 2), 16), Integer.valueOf(input.substring(2, 4), 16), Integer.valueOf(input.substring(4, 6), 16));
 					image(ghost, width / 6, height / 2, width / 7, height / 5);
@@ -142,8 +141,6 @@ public class DrawingSurface extends PApplet {
 							((int) map.getPlayerInitialLocation().getX() * 30) + 15,
 							((int) map.getPlayerInitialLocation().getY() * 30) + 15, map);	
 					player.setTint(input);
-					
-					
 				}
 			}
 			
@@ -188,7 +185,7 @@ public class DrawingSurface extends PApplet {
 				}
 			}
 
-			for (int i = 0; i < kiwis.size(); i++) {
+			for (int i = kiwis.size() - 1; i >= 0; i--) {
 				if (namCap.atSameLocation(kiwis.get(i))) {
 					namCap.eatFruit(kiwis.get(i));
 					kiwiCount = 1;
@@ -357,7 +354,7 @@ public class DrawingSurface extends PApplet {
 		    }
 		} else if (keyCode == DELETE) {
 		    input = "";
-		} else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+		} else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && keyCode != ENTER) {
 		    input = input + key;
 		}
 	}
@@ -388,9 +385,9 @@ public class DrawingSurface extends PApplet {
 					ghost = loadImage("img/clyde.png");
 				} else if (whichGhost.equals("clyde")) {
 					choiceGhost = true;
-					whichGhost = "choiceGhost";
-					ghost = loadImage("img/choiceGhost.png");
-				} else if (whichGhost.equals("choiceGhost")) {
+					whichGhost = "enter hex";
+					ghost = loadImage("img/enter hex.png");
+				} else if (whichGhost.equals("enter hex")) {
 					choiceGhost = false;
 					whichGhost = "blinky";
 					ghost = loadImage("img/blinky.png");
