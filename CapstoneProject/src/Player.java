@@ -9,8 +9,10 @@ import processing.core.PImage;
  * @author Brianna, Desiree, Jenna
  */
 public class Player {
-	private PImage img;
+	private PImage img, eyes;
 	private int score, xi, yi, direction, step, lives, highscore, xgrid, ygrid; // x and y value of player on grid
+	private boolean hasTint;
+	private String tint;
 	private Map map;
 
 	/**
@@ -22,7 +24,7 @@ public class Player {
 	 * @param y   Y-value of the Player.
 	 * @param m   The Map the Player is on.
 	 */
-	public Player(PImage img, int x, int y, Map m) {
+	public Player(PImage img, PImage eyes, int x, int y, Map m) {
 		this.img = img;
 		xgrid = x;
 		xi = x;
@@ -33,6 +35,8 @@ public class Player {
 		step = 30;
 		map = m;
 		lives = 3;
+		hasTint = false;
+		this.eyes = eyes;
 	}
 
 	/**
@@ -41,7 +45,17 @@ public class Player {
 	 * @param g The PApplet used to draw.
 	 */
 	public void draw(PApplet g) {
+		if(hasTint)
+		{
+			g.push();
+			g.tint(Integer.valueOf(tint.substring(0, 2), 16), Integer.valueOf(tint.substring(2, 4), 16), Integer.valueOf(tint.substring(4, 6), 16));
+		}
 		g.image(img, xgrid, ygrid, 30, 30);
+		if(hasTint)
+		{
+			g.pop();
+			g.image(eyes, xgrid, ygrid, 30, 30);
+		}
 	}
 
 	/**
@@ -259,5 +273,11 @@ public class Player {
 	 */
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	public void setTint(String tint)
+	{
+		this.tint = tint;
+		hasTint = true;
 	}
 }
