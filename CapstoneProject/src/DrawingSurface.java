@@ -195,6 +195,7 @@ public class DrawingSurface extends PApplet {
 					if (kiwis.size() == 0) {
 						map = new Map("map/test"+mapNum+".txt");
 					}
+					break;
 				}
 			}
 			
