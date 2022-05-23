@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -15,10 +16,10 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
 	// private Image board;
-	private boolean startScreen, playScreen, endScreen, strawberryButton;
-	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mystery, downarrow;
+	private boolean startScreen, playScreen, endScreen, strawberryButton, choiceGhost;
+	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mystery, downarrow, eyes;
 	private PFont emulogic;
-	private String whichGhost;
+	private String whichGhost, input;
 	private Map map;
 	private NamCap namCap;
 	private Player player;
@@ -34,9 +35,11 @@ public class DrawingSurface extends PApplet {
 		endScreen = false;
 		mapNum=1;
 		whichGhost = "blinky";
+		input = "";
 		tempDir = -1;
 		kiwis = new ArrayList<Kiwi>();
 		strawberryButton = true;
+		choiceGhost = false;
 	}
 
 	/**
@@ -59,7 +62,7 @@ public class DrawingSurface extends PApplet {
 		mystery=loadImage("img/mystery.png");
 		downarrow=loadImage("img/downarrow.png");
 		kiwiCount = 1;
-		
+		eyes = loadImage("img/eyes.png");
 	}
 
 	/**
@@ -78,10 +81,34 @@ public class DrawingSurface extends PApplet {
 			// character select
 			textAlign(CENTER);
 			text("Character", width / 6, height / 2 - height / 7);
-			image(ghost, width / 6, height / 2, width / 7, height / 5);
+			
+			if(choiceGhost)
+			{
+				text("#" + input, width / 6, height / 2 + height / 5);
+				if(input.matches("[0-9A-Fa-f]{6}"))
+				{
+					System.out.println("here");
+					push();
+					tint(Integer.valueOf(input.substring(0, 2), 16), Integer.valueOf(input.substring(2, 4), 16), Integer.valueOf(input.substring(4, 6), 16));
+					image(ghost, width / 6, height / 2, width / 7, height / 5);
+					pop();
+					image(eyes, width / 6, height / 2, width / 7, height / 5);
+				}
+				
+				else
+				{
+					image(ghost, width / 6, height / 2, width / 7, height / 5);
+				}
+			}
+
+			else
+			{
+				image(ghost, width / 6, height / 2, width / 7, height / 5);
+			}
+			
 			image(rightarrow, width / 6 + width / 8, height / 2, width / 11, height / 8);
 			text(whichGhost, width / 6, height / 2 + height / 6);
-
+			
 			// map select
 			text("Map", width / 2, height / 4 + height / 10);
 			image(mystery,width/2, height/2, width/4, height/3);
@@ -105,9 +132,29 @@ public class DrawingSurface extends PApplet {
 
 			// play button
 			image(play, width / 2, height - height / 8, width / 5, height / 10);
-			player = new Player(loadImage("img/" + whichGhost + ".png"),
-					((int) map.getPlayerInitialLocation().getX() * 30) + 15,
-					((int) map.getPlayerInitialLocation().getY() * 30) + 15, map);
+			
+			if(choiceGhost)
+			{
+				if(input.matches("[0-9A-Fa-f]{6}"))
+				{
+					player = new Player(loadImage("img/" + whichGhost + ".png"),
+							loadImage("img/eyes.png"),
+							((int) map.getPlayerInitialLocation().getX() * 30) + 15,
+							((int) map.getPlayerInitialLocation().getY() * 30) + 15, map);	
+					player.setTint(input);
+					
+					
+				}
+			}
+			
+			else
+			{
+				player = new Player(loadImage("img/" + whichGhost + ".png"),
+						null,
+						((int) map.getPlayerInitialLocation().getX() * 30) + 15,
+						((int) map.getPlayerInitialLocation().getY() * 30) + 15, map);
+			}
+			
 			life1 = loadImage("img/" + whichGhost + ".png");
 			life2 = loadImage("img/" + whichGhost + ".png");
 
@@ -152,12 +199,14 @@ public class DrawingSurface extends PApplet {
 						map = new Map("map/test"+mapNum+".txt");
 					}
 				}
-				if (namCap.hasEatenKiwi()) {
-					kiwiCount++;
-				}
-				if (kiwiCount % 150 == 0) {
-					namCap.setKiwiFalse();
-				}
+			}
+			
+			if (namCap.hasEatenKiwi()) {
+				kiwiCount++;
+			}
+			
+			if (kiwiCount % 150 == 0) {
+				namCap.setKiwiFalse();
 			}
 
 			// strawberry
@@ -215,9 +264,33 @@ public class DrawingSurface extends PApplet {
 
 			// lives on bottom left
 			if (player.getLives() >= 2) {
+				if(choiceGhost)
+				{
+					push();
+					tint(Integer.valueOf(input.substring(0, 2), 16), Integer.valueOf(input.substring(2, 4), 16), Integer.valueOf(input.substring(4, 6), 16));
+
+				}
 				image(life1, width / 22, height - height / 10, width / 30, width / 30);
+				if(choiceGhost)
+				{
+					pop();
+					image(eyes, width / 22, height - height / 10, width / 30, width / 30);
+					
+				}
 				if (player.getLives() == 3) {
+					if(choiceGhost)
+					{
+						push();
+						tint(Integer.valueOf(input.substring(0, 2), 16), Integer.valueOf(input.substring(2, 4), 16), Integer.valueOf(input.substring(4, 6), 16));
+
+					}
 					image(life2, (width / 22) * 2, height - height / 10, width / 30, width / 30);
+					if(choiceGhost)
+					{
+						pop();
+						image(eyes, (width / 22) * 2, height - height / 10, width / 30, width / 30);
+					}
+						
 				}
 			}
 
@@ -239,7 +312,17 @@ public class DrawingSurface extends PApplet {
 			text("GAME OVER", 400, 100);
 
 			// selected ghost with tear
+			if(choiceGhost)
+			{
+				push();
+				tint(Integer.valueOf(input.substring(0, 2), 16), Integer.valueOf(input.substring(2, 4), 16), Integer.valueOf(input.substring(4, 6), 16));
+			}
 			image(ghost, width / 4, height / 2, width / 3, height / 2);
+			if(choiceGhost)
+			{
+				pop();
+				image(eyes, width / 4, height / 2, width / 3, height / 2);
+			}
 			image(tear, width / 5 + width / 10, height / 2 + height / 13, width / 15, height / 10);
 
 			textAlign(LEFT);
@@ -268,6 +351,14 @@ public class DrawingSurface extends PApplet {
 			tempDir = 180;
 		} else if (keyCode == KeyEvent.VK_RIGHT) {
 			tempDir = 0;
+		} else if (keyCode == BACKSPACE) {
+		    if (input.length() > 0) {
+		      input = input.substring(0, input.length()-1);
+		    }
+		} else if (keyCode == DELETE) {
+		    input = "";
+		} else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+		    input = input + key;
 		}
 	}
 
@@ -296,9 +387,11 @@ public class DrawingSurface extends PApplet {
 					whichGhost = "clyde";
 					ghost = loadImage("img/clyde.png");
 				} else if (whichGhost.equals("clyde")) {
+					choiceGhost = true;
 					whichGhost = "choiceGhost";
 					ghost = loadImage("img/choiceGhost.png");
 				} else if (whichGhost.equals("choiceGhost")) {
+					choiceGhost = false;
 					whichGhost = "blinky";
 					ghost = loadImage("img/blinky.png");
 				}
