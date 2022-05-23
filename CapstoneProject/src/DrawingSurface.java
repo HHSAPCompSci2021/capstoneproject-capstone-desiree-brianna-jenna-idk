@@ -197,7 +197,7 @@ public class DrawingSurface extends PApplet {
 					break;
 				}
 			}
-						
+									
 			if (namCap.hasEatenKiwi()) {
 				kiwiCount++;
 			}

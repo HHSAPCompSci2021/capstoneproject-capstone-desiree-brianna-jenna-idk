@@ -15,7 +15,7 @@ public class NamCap {
 	
 	private boolean hasKiwi;
 	private PImage image;	
-	private int x, y, xi, yi, direction;
+	private int x, y, xi, yi;
 	
 	/**
 	 * Constructs the character naM-caP.
@@ -32,7 +32,6 @@ public class NamCap {
 		this.y = y;
 		yi=y;
 		hasKiwi = false;
-		direction = 0;
 	}
 	
 	/**
@@ -65,7 +64,6 @@ public class NamCap {
 	 */
 	public void act(Map grid, Player player)
 	{	
-		// bfs
 		if(!hasKiwi)
 		{
 			Coordinate p = getKiwiPath(y / 30, x / 30, grid, player);
@@ -87,10 +85,6 @@ public class NamCap {
 				 playerLoc.add(p2);
 				 p2 = p2.getParent();
 			 }
-			 
-//			 System.out.println("x: " + player.getX() + ", y: " + player.getY());
-//			 System.out.println("nx: " + x + ", ny: " + y);
-//			 System.out.println("playerLoc: " + playerLoc);
 
 			 x = playerLoc.get(playerLoc.size() - 1).y * 30 + 15;
 			 y = playerLoc.get(playerLoc.size() - 1).x * 30 + 15;
@@ -129,7 +123,6 @@ public class NamCap {
 	public void reset() {
 		x=xi;
 		y=yi;
-		direction=0;
 		hasKiwi = false;
 	}
 	
@@ -138,22 +131,6 @@ public class NamCap {
 	 */
 	public boolean hasEatenKiwi() {
 		return hasKiwi;
-	}
-	
-	/**
-	 * If naM-caP hits a wall, naM-caP will turn to a direction they are able to move in.
-	 */
-	public void turn()
-	{
-		if(direction == 270)
-		{
-			direction = 0;
-		}
-		
-		else
-		{
-			direction += 90;
-		}
 	}
 	
 	/**
@@ -188,11 +165,13 @@ public class NamCap {
 	}
 	 
 	/**
+	 * Uses BFS to find a Kiwi on the map.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param grid
-	 * @return 
+     * @param x The starting x position on the grid.
+     * @param y The starting y position on the grid.
+     * @param grid The Map.
+     * @param player The Player.
+     * @return A Coordinate of the Kiwi's location with parent Coordinates that form a path.
 	 */
     public Coordinate getKiwiPath(int x, int y, Map grid, Player player) {
 
@@ -241,12 +220,13 @@ public class NamCap {
     }
     
     /**
+     * Uses BFS to find the Player on the Map.
      * 
-     * @param x
-     * @param y
-     * @param grid
-     * @param player
-     * @return
+     * @param x The starting x position on the grid.
+     * @param y The starting y position on the grid.
+     * @param grid The Map.
+     * @param player The Player.
+     * @return A Coordinate of the Player's location with parent Coordinates that form a path.
      */
     public Coordinate getPlayerPath(int x, int y, Map grid, Player player) {
 
@@ -265,10 +245,8 @@ public class NamCap {
         while(!q2.isEmpty()) {
             Coordinate p = q2.remove();
 
-            //System.out.println("x: " + p.x + ", y: " + p.y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
             if(p.x == (player.getY()) / 30 && p.y == (player.getX()) / 30)
             {
-            	//System.out.println("p: " + p);
             	return p;
             }
 
@@ -307,6 +285,7 @@ public class NamCap {
      */
     public boolean isFree(int x, int y, Map grid, Player player) {
     	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
+    	// && x != player.getY() / 30 && y != player.getX() / 30
         return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
     }
     
@@ -319,7 +298,8 @@ public class NamCap {
      */
     public boolean isFree2(int x, int y, Map grid, Player player) {
     	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*' || (x == player.getX() / 30 && y == player.getY() / 30))); 
+    	//|| (x == player.getX() / 30 && y == player.getY() / 30)
+        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
        
     }
 }
