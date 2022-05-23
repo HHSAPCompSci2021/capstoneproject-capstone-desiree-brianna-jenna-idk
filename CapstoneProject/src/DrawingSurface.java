@@ -16,7 +16,7 @@ public class DrawingSurface extends PApplet {
 
 	// private Image board;
 	private boolean startScreen, playScreen, endScreen, strawberryButton;
-	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross;
+	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mystery, downarrow;
 	private PFont emulogic;
 	private String whichGhost;
 	private Map map;
@@ -32,8 +32,7 @@ public class DrawingSurface extends PApplet {
 		startScreen = true;
 		playScreen = false;
 		endScreen = false;
-		mapNum=2;
-		map = new Map("map/test"+mapNum+".txt");
+		mapNum=1;
 		whichGhost = "blinky";
 		tempDir = -1;
 		kiwis = new ArrayList<Kiwi>();
@@ -57,8 +56,10 @@ public class DrawingSurface extends PApplet {
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 		cross = loadImage("img/cross.png");
+		mystery=loadImage("img/mystery.png");
+		downarrow=loadImage("img/downarrow.png");
 		kiwiCount = 1;
-		map = new Map("map/test"+mapNum+".txt");
+		
 	}
 
 	/**
@@ -83,7 +84,11 @@ public class DrawingSurface extends PApplet {
 
 			// map select
 			text("Map", width / 2, height / 4 + height / 10);
-
+			image(mystery,width/2, height/2, width/4, height/3);
+			text("Map #"+mapNum, width / 2, height / 2 + height / 6);
+			image(downarrow, width / 2 , height / 2 + height/5, width/8, height / 8);
+			map = new Map("map/test"+mapNum+".txt");
+			
 			// fruit select
 			text("Fruit", width - width / 6, height / 4 + height / 10);
 
@@ -112,7 +117,6 @@ public class DrawingSurface extends PApplet {
 			}
 		} else if (playScreen) {
 			background(0);
-
 			if (map != null) {
 				map.draw(this, 0, 0, width / 3, height);
 			}
@@ -181,8 +185,9 @@ public class DrawingSurface extends PApplet {
 			// namcap
 			if (namCapCount % 8 == 0) {
 				namCap.act(map, player);
+				System.out.println(namCap.getX()+","+namCap.getY()+":"+map.get(namCap.getY()/30,namCap.getX()/30)+" "+namCap.isFree(namCap.getY(),namCap.getX(),map,player)+","+namCap.isFree2(namCap.getY(),namCap.getX(),map,player));
 				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-					player.increaseScore(50);
+					player.increaseScore(100);
 					player.reset();
 					namCap.reset();
 				} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
@@ -198,7 +203,7 @@ public class DrawingSurface extends PApplet {
 				}
 				player.move();
 				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
-					player.increaseScore(50);
+					player.increaseScore(100);
 					player.reset();
 					namCap.reset();
 				} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
@@ -298,7 +303,14 @@ public class DrawingSurface extends PApplet {
 					ghost = loadImage("img/blinky.png");
 				}
 			}
-
+			
+			if(mouseX>width/2-width/8 && mouseX<width/2+width/8 && mouseY>height/2+height/5-height/8 && mouseY<height/2+height/5+height/8) {
+				mapNum++;
+				if(mapNum>2) {
+					mapNum=1;
+				}
+			}
+			
 			// checkboxes for fruit
 			if (mouseX >= width - width / 3 + width / 20 - width / 25
 					&& mouseX <= width - width / 3 + width / 20 + width / 25

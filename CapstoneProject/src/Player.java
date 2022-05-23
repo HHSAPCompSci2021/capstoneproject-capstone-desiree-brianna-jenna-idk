@@ -216,7 +216,7 @@ public class Player {
 	 */
 	public void eatFruit(Fruit f) {
 		if (f instanceof Strawberry) {
-			increaseScore(100);
+			increaseScore(50);
 		}
 	}
 
