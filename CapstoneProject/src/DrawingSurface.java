@@ -112,7 +112,7 @@ public class DrawingSurface extends PApplet {
 			text("Map", width / 2, height / 4 + height / 10);
 			image(mystery,width/2, height/2, width/4, height/3);
 			text("Map #"+mapNum, width / 2, height / 2 + height / 6);
-			image(downarrow, width / 2 , height / 2 + height/5, width/8, height / 8);
+			image(rightarrow, width/2+width/8 , height / 2, width/11, height / 8);
 			map = new Map("map/test"+mapNum+".txt");
 			
 			// fruit select
@@ -394,7 +394,7 @@ public class DrawingSurface extends PApplet {
 				}
 			}
 			
-			if(mouseX>width/2-width/8 && mouseX<width/2+width/8 && mouseY>height/2+height/5-height/8 && mouseY<height/2+height/5+height/8) {
+			if(mouseX>width/2+width/8-width/11 && mouseX<width/2+width/8+width/11 && mouseY>height/2-height/8 && mouseY<height/2+height/8) {
 				mapNum++;
 				if(mapNum>2) {
 					mapNum=1;
