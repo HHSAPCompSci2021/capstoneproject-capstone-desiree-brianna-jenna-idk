@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -184,6 +186,7 @@ public class Player {
 		return ygrid;
 	}
 
+	
 	/**
 	 * Sets the X-value of the Player's location.
 	 * 
@@ -212,7 +215,10 @@ public class Player {
 		if (n.getX() / 30 == xgrid / 30 && n.getY() / 30 == ygrid / 30) {
 			return true;
 		}
+		//System.out.println(n.getX() / 30 + " hi " + xgrid/30  + " hi " + n.getY()/30 + " hi " + ygrid/30);
+		//System.out.println(getLives());
 		return false;
+		
 	}
 
 	/**
