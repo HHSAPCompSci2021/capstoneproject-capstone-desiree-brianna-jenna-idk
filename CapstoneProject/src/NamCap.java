@@ -85,6 +85,7 @@ public class NamCap {
 				 playerLoc.add(p2);
 				 p2 = p2.getParent();
 			 }
+
 			 x = playerLoc.get(playerLoc.size() - 1).y * 30 + 15;
 			 y = playerLoc.get(playerLoc.size() - 1).x * 30 + 15;
 		}
@@ -286,7 +287,6 @@ public class NamCap {
     	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
     	// && x != player.getY() / 30 && y != player.getX() / 30
         return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
-    	// return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' )); 
     }
     
     /**
@@ -299,8 +299,7 @@ public class NamCap {
     public boolean isFree2(int x, int y, Map grid, Player player) {
     	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
     	//|| (x == player.getX() / 30 && y == player.getY() / 30)
-    	return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
-        //return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's')); 
+        return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
        
     }
 }

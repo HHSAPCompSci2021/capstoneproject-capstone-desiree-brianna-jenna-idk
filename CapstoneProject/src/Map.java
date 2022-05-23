@@ -210,30 +210,6 @@ public class Map {
 		}
 		return new Point(1,1);
 	}
-
-	public int getInitialLocx() {
-		int xval = 0;
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[0].length; j++) {
-				if (grid[i][j] == '*') {
-					xval = i;
-				}
-			}
-		}
-		return xval;
-	}
-	
-	public int getInitialLocy() {
-		int yval = 0;
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[0].length; j++) {
-				if (grid[i][j] == '*') {
-					yval = j;
-				}
-			}
-		}
-		return yval;
-	}
 	
 	/**
 	 * 
