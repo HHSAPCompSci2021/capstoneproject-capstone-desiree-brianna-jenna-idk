@@ -22,7 +22,7 @@ public class DrawingSurface extends PApplet {
 	private Map map;
 	private NamCap namCap;
 	private Player player;
-	private int playerCount, namCapCount, kiwiCount, tempDir;
+	private int playerCount, namCapCount, kiwiCount, tempDir, mapNum;
 	private ArrayList<Kiwi> kiwis;
 
 	/**
@@ -32,7 +32,8 @@ public class DrawingSurface extends PApplet {
 		startScreen = true;
 		playScreen = false;
 		endScreen = false;
-		map = new Map("map/test2.txt");
+		mapNum=2;
+		map = new Map("map/test"+mapNum+".txt");
 		whichGhost = "blinky";
 		tempDir = -1;
 		kiwis = new ArrayList<Kiwi>();
@@ -57,6 +58,7 @@ public class DrawingSurface extends PApplet {
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 		cross = loadImage("img/cross.png");
 		kiwiCount = 1;
+		map = new Map("map/test"+mapNum+".txt");
 	}
 
 	/**
@@ -143,7 +145,7 @@ public class DrawingSurface extends PApplet {
 					kiwis.remove(i); // remove from arraylist
 					map.removeKiwiLoc(i);
 					if (kiwis.size() == 0) {
-						map = new Map("map/test1.txt");
+						map = new Map("map/test"+mapNum+".txt");
 					}
 				}
 				if (namCap.hasEatenKiwi()) {
@@ -325,6 +327,7 @@ public class DrawingSurface extends PApplet {
 				player.resetLives();
 				player.reset();
 				namCap.reset();
+				map = new Map("map/test"+mapNum+".txt");
 			}
 		}
 	}

@@ -74,7 +74,6 @@ public class NamCap {
 				 fruitLoc.add(p);
 				 p = p.getParent();
 		     }
-		
 			 x = fruitLoc.get(fruitLoc.size() - 1).y * 30 + 15;
 			 y = fruitLoc.get(fruitLoc.size() - 1).x * 30 + 15;
 		}
