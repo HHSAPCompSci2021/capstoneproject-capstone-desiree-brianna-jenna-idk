@@ -10,12 +10,8 @@ import processing.core.PImage;
  */
 public class Player {
 	private PImage img;
-	private int score;
-	private int xgrid, ygrid; // x and y value of player on grid
-	private int xi, yi;
-	private int direction, step;
+	private int score, xi, yi, direction, step, lives, highscore, xgrid, ygrid; // x and y value of player on grid
 	private Map map;
-	private int lives, highscore;
 
 	/**
 	 * Constructs a Player and initiates Player type to "" and the score to 0. X and
@@ -56,7 +52,6 @@ public class Player {
 		int newY = ygrid;
 
 		if (direction == 0) {
-			//System.out.println("moving forward" + xgrid + "," + ygrid + "newX = " + newX);
 			newX += step;
 		} else if (direction == 90) {
 			newY -= step;
@@ -67,7 +62,6 @@ public class Player {
 		}
 		if (newX < 0) {
 			newX += 900;
-			//System.out.println("trying to turn left");
 		} else if (newX >= 885) {
 			newX -= 900;
 		} else if (newY < 0) {
@@ -79,18 +73,6 @@ public class Player {
 			xgrid = newX;
 			ygrid = newY;
 		}
-//		if (!map.isValidLocation(newX, newY)) {
-//			if (direction == 0) {
-//				//System.out.println("forward" + xgrid + "," + ygrid + "newX = " + newX);
-//				newX += step;
-//			} else if (direction == 90) {
-//				newY -= step;
-//			} else if (direction == 180) {
-//				newX -= step;
-//			} else if (direction == 270) {
-//				newY += step;
-//			}
-//		}
 	}
 
 	/**

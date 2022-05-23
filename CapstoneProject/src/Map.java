@@ -16,8 +16,7 @@ public class Map {
 
 	private char[][] grid;
 	private int kCount, sCount, kEaten, sEaten;
-	private ArrayList<Point> kiwiLoc;
-	private ArrayList<Point> strawberryLoc;
+	private ArrayList<Point> kiwiLoc, strawberryLoc;
 	
 	/**
 	 * Construct a 2D character array with some default dimensions.
@@ -187,6 +186,10 @@ public class Map {
 		return kiwiLoc;
 	}
 	
+	/**
+	 * removes kiwis
+	 * @param i location of kiwi
+	 */
 	public void removeKiwiLoc(int i)
 	{
 		kiwiLoc.remove(i);
@@ -240,6 +243,10 @@ public class Map {
 		return strawberryLoc;
 	}
 	
+	/**
+	 * removes the strawberrys
+	 * @param i location of strawberry
+	 */
 	public void removeStrawberryLoc(int i)
 	{
 		strawberryLoc.remove(i);
