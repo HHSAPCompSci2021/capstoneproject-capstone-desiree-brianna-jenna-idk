@@ -32,7 +32,7 @@ public class DrawingSurface extends PApplet {
 		endScreen = false;
 		mapNum = 1;
 		whichGhost = "blinky";
-		input = "";
+		input = "FFFFFF";
 		tempDir = -1;
 		kiwis = new ArrayList<Kiwi>();
 		strawberryButton = true;
