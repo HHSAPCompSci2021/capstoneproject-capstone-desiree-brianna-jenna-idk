@@ -275,6 +275,10 @@ public class Player {
 		this.score = score;
 	}
 	
+	/**
+	 * sets the tint colouring of the player for choiceGhost
+	 * @param tint ting hext code for the choice Ghost
+	 */
 	public void setTint(String tint)
 	{
 		this.tint = tint;
