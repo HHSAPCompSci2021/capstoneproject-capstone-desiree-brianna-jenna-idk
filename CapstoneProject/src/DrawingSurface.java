@@ -219,8 +219,6 @@ public class DrawingSurface extends PApplet {
 			// namcap
 			if (namCapCount % 8 == 0) {
 				namCap.act(map, player);
-				// System.out.println(namCap.getX()+","+namCap.getY()+":"+map.get(namCap.getY()/30,namCap.getX()/30)+"
-				// "+namCap.isFree(namCap.getY(),namCap.getX(),map,player)+","+namCap.isFree2(namCap.getY(),namCap.getX(),map,player));
 				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					player.increaseScore(100);
 					player.reset();
