@@ -5,7 +5,7 @@ import processing.core.PImage;
  * 
  * Strawberry awards the player 100 points if eaten.
  * 
- * @author Brianna, Jenna, Desiree
+ * @author Desiree
  *
  */
 public class Strawberry extends Fruit {
