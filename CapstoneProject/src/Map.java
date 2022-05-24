@@ -210,11 +210,6 @@ public class Map {
 		return new Point(1, 1);
 	}
 
-	/**
-	 * 
-	 * Code a toString() method that nicely prints the grid to the commandline.
-	 * 
-	 */
 	public String toString() {
 		String output = "";
 
