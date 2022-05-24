@@ -14,8 +14,6 @@ import processing.core.PImage;
  *
  */
 public class DrawingSurface extends PApplet {
-
-	// private Image board;
 	private boolean startScreen, playScreen, endScreen, strawberryButton, choiceGhost;
 	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mapImg, eyes;
 	private PFont emulogic;
@@ -47,7 +45,6 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		title = loadImage("img/title.png");
-		// namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
 		namCap = new NamCap(loadImage("img/namcap.png"), 225, 555);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
