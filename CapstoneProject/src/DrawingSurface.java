@@ -396,7 +396,7 @@ public class DrawingSurface extends PApplet {
 			
 			if(mouseX>width/2+width/8-width/11 && mouseX<width/2+width/8+width/11 && mouseY>height/2-height/8 && mouseY<height/2+height/8) {
 				mapNum++;
-				if(mapNum>2) {
+				if(mapNum>3) {
 					mapNum=1;
 				}
 			}
