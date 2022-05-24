@@ -235,9 +235,11 @@ public class DrawingSurface extends PApplet {
 				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					player.increaseScore(100);
 					player.reset();
+					tempDir = -1;
 					namCap.reset();
 				} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
 					player.loseLife();
+					tempDir = -1;
 					namCap.reset();
 				}
 			}
@@ -251,9 +253,11 @@ public class DrawingSurface extends PApplet {
 				if (player.atSameLocation(namCap) && !namCap.hasEatenKiwi()) {
 					player.increaseScore(100);
 					player.reset();
+					tempDir = -1;
 					namCap.reset();
 				} else if (player.atSameLocation(namCap) && namCap.hasEatenKiwi()) {
 					player.loseLife();
+					tempDir = -1;
 					namCap.reset();
 				}
 			}
@@ -441,6 +445,7 @@ public class DrawingSurface extends PApplet {
 				playScreen = true;
 				player.resetLives();
 				player.reset();
+				tempDir = -1;
 				namCap.reset();
 				map = new Map("map/test"+mapNum+".txt");
 				kiwis.clear();
