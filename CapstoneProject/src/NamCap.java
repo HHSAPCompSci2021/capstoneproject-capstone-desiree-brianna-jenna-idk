@@ -284,8 +284,6 @@ public class NamCap {
      * @return true if the location is in the boundaries of the Map and it contains either a path, or strawberry.
      */
     public boolean isFree(int x, int y, Map grid, Player player) {
-    	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-    	// && x != player.getY() / 30 && y != player.getX() / 30
         return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
     }
     
@@ -297,8 +295,6 @@ public class NamCap {
      * @return true if the location is in the boundaries of the Map and it contains either a path, strawberry, or Player.
      */
     public boolean isFree2(int x, int y, Map grid, Player player) {
-    	//System.out.println("x: " + x + ", y: " + y + ", playerx: " + player.getX() / 30 + ", playery: " + player.getY() / 30);
-    	//|| (x == player.getX() / 30 && y == player.getY() / 30)
         return((x >= 0 && x < grid.getLength()) && (y >= 0 && y < grid.getRowLength(x)) && (grid.get(x, y) == '.' || grid.get(x, y) == 'k' || grid.get(x, y) == 's' || grid.get(x, y) == '*')); 
        
     }
