@@ -8,9 +8,9 @@ import processing.core.PApplet;
  *
  */
 public abstract class Fruit {
-	
+
 	private int row, col;
-	
+
 	/**
 	 * Constructs a fruit with a set row and column.
 	 * 
@@ -32,7 +32,7 @@ public abstract class Fruit {
 		this.row = row;
 		this.col = col;
 	}
-	
+
 	/**
 	 * Removes the fruit from the map.
 	 * 
@@ -41,38 +41,36 @@ public abstract class Fruit {
 	public void remove(Map map) {
 		map.set(row / 30, col / 30, '.');
 	}
-	
+
 	/**
 	 * Draws the fruit.
 	 * 
 	 * @param g The PApplet used to draw.
 	 */
 	public abstract void draw(PApplet g);
-	
+
 	/**
 	 * @return X-Value of the Fruit.
 	 */
-	public int getX()
-	{
+	public int getX() {
 		return col;
 	}
-	
+
 	/**
 	 * @return Y-value of the fruit.
 	 */
-	public int getY()
-	{
+	public int getY() {
 		return row;
 	}
-	
+
 	/**
 	 * 
-	 * Code a toString() method that nicely prints the Kiwi's information to the commandline.
+	 * Code a toString() method that nicely prints the Kiwi's information to the
+	 * commandline.
 	 * 
 	 */
-	public String toString()
-	{
-		return("x: " + row + ", y: " + col);
+	public String toString() {
+		return ("x: " + row + ", y: " + col);
 	}
-	
+
 }
