@@ -63,12 +63,6 @@ public abstract class Fruit {
 		return row;
 	}
 
-	/**
-	 * 
-	 * Code a toString() method that nicely prints the Kiwi's information to the
-	 * commandline.
-	 * 
-	 */
 	public String toString() {
 		return ("x: " + row + ", y: " + col);
 	}
