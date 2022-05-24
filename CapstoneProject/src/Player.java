@@ -19,10 +19,11 @@ public class Player {
 	 * Constructs a Player and initiates Player type to "" and the score to 0. X and
 	 * Y should be the center of grid.
 	 * 
-	 * @param img The Player's image.
-	 * @param x   X-value of the Player.
-	 * @param y   Y-value of the Player.
-	 * @param m   The Map the Player is on.
+	 * @param img  The Player's image.
+	 * @param eyes An image of the Player's eyes.
+	 * @param x    X-value of the Player.
+	 * @param y    Y-value of the Player.
+	 * @param m    The Map the Player is on.
 	 */
 	public Player(PImage img, PImage eyes, int x, int y, Map m) {
 		this.img = img;
@@ -45,14 +46,13 @@ public class Player {
 	 * @param g The PApplet used to draw.
 	 */
 	public void draw(PApplet g) {
-		if(hasTint)
-		{
+		if (hasTint) {
 			g.push();
-			g.tint(Integer.valueOf(tint.substring(0, 2), 16), Integer.valueOf(tint.substring(2, 4), 16), Integer.valueOf(tint.substring(4, 6), 16));
+			g.tint(Integer.valueOf(tint.substring(0, 2), 16), Integer.valueOf(tint.substring(2, 4), 16),
+					Integer.valueOf(tint.substring(4, 6), 16));
 		}
 		g.image(img, xgrid, ygrid, 30, 30);
-		if(hasTint)
-		{
+		if (hasTint) {
 			g.pop();
 			g.image(eyes, xgrid, ygrid, 30, 30);
 		}
@@ -90,11 +90,11 @@ public class Player {
 	}
 
 	/**
-	 * Returns if the player can move one space forward in the direction
+	 * Returns if the player can move one space forward in the direction.
 	 * 
-	 * @param dir the new direction of the Player
+	 * @param dir The new direction of the Player.
 	 * @return true if the player can move one space forward in the direction, false
-	 *         if not
+	 *         if not.
 	 */
 	public boolean canMove(int dir) {
 		int newX = xgrid;
@@ -109,7 +109,7 @@ public class Player {
 		} else if (dir == 270) {
 			newY += step;
 		}
-		
+
 		if (newX < 0) {
 			newX += 900;
 		} else if (newX >= 885) {
@@ -274,13 +274,13 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
+
 	/**
-	 * sets the tint colouring of the player for choiceGhost
-	 * @param tint ting hext code for the choice Ghost
+	 * Sets the tint coloring of the Player for choiceGhost.
+	 * 
+	 * @param tint A string of the HEX code for the ghost's color.
 	 */
-	public void setTint(String tint)
-	{
+	public void setTint(String tint) {
 		this.tint = tint;
 		hasTint = true;
 	}
