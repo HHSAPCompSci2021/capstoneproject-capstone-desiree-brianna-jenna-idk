@@ -355,8 +355,17 @@ public class DrawingSurface extends PApplet {
 			// play button
 			if (mouseX > width / 2 - width / 5 && mouseX < width / 2 + width / 5
 					&& mouseY > height - height / 8 - height / 10 && mouseY < height - height / 8 + height / 10) {
-				startScreen = false;
-				playScreen = true;
+				if(choiceGhost && input.matches("[0-9A-Fa-f]{6}"))
+				{
+					startScreen = false;
+					playScreen = true;
+				}
+				
+				else if(!choiceGhost)
+				{
+					startScreen = false;
+					playScreen = true;
+				}
 			}
 
 			// right arrow
