@@ -17,7 +17,7 @@ public class DrawingSurface extends PApplet {
 
 	// private Image board;
 	private boolean startScreen, playScreen, endScreen, strawberryButton, choiceGhost;
-	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mystery, eyes;
+	private PImage title, play, ghost, rightarrow, tear, retry, home, kiwi, strawberry, life1, life2, cross, mapImg, eyes;
 	private PFont emulogic;
 	private String whichGhost, input;
 	private Map map;
@@ -48,7 +48,7 @@ public class DrawingSurface extends PApplet {
 	public void setup() {
 		title = loadImage("img/title.png");
 		// namCap = new NamCap(loadImage("img/namcap/right.png"), 845, 45);
-		namCap = new NamCap(loadImage("img/namcap/right.png"), 225, 555);
+		namCap = new NamCap(loadImage("img/namcap.png"), 225, 555);
 		play = loadImage("img/play.png");
 		ghost = loadImage("img/blinky.png");
 		rightarrow = loadImage("img/triangle.png");
@@ -59,7 +59,7 @@ public class DrawingSurface extends PApplet {
 		strawberry = loadImage("img/strawberry.png");
 		emulogic = createFont("Emulogic-zrEw.ttf", 18);
 		cross = loadImage("img/cross.png");
-		mystery=loadImage("img/mystery.png");
+		mapImg =loadImage("img/map1.png");
 		kiwiCount = 1;
 		eyes = loadImage("img/eyes.png");
 	}
@@ -109,8 +109,8 @@ public class DrawingSurface extends PApplet {
 			
 			// map select
 			text("Map", width / 2, height / 4 + height / 10);
-			image(mystery,width/2, height/2, width/4, height/3);
-			text("Map #"+mapNum, width / 2, height / 2 + height / 6);
+			image(mapImg, width/2, height/2, width/5, height/5);
+			text("#" + mapNum, width / 2, height / 2 + height / 6);
 			image(rightarrow, width/2+width/8 , height / 2, width/11, height / 8);
 			map = new Map("map/test"+mapNum+".txt");
 			
@@ -372,8 +372,8 @@ public class DrawingSurface extends PApplet {
 			}
 
 			// right arrow
-			if (mouseX > (width / 5 + width / 6) - width / 11 && mouseX < (width / 5 + width / 6) + width / 11
-					&& mouseY > height / 2 - height / 8 && mouseY < height / 2 + height / 8) {
+			if (mouseX > (width / 5 + width / 6) - width / 10 && mouseX < (width / 5 + width / 6 - width / 20)
+					&& mouseY > height / 2 - height / 30 && mouseY < height / 2 + height / 30) {
 				if (whichGhost.equals("blinky")) {
 					whichGhost = "pinky";
 					ghost = loadImage("img/pinky.png");
@@ -394,18 +394,31 @@ public class DrawingSurface extends PApplet {
 				}
 			}
 			
-			if(mouseX>width/2+width/8-width/11 && mouseX<width/2+width/8+width/11 && mouseY>height/2-height/8 && mouseY<height/2+height/8) {
+			if(mouseX>width/2+width/8-width/50 && mouseX<width/2+width/8+width/50 && mouseY>height/2-height/35 && mouseY<height/2+height/35) {
 				mapNum++;
 				if(mapNum>3) {
 					mapNum=1;
+					mapImg = loadImage("img/map1.png");
+				}
+				else if(mapNum == 2)
+				{
+					mapImg = loadImage("img/map2.png");
+				}
+				else
+				{
+					mapImg = loadImage("img/map3.png");
 				}
 			}
 			
+			//image(strawberry, width - width / 3 + width / 20, height / 2 - height / 25, width / 30, height / 20);
+
+			System.out.println("x: " + mouseX + ", y: " + mouseY);
+			
 			// checkboxes for fruit
-			if (mouseX >= width - width / 3 + width / 20 - width / 25
-					&& mouseX <= width - width / 3 + width / 20 + width / 25
-					&& mouseY >= height / 2 - height / 25 - height / 20
-					&& mouseY <= height / 2 - height / 25 + height / 20) {
+			if (mouseX >= width / (float) 1.43
+					&& mouseX <= width / (float) 1.36
+					&& mouseY >= height / (float) 2.37
+					&& mouseY <= height / (float) 2.12) {
 				if (strawberryButton) {
 					strawberryButton = false;
 				} else {
